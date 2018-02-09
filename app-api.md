@@ -22,7 +22,7 @@
           }
         }
         ```
-- 注册	
+- 注册,no token
     - POST /register
     - 参数：
         - mobile:手机号，字符串，必须，最大13字符
