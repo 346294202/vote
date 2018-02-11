@@ -63,9 +63,9 @@
               active:<1 有效，2 无效>
               superuser:<1 超级管理员，2 非超级管理员>
               staff:<1 是员工，2 非员工>
-              date_create:"<注册时间>"
-              last_login_time:"<最近登录时间>"
-              last_login_ip:"<最近登录ip>"
+              dateCreate:"<注册时间>"
+              lastLoginTime:"<最近登录时间>"
+              lastLoginIp:"<最近登录ip>"
               email:"<email>"
             },...
           ]
