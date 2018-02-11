@@ -49,6 +49,7 @@
         - area： 楼盘名称，字符串，必须
         - building： 楼栋号，字符串，必须
         - unit： 单元号，字符串，必须
+        - house： 门牌号，字符串，必须
         - house_type_id： 房屋类型id，整形数，必须
         - owner_type_id： 业主类型id，整形数，必须
     - 返回：
