@@ -46,15 +46,15 @@
         - owner_mobile： 业主手机，字符串，必须，最大13字符
         - code： 验证码，字符串，必须，最大6字符
         - owner_id_number： 业主身份证，字符串，必须，最大64字符
-        - area_id： 楼盘id，整形数，必须
-        - building_id： 楼栋id，整形数，必须
-        - unit_id： 单元ID，整形数，必须
+        - area： 楼盘名称，字符串，必须
+        - building： 楼栋号，字符串，必须
+        - unit： 单元号，字符串，必须
         - house_type_id： 房屋类型id，整形数，必须
         - owner_type_id： 业主类型id，整形数，必须
     - 返回：
       ```
       {
-        code:<1成功 >,
+        code:<1成功 2000 房屋不存在>,
         error:"<错误描述>",
         data:{}
       }
