@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 设置log4j2的自身log级别为warn ; OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!-- monitorInterval="30"表示每30秒配置文件会动态加载一次。在程序运行过程中，如果修改配置文件，程序会随之改变 -->
+<!-- [%d{yyyy-MM-dd HH:mm:ss.SSS}] %-5level %logger{0} [%file:%line]:%L - %msg%n-->
+<configuration status="OFF">
+    <Properties>
+        <property name="LOG_HOME">/tmp/vote/log</property>
+
+        <!--日志输出的格式-->
+        <!--
+            %d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间,输出到毫秒的时间
+            %-5level : 输出日志级别，-5表示左对齐并且固定输出5个字符，如果不足在右边补0
+            %c : logger的名称(%logger)
+            %t : 输出当前线程名称
+            %p : 日志输出格式
+            %m : 日志内容，即 logger.info("message")
+            %n : 换行符
+            %C : Java类名(%F)
+            %L : 行号
+            %M : 方法名
+            %l : 输出语句所在的行数, 包括类名、方法名、文件名、行数
+            hostName : 本地机器名
+            hostAddress : 本地ip地址
+         -->
+        <property name="LOG_PATTERN">[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] - %l - %m%n</property>
+        <!--<property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %l%m%n</property>-->
+        <property name="LOG_POLICY_SIZE">1M</property>
+    </Properties>
+    <appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </console>
+
+        <!-- INFO -->
+        <RollingFile name="VOTE-INFO" fileName="${LOG_HOME}/VOTE-APP-INFO.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-APP-%d{yyyy-MM-dd}-%i.log">
+            <!--控制台只输出level及以上级别的信息(onMatch)，其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="${LOG_POLICY_SIZE}"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- WARN-->
+        <RollingFile name="VOTE-WARN" fileName="${LOG_HOME}/VOTE-APP-WARN.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/warn-APP-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="${LOG_POLICY_SIZE}"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- ERROR -->
+        <RollingFile name="VOTE-ERROR" fileName="${LOG_HOME}/VOTE-APP-ERROR.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/error-APP-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="${LOG_POLICY_SIZE}"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- DEBUG -->
+        <RollingFile name="VOTE-DEBUG" fileName="${LOG_HOME}/VOTE-APP-DEBUG.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/debug-APP-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="${LOG_POLICY_SIZE}"/>
+            </Policies>
+        </RollingFile>
+
+        <!--配置异步写日志-->
+        <Async name="Async">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="VOTE-INFO"/>
+            <AppenderRef ref="VOTE-WARN"/>
+            <AppenderRef ref="VOTE-ERROR"/>
+        </Async>
+    </appenders>
+
+    <loggers>
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <logger name="org.springframework" level="INFO"></logger>
+        <logger name="org.mybatis" level="INFO"></logger>
+        <logger name="java.sql.Statement" level="INFO"></logger>
+        <logger name="org.apache.kafka" level="OFF"></logger>
+
+        <!-- 自定义 LOGGER 代码中可直接指定 这里的 name 会与root 定义的冲突 重复打印 -->
+        <!--<logger name="TST_INFO" level="INFO">
+            <appender-ref ref="RollingFileInfo"/>
+        </logger>-->
+        <root level="ALL">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="VOTE-INFO"/>
+            <appender-ref ref="VOTE-WARN"/>
+            <appender-ref ref="VOTE-ERROR"/>
+        </root>
+    </loggers>
+
+</configuration>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.user.dao.SysUserDao">
+
+	<insert id="addUser" parameterType="com.leoyon.vote.user.SysUser" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_user (username, password, salt) values(
+			#{username}, #{password}, #{salt}
+		);
+	</insert>
+	
+	<select id="getUser" parameterType="String" resultType="com.leoyon.vote.user.SysUser">
+		select * from sys_user where username=#{username} and active=1;
+	</select>
+	
+	<select id="getUserById" parameterType="Long" resultType="com.leoyon.vote.user.SysUser">
+		select * from sys_user where id=#{id} and active=1;
+	</select>	
+	
+</mapper>

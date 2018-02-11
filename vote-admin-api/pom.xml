@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.leoyon</groupId>
+    <artifactId>vote</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>vote-admin-api</artifactId>
+
+    <dependencies>        
+    
+        <dependency>
+            <groupId>com.leoyon</groupId>
+            <artifactId>vote-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>        
+    </dependencies>
+          
+        
+    <build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>2.10</version>
+			</extension>
+		</extensions>    
+		<plugins>
+			<plugin>
+				<!-- The plugin rewrites your manifest -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>1.3.0.RELEASE</version>
+				<configuration><!-- 指定该Main Class为全局的唯一入口 -->
+					<mainClass>com.leoyon.vote.AdminApiMain</mainClass>
+					<layout>ZIP</layout>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中 -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+			<!-- 
+			在mvn的setting.xml中设置
+		  	<server>
+		      <id>vote-test-server</id>
+		      <username>用户名</username>
+			  <password>密码</password>  
+		    </server>			
+			 -->			
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>wagon-maven-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>upload</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>upload</goal>
+						</goals>
+						<configuration>
+							<serverId>vote-test-server</serverId>
+							<fromDir>target</fromDir>
+							<includes>*.jar</includes>
+							<excludes />
+							<url>scp://39.106.97.131/home/vote/vote/</url>
+							<displayCommandOutputs>true</displayCommandOutputs>
+						</configuration>
+					</execution>
+					<execution>
+						<id>restart</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>sshexec</goal>
+						</goals>
+						<configuration>
+							<serverId>vote-test-server</serverId>
+							<url>scp://39.106.97.131</url>
+							<displayCommandOutputs>true</displayCommandOutputs>
+							<commands>
+								<command>/home/vote/vote/stop-admin.sh</command>
+								<command>/home/vote/vote/start-admin.sh</command>
+							</commands>
+						</configuration>
+					</execution>					
+				</executions>
+			</plugin>			
+		</plugins>
+		
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource> 		
+        </resources>
+        
+	</build>    
+</project>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.house.dao.HouseDao">
+	
+	<select id="listByOwner" parameterType="Long" resultType="com.leoyon.vote.house.House">
+	select * from vote_house h join vote_house_user hu on hu.house_id=h.id and hu.user_id=#{uid} and hu.active=1;
+	</select>	
+	
+</mapper>
