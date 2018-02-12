@@ -1,113 +1,106 @@
 package test.com.leoyon.vote;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.Passwords;
 import com.leoyon.vote.user.SysUser;
-import com.leoyon.vote.user.SysUserService;
-import com.leoyon.vote.user.dao.SysUserDao;
 import com.leoyon.vote.util.MapBuilder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {Application4Test.class},webEnvironment = SpringBootTest.WebEnvironment
         .RANDOM_PORT)
 public class SysUserTests extends BaseWebTests {
-
-	@Autowired
-	private SysUserDao userDao;
-	
-	@Test
-	public void daoAddUser() throws Exception {
 		
-		SysUser user = new SysUser();
-		user.setUsername("12345678");
-		user.setPassword("654321");
-		user.setSalt("qazxcv");
-		userDao.addUser(user);
-		
-		Assert.assertNotNull(user.getId());
-	}
-	
-	
-	@Autowired
-	private SysUserService userService; 
-	
-	@Test
-	public void serviceAddUser() throws Exception {
-		
-		String username = "15158087185";
-		String password = "123456";
-		
-		SysUser user = new SysUser();
-		user.setUsername(username);
-		user.setPassword(password);
-		
-		userService.add(user);
-		
-		Assert.assertNotNull(user);
-		Assert.assertEquals(username, user.getUsername());
-		Assert.assertTrue(user.matchPassword(password));
-	}
-	
-	@Test
-	public void serviceGetUser() throws Exception {
-		String username = "15158087185";
-		String password = "123456";
-		String salt = "sdasdasd";
-		
-		dbUtil.insert("sys_user", new MapBuilder<String,Object>()
-				.put("username", username)
-				.put("password", password)
-				.put("salt", salt)
-				.build());
-		
-		SysUser user = userService.get(username);
-		Assert.assertNotNull(user);
-		Assert.assertEquals(username, user.getUsername());		
-	}
-	
-	@Test
-	public void updat() throws Exception {
-		
-		Long uid = 1L;
-		String username = "15158087185";
-		String password = "123456";
-		String salt = "sdasdasd";
-		
-		dbUtil.insert("sys_user", new MapBuilder<String,Object>()
-				.put("id", uid)
-				.put("username", username)
-				.put("password", Passwords.encode(password, salt))
-				.put("salt", salt)
-				.build());
-		
-		SysUser user = new SysUser();
-		user.setId(uid);
-		user.setUsername("wj");
-		
-		userService.update(user);
-		
-		user = userService.get(uid);
-		
-		Assert.assertEquals("wj", user.getUsername());
-		Assert.assertTrue(user.matchPassword(password));
-	}
-	
-	@Test
-	public void front() throws Exception {
-		
+	@Before
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();		
 		setToken(1L);
-		
-		JsonResponse r = restTemplate.getForObject("/front", JsonResponse.class);
-		
-		
-		
-		Assert.assertEquals(1, r.getCode());
 	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void find() throws Exception {		
+		
+		List<Map<String, Object>> list = Arrays.asList(
+				MapBuilder.map()
+				.put("username", "wj")
+				.put("password", "111")
+				.put("salt", "asas")
+				.put("active", 1)
+				.build(),
+				MapBuilder.map()
+				.put("username", "w10j")
+				.put("password", "111")
+				.put("salt", "asas")
+				.put("active", 0)
+				.build(),
+				MapBuilder.map()
+				.put("username", "wj10")
+				.put("password", "111")
+				.put("salt", "asas")
+				.put("active", 1)
+				.build(),
+				MapBuilder.map()
+				.put("username", "10wj")
+				.put("password", "111")
+				.put("salt", "asas")
+				.put("active", 0)
+				.build()
+				);
+		
+		dbUtil.insert("sys_user", list);
+		
+		JsonResponse r = restTemplate.getForObject("/sys/user", JsonResponse.class);
+		Assert.assertEquals(1,  r.getCode());
+		
+		List<SysUser> users = (List<SysUser>) ((Map<String, Object>) r.getData()).get("items");		
+		Assert.assertEquals(list.size()+1, users.size());
+		
+		r = restTemplate.getForObject("/sys/user?q={q}", JsonResponse.class, MapBuilder.map().put("q", "wj").build());
+		users = (List<SysUser>) ((Map<String, Object>) r.getData()).get("items");		
+		Assert.assertEquals(3, users.size());
+		
+		r = restTemplate.getForObject("/sys/user?active={active}", JsonResponse.class, MapBuilder.map().put("active", 0).build());
+		users = (List<SysUser>) ((Map<String, Object>) r.getData()).get("items");		
+		Assert.assertEquals(2, users.size());
+	}
+	
+	@Test
+	public void put() throws Exception {
+		
+		JsonResponse r = restTemplate.postForObject("/sys/user", MapBuilder.map()
+				.put("username", "10wj")
+				.put("password", "111")
+				.put("active", 0)
+				.build(), JsonResponse.class);
+		
+		Assert.assertEquals(1,  r.getCode());
+		
+		List<Map<String,Object>> list = dbUtil.select("select * from sys_user where username='10wj'");
+		
+		Assert.assertEquals(1, list.size());
+		Assert.assertFalse(Boolean.valueOf(list.get(0).get("active")+""));
+		Assert.assertTrue(Passwords.match("111", list.get(0).get("password").toString(), list.get(0).get("salt").toString()));
+		
+		Long id = (Long) list.get(0).get("id");
+		
+		restTemplate.postForObject("/sys/user/"+id, MapBuilder.map()
+				.put("active", 1)
+				.build(), JsonResponse.class);
+		list = dbUtil.select("select * from sys_user where username='10wj'");
+		Assert.assertFalse(Boolean.valueOf(list.get(0).get("active")+""));
+	}
+	
+	
 }

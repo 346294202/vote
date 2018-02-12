@@ -8,14 +8,12 @@
   <artifactId>vote-admin-api</artifactId>
 
     <dependencies>        
-    
         <dependency>
             <groupId>com.leoyon</groupId>
             <artifactId>vote-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>        
     </dependencies>
-          
         
     <build>
 		<extensions>

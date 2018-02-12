@@ -14,5 +14,5 @@ public class AdminApiMain {
 	public static void main(String[] args) {
 		SpringApplication.run(AdminApiMain.class, args);
 	}
-
+	
 }

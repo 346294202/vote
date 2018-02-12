@@ -24,7 +24,7 @@ public class VerifyImageController {
 		Cookie id = new Cookie(VerifyCode.KEY_NAME, v.getKey());
 		resp.addCookie(id);
 		resp.setContentType("application/jpeg");
-		VerifyImages.getCertPic(v.getCode(), 75, 24, resp.getOutputStream());				
+		VerifyImages.build(v.getCode(), 75, 24, resp.getOutputStream());				
 		resp.flushBuffer();
 	}
 }
