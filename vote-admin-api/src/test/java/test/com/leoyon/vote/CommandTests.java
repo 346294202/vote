@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.command.SysCommand;
 import com.leoyon.vote.command.SysCommandService;
 import com.leoyon.vote.user.SysUser;
@@ -115,18 +114,4 @@ public class CommandTests extends BaseWebTests{
 		return list;
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Test
-	public void add() throws Exception {
-
-		setToken(1L);
-		
-		List<Map<String, Object>> list = init(0L);
-		
-		JsonResponse r = restTemplate.getForObject("/command", JsonResponse.class);
-		Assert.assertEquals(1,  r.getCode());
-		
-		List<SysCommand> items = (List<SysCommand>) ((Map<String, Object>) r.getData()).get("items");		
-		Assert.assertEquals(list.size(), items.size());
-	}
 }
