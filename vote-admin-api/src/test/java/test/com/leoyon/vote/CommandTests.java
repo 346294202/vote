@@ -2,6 +2,7 @@ package test.com.leoyon.vote;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.command.SysCommand;
 import com.leoyon.vote.command.SysCommandService;
-import com.leoyon.vote.dao.DbUtil;
 import com.leoyon.vote.user.SysUser;
 import com.leoyon.vote.user.SysUserService;
 import com.leoyon.vote.util.MapBuilder;
@@ -21,16 +22,15 @@ import com.leoyon.vote.util.MapBuilder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {Application4Test.class},webEnvironment = SpringBootTest.WebEnvironment
-        .MOCK)
-public class SysCommandTests {
-
-	@Autowired
-	private DbUtil dbUtil;
+        .RANDOM_PORT)
+public class CommandTests extends BaseWebTests{
 	
 	@Before
 	public void setUp() throws Exception {
+		super.setUp();
+		
 		dbUtil.clear(new String[]{
-				"sys_user", "sys_command", "sys_user_command"
+				"sys_command", "sys_user_command"
 		});
 	}
 	
@@ -52,32 +52,46 @@ public class SysCommandTests {
 				.put("salt", "asa")
 				.build());
 		
-		dbUtil.insert("sys_command", Arrays.asList(
+		init(uid);
+		
+		SysUser user = userService.get(uid);
+		
+		List<SysCommand> commands = commandService.listByUser(user);
+		
+		Assert.assertEquals(4, commands.size());
+		
+	}
+
+	private List<Map<String, Object>> init(Long uid) throws Exception {
+		
+		List<Map<String, Object>> list = Arrays.asList(
 				new MapBuilder<String,Object>()
 				.put("id", 1L)
 				.put("parent_id", 0L)
-				.put("name", "1")
+				.put("name", "foo")
 				.put("url", "1")
 				.build(),
 				new MapBuilder<String,Object>()
 				.put("id", 2L)
 				.put("parent_id", 1L)
-				.put("name", "1")
+				.put("name", "fo10o")
 				.put("url", "1")
 				.build(),
 				new MapBuilder<String,Object>()
 				.put("id", 3L)
 				.put("parent_id", 1L)
-				.put("name", "1")
+				.put("name", "foo10")
 				.put("url", "1")
 				.build(),
 				new MapBuilder<String,Object>()
 				.put("id", 4L)
 				.put("parent_id", 0L)
-				.put("name", "1")
+				.put("name", "10foo")
 				.put("url", "1")
 				.build()
-				));
+				);
+		
+		dbUtil.insert("sys_command", list);
 		
 		dbUtil.insert("sys_user_command", Arrays.asList(
 				new MapBuilder<String,Object>()
@@ -98,11 +112,21 @@ public class SysCommandTests {
 				.build()
 				));
 		
-		SysUser user = userService.get(uid);
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void add() throws Exception {
+
+		setToken(1L);
 		
-		List<SysCommand> commands = commandService.listByUser(user);
+		List<Map<String, Object>> list = init(0L);
 		
-		Assert.assertEquals(4, commands.size());
+		JsonResponse r = restTemplate.getForObject("/command", JsonResponse.class);
+		Assert.assertEquals(1,  r.getCode());
 		
+		List<SysCommand> items = (List<SysCommand>) ((Map<String, Object>) r.getData()).get("items");		
+		Assert.assertEquals(list.size(), items.size());
 	}
 }

@@ -1,6 +1,7 @@
 package com.leoyon.vote.user;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,19 +27,26 @@ public class SysUserServiceImp implements SysUserService {
 	}
 
 	@Override
-	public SysUser add(String username, String password) throws Exception {
-		SysUser user = new SysUser();
-		//必须在setPassword之前
-		user.setSalt(RandomStringUtils.randomAlphabetic(16));
-		user.setUsername(username);
-		user.setPassword(password);			
-		userDao.addUser(user);
-		return user;
+	public SysUser get(Long id){
+		return userDao.getUserById(id);
 	}
 
 	@Override
-	public SysUser get(Long id){		
-		return userDao.getUserById(id);
+	public List<SysUser> find(FindUserRequest req) {
+		if(req.getPsize() < 1)
+			req.setPsize(appConfig.getPageSize());
+		req.setPage(req.getPage()*req.getPsize());
+		return userDao.findUser(req);
+	}
+
+	@Override
+	public void add(SysUser user) {
+		userDao.addUser(user);		
+	}
+
+	@Override
+	public void update(SysUser user) {
+		userDao.updateUser(user);
 	}
 
 

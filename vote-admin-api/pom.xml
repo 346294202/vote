@@ -82,8 +82,7 @@
 							<url>scp://39.106.97.131</url>
 							<displayCommandOutputs>true</displayCommandOutputs>
 							<commands>
-								<command>/home/vote/vote/stop-admin.sh</command>
-								<command>/home/vote/vote/start-admin.sh</command>
+								<command>/home/vote/vote/restart-admin.sh</command>
 							</commands>
 						</configuration>
 					</execution>					

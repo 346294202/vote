@@ -6,6 +6,7 @@ public class Token {
 	
 	private String token;
 	private Integer expir;
+	public final static String TOKEN_NAME = "VOTE-ACCESS-TOKEN";
 	
 	public Token(String token, Integer expir) {
 		super();
@@ -34,7 +35,7 @@ public class Token {
 			return false;
 		}
 		Long expiredMS = Long.parseLong(parts[2]); 
-		return expiredMS > System.currentTimeMillis();
+		return expiredMS < System.currentTimeMillis();
 	}
 
 	public String getValue() {

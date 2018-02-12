@@ -2,6 +2,7 @@ package com.leoyon.vote.api;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.util.StringUtils;
@@ -36,6 +37,23 @@ public class JsonResponse implements Serializable {
 
 	public Object getData() {
 		return data;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	public void setData(Object data) {
+		this.data = data;
+	}
+
+	public JsonResponse() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public JsonResponse(int code , String msg, Object data){

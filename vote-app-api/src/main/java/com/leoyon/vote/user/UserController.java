@@ -27,7 +27,7 @@ public class UserController {
 			@RequestParam(value = "code") String code) throws Exception {
 		
 		if(!mobileVerifyService.verify(mobile, code)) {
-			throw new ResponseException(Error.USER_REGISTER_FAIL_INVALID_CODE);
+			throw new ResponseException(Error.VARIFY_FAILED);
 		}
 		
 		try{

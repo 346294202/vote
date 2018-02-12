@@ -1,5 +1,6 @@
 package com.leoyon.vote.api;
 
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -17,6 +18,13 @@ public class ControllerExceptionHandler {
 	
 	private Logger LOG = LoggerFactory.getLogger(getClass());
 	
+	@ExceptionHandler(MissingServletRequestParameterException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public JsonResponse handleException(MissingServletRequestParameterException e) {
+		LOG.error(e.getMessage(), e);
+        return JsonResponse.RespFail(Error.MISSING_PARAM.getValue(), Error.MISSING_PARAM.getLabel()+"'"+e.getParameterName()+"'");
+    }
+	
 	@ExceptionHandler(ResponseException.class)
     @ResponseStatus(HttpStatus.OK)
     public JsonResponse handleException(ResponseException e) {
@@ -24,9 +32,9 @@ public class ControllerExceptionHandler {
         return JsonResponse.RespFail(e.getCode());
     }
 
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.OK)
-    public JsonResponse handleException(Exception e) {
+    public JsonResponse handleException(Throwable e) {
 		LOG.error("未知异常,", e);
         return JsonResponse.RespFail(Error.UNKNOWN_EXCEPT);
     }

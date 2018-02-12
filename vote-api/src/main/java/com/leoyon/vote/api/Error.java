@@ -11,10 +11,12 @@ import java.util.Optional;
 public enum Error {
 	UNKNOWN_EXCEPT(10000, "未知异常，请联系平台"),
 	TOKEN_EXCEPT(1000, "无效的Token"),
+	INVALID_PARAM(10001, "错误的参数"),
+	MISSING_PARAM(10002, "没有提供参数"),
 	USER_LOGIN_FAIL_NOT_EXSISTED(1001, "登录失败，账号不存在"),
-	USER_LOGIN_FAIL(1002, "登录失败，手机或密码不匹配"),
+	USER_LOGIN_FAIL(1002, "登录失败，账号或密码不匹配"),
 	USER_REGISTER_FAIL_DUPLICATED(1003, "注册失败，账号重复"),
-	USER_REGISTER_FAIL_INVALID_CODE(1004, "注册失败，验证码错误"),	
+	VARIFY_FAILED(1004, "验证码错误"),
 	HOUSE_BIND_WORNG_OWNER(2000, "业主错误"),
 	;
 	

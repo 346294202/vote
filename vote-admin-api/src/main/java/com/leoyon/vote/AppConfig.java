@@ -18,4 +18,14 @@ public class AppConfig {
 		this.tokenExpirSeconds = tokenExpirSeconds;
 	}
 	
+	private Integer pageSize = 20;
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
 }

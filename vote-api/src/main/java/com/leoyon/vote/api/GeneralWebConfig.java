@@ -5,16 +5,17 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-public class InterceptorConfig extends WebMvcConfigurerAdapter {
+public class GeneralWebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new AllowCrossDomainHeaderInterceptor()).addPathPatterns("/**");
 		registry.addInterceptor(new TokenHandlerInterceptor()).addPathPatterns("/**")
 			.excludePathPatterns("/login")
-			.excludePathPatterns("/register");
+			.excludePathPatterns("/register")
+			.excludePathPatterns("/verify-code")
+			;
 		super.addInterceptors(registry);
 	}
-
 	
 }

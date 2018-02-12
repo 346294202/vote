@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.leoyon.vote.Constants;
 import com.leoyon.vote.api.Error;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.api.Token;
@@ -24,7 +23,7 @@ public abstract class AuthenticationController {
 	}
 
 	public User getLogin(boolean silence) throws ResponseException {
-		Token token = new Token((String) request.getAttribute(Constants.TOKEN_NAME), 0);
+		Token token = new Token((String) request.getAttribute(Token.TOKEN_NAME), 0);
 		
 		if(token.isExpired()) {
 			if(silence)

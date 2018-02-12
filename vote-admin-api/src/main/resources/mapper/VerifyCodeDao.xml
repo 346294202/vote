@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.user.dao.VerifyCodeDao">
+
+	<insert id="add" parameterType="com.leoyon.vote.user.VerifyCode">
+		insert into verify_code (`key`,`code`) values(#{key},#{code});
+	</insert>
+	
+	<select id="get" parameterType="String" resultType="com.leoyon.vote.user.VerifyCode">
+		select * from verify_code where `key`=#{key};
+	</select>
+	
+	<delete id="delete" parameterType="String">
+		delete from verify_code where `key`=#{key};
+	</delete>
+	
+</mapper>

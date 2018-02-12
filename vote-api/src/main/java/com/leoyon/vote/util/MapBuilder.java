@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapBuilder<K, V> {
+	
+	public static MapBuilder<String, Object> map() {
+		return new MapBuilder<>();
+	}
 
 	private HashMap<K, V> peer = new HashMap<>();
 	

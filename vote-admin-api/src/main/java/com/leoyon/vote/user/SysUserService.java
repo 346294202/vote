@@ -1,5 +1,7 @@
 package com.leoyon.vote.user;
 
+import java.util.List;
+
 import com.leoyon.vote.api.Token;
 
 public interface SysUserService {
@@ -8,8 +10,15 @@ public interface SysUserService {
 
 	SysUser get(String username);
 
-	SysUser add(String username, String password) throws Exception;
+//	SysUser add(String username, String password) throws Exception;
 
 	SysUser get(Long id);
+
+	List<SysUser> find(FindUserRequest req);
+
+	void add(SysUser user);
+
+	void update(SysUser user);
+
 
 }
