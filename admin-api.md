@@ -10,6 +10,8 @@
     - 参数：
         - username:用户名，字符串，必须，最大128字符
         - password：密码，字符串，必须，最大128字符
+        - key 验证码key，取自cookie：vote-verify-code-key
+        - code 验证码
     - 返回：
         ```
         {
