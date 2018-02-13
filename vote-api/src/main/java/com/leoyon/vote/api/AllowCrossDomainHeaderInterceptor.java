@@ -26,8 +26,11 @@ public class AllowCrossDomainHeaderInterceptor extends HandlerInterceptorAdapter
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
 
     	//BEGIN下面代码处理AJAX跨域问题
-    	httpServletResponse.addHeader("Access-Control-Allow-Origin","*");
-    	httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
+    	//当Access-Control-Allow-Credentials为true时，Access-Control-Allow-Origin不能是*，且不能是IP
+    	httpServletResponse.addHeader("Access-Control-Allow-Origin","*");//httpServletRequest.getScheme()+"://"+httpServletRequest.getRemoteHost());
+    	httpServletResponse.setHeader("Access-Control-Allow-Origin","*");//httpServletRequest.getScheme()+"://"+httpServletRequest.getRemoteHost());
+//    	httpServletResponse.addHeader("Access-Control-Allow-Credentials","true");
+//    	httpServletResponse.setHeader("Access-Control-Allow-Credentials","true");
     	if("OPTIONS".equals(httpServletRequest.getMethod().toUpperCase())){
     		httpServletResponse.setHeader("Access-Control-Allow-Methods","GET, PUT, POST, DELETE, OPTIONS");
     		httpServletResponse.setHeader("Access-Control-Max-Age","1000");

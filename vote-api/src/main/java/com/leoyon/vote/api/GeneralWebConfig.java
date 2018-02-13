@@ -13,7 +13,8 @@ public class GeneralWebConfig extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(new TokenHandlerInterceptor()).addPathPatterns("/**")
 			.excludePathPatterns("/login")
 			.excludePathPatterns("/register")
-			.excludePathPatterns("/verify-code")
+			.excludePathPatterns("/verify-code/**")
+			.excludePathPatterns("/doc/**")
 			;
 		super.addInterceptors(registry);
 	}

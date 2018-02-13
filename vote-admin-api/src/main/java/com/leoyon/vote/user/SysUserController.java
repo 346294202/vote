@@ -1,13 +1,15 @@
 package com.leoyon.vote.user;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,8 +22,9 @@ import com.leoyon.vote.util.MapBuilder;
 
 @RestController
 @Scope("prototype")
-@RequestMapping("sys")
 public class SysUserController extends GeneralController{
+	
+	private Logger LOG = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private SysUserService userService;
@@ -33,10 +36,16 @@ public class SysUserController extends GeneralController{
 	public JsonResponse login(
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password,
-			@RequestParam(value = "key") String key,
+			@RequestParam(value = "key", required=false) String key,
 			@RequestParam(value = "code") String code
 			) throws Exception {
-				
+		
+		if(StringUtils.isBlank(key)) {
+			key = getCookie(VerifyCode.KEY_NAME);
+		}
+		
+		LOG.info(key+": "+code);
+		
 		if(!verifyService.verify(key, code)) {
 			throw new ResponseException(Error.VARIFY_FAILED);
 		}
@@ -56,7 +65,7 @@ public class SysUserController extends GeneralController{
 		return JsonResponse.RespSuccess(token);
 	}
 	
-	@GetMapping("/user")
+	@GetMapping("/sys/user")
 	public JsonResponse find(
 			FindUserRequest req
 			) {	
@@ -65,7 +74,7 @@ public class SysUserController extends GeneralController{
 				.build());		
 	}
 	
-	@PostMapping("/user")
+	@PostMapping("/sys/user")
 	public JsonResponse add(
 			@RequestBody SysUser user
 			) throws Exception {
@@ -78,7 +87,7 @@ public class SysUserController extends GeneralController{
 		return JsonResponse.RespSuccess();
 	}
 	
-	@PostMapping("/user/{id}")
+	@PostMapping("/sys/user/{id}")
 	public JsonResponse update(
 			@PathVariable(value="id") Long id,
 			@RequestBody SysUser user

@@ -1,6 +1,9 @@
 package com.leoyon.vote.api;
 
-import java.security.MessageDigest;
+import javax.xml.bind.DatatypeConverter;
+
+import org.apache.commons.codec.digest.DigestUtils;
+
 
 public class Passwords {
 
@@ -8,17 +11,20 @@ public class Passwords {
 		if(value.startsWith("VP_"))
 			return value;
 		String s = value + salt;
-		
-		// 拿到一个md5转换器（如果想要SHA1参数换成”SHA1”）
-		MessageDigest messageDigest = MessageDigest.getInstance("md5");
-		// 输入的字符串转换成字节数组
 		byte[] inputByteArray = s.getBytes();
-		// inputByteArray是输入字符串转换得到的字节数组
-		messageDigest.update(inputByteArray);
-		// 转换并返回结果，也是字节数组，包含16个元素
-		byte[] resultByteArray = messageDigest.digest();
-		// 字符数组转换成字符串返回
-		return "VP_"+byteArrayToHex(resultByteArray);
+		
+		byte[] resultByteArray = DigestUtils.md5(inputByteArray);
+//				
+//		// 拿到一个md5转换器（如果想要SHA1参数换成”SHA1”）
+//		MessageDigest messageDigest = MessageDigest.getInstance("md5");
+//		// 输入的字符串转换成字节数组
+//		
+//		// inputByteArray是输入字符串转换得到的字节数组
+//		messageDigest.update(inputByteArray);
+//		// 转换并返回结果，也是字节数组，包含16个元素
+//		byte[] resultByteArray = messageDigest.digest();
+//		// 字符数组转换成字符串返回
+		return "VP_"+DatatypeConverter.printHexBinary(resultByteArray);//byteArrayToHex(resultByteArray);
 	}	
 
 	public static String byteArrayToHex(byte[] byteArray) {

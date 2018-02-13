@@ -22,7 +22,7 @@ public class FrontController extends AuthenticationController {
 	@Autowired
 	private com.leoyon.vote.command.SysCommandService commandService;
 
-	@GetMapping("/front")
+	@GetMapping(value={"/front"}, name="首页配置")
 	public JsonResponse getFrontConf() throws ResponseException {
 		
 		SysUser user = getLogin(false);
