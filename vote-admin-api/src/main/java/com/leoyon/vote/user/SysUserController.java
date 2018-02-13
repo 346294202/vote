@@ -78,9 +78,10 @@ public class SysUserController extends GeneralController{
 			"staff 员工状态，可选", 
 			"q 模糊查询，字符串，可选", 
 			"page 页数，整数，可选，缺省0", 
-			"psize 每页个数，整数，可选，缺省20"})
+			"psize 每页个数，整数，可选，缺省20"
+			})
 	public JsonResponse find(
-			FindUserRequest req
+			FindSysUserRequest req
 			) {	
 		return JsonResponse.RespSuccess(new MapBuilder<>()
 				.put("items", userService.find(req))

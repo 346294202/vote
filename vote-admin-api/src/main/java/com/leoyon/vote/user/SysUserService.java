@@ -14,7 +14,7 @@ public interface SysUserService {
 
 	SysUser get(Long id);
 
-	List<SysUser> find(FindUserRequest req);
+	List<SysUser> find(FindSysUserRequest req);
 
 	void add(SysUser user);
 

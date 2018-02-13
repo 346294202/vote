@@ -8,24 +8,26 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.leoyon.vote.util.Parses;
 
-public class FindUserRequest {
+public class FindSysUserRequest {
 	
 	public static class ArgumentResolver implements HandlerMethodArgumentResolver {
 
 		@Override
 		public boolean supportsParameter(MethodParameter parameter) {			
-			return parameter.getParameterType().equals(FindUserRequest.class);
+			return parameter.getParameterType().equals(FindSysUserRequest.class);
 		}
 
 		@Override
 		public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 				NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 			
-			return new FindUserRequest(
+			return new FindSysUserRequest(
 					webRequest.getParameter("q"),
 					Parses.parse(webRequest.getParameter("page"), Integer.class, 0),
 					Parses.parse(webRequest.getParameter("psize"), Integer.class, 20),
-					Parses.parse(webRequest.getParameter("active"), Integer.class, null)
+					Parses.parse(webRequest.getParameter("active"), Integer.class, null),
+					Parses.parse(webRequest.getParameter("superuser"), Integer.class, null),
+					Parses.parse(webRequest.getParameter("staff"), Integer.class, null)
 					);
 		}
 		
@@ -35,13 +37,33 @@ public class FindUserRequest {
 	private Integer page;
 	private Integer psize;
 	private Integer active;
+	private Integer superuser;
+	private Integer staff;
 	
-	public FindUserRequest(String q, Integer page, Integer psize, Integer active) {
+	public FindSysUserRequest(String q, Integer page, Integer psize, Integer active, Integer superuser, Integer staff) {
 		super();
 		this.q = q;
 		this.page = page;
 		this.psize = psize;
 		this.active = active;
+		this.superuser = superuser;
+		this.staff = staff;
+	}
+
+	public Integer getSuperuser() {
+		return superuser;
+	}
+
+	public void setSuperuser(Integer superuser) {
+		this.superuser = superuser;
+	}
+
+	public Integer getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Integer staff) {
+		this.staff = staff;
 	}
 
 	public Integer getActive() {

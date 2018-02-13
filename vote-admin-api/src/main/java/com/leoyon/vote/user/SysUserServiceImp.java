@@ -32,7 +32,7 @@ public class SysUserServiceImp implements SysUserService {
 	}
 
 	@Override
-	public List<SysUser> find(FindUserRequest req) {
+	public List<SysUser> find(FindSysUserRequest req) {
 		if(req.getPsize() < 1)
 			req.setPsize(appConfig.getPageSize());
 		req.setPage(req.getPage()*req.getPsize());

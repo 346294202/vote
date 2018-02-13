@@ -38,6 +38,25 @@ public class JsonResponse implements Serializable {
 	public Object getData() {
 		return data;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> T getItem(String key, Class<T> clazz) {
+		return (T) getMap().get(key);
+	}
+	
+	public Object getItem(String key) {
+		return getMap().get(key);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getMap() {
+		return (Map<String, Object>) getData();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> T getObject(Class<T> clazz) {
+		return (T) getData();
+	}
 
 	public void setCode(int code) {
 		this.code = code;
@@ -53,7 +72,6 @@ public class JsonResponse implements Serializable {
 
 	public JsonResponse() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public JsonResponse(int code , String msg, Object data){

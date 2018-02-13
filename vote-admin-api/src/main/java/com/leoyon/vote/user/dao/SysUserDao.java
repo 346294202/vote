@@ -2,7 +2,7 @@ package com.leoyon.vote.user.dao;
 
 import java.util.List;
 
-import com.leoyon.vote.user.FindUserRequest;
+import com.leoyon.vote.user.FindSysUserRequest;
 import com.leoyon.vote.user.SysUser;
 
 public interface SysUserDao {
@@ -13,7 +13,7 @@ public interface SysUserDao {
 	
 	SysUser getUserById(Long id);
 
-	List<SysUser> findUser(FindUserRequest request);
+	List<SysUser> findUser(FindSysUserRequest request);
 
 	void updateUser(SysUser user);
 }
