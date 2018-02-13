@@ -1,4 +1,4 @@
-package com.leoyon.vote.api;
+package com.leoyon.vote;
 
 import javax.xml.bind.DatatypeConverter;
 

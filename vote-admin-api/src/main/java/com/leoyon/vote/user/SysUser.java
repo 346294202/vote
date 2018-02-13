@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.leoyon.vote.api.Passwords;
+import com.leoyon.vote.Passwords;
 
 public class SysUser {
 	

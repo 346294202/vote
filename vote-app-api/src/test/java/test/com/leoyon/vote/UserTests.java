@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.leoyon.vote.api.Passwords;
+import com.leoyon.vote.Passwords;
 import com.leoyon.vote.dao.DbUtil;
 import com.leoyon.vote.user.User;
 import com.leoyon.vote.user.UserService;

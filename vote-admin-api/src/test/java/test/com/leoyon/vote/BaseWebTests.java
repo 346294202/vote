@@ -12,8 +12,8 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
+import com.leoyon.vote.Passwords;
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.vote.api.Passwords;
 import com.leoyon.vote.api.Token;
 import com.leoyon.vote.util.MapBuilder;
 

@@ -1,6 +1,6 @@
 package com.leoyon.vote.user;
 
-import com.leoyon.vote.api.Passwords;
+import com.leoyon.vote.Passwords;
 
 public class User {
 	

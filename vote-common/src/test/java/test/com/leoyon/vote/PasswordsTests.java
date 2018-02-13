@@ -3,7 +3,7 @@ package test.com.leoyon.vote;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.leoyon.vote.api.Passwords;
+import com.leoyon.vote.Passwords;
 
 public class PasswordsTests {
 

@@ -10,8 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.leoyon.vote.Passwords;
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.vote.api.Passwords;
 import com.leoyon.vote.user.SysUser;
 import com.leoyon.vote.util.MapBuilder;
 
