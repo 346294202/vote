@@ -181,5 +181,6 @@
 		<module>vote-admin-api</module>
 		<module>vote-api</module>
 		
+		<module>api-doc</module>
 	</modules>
 </project>

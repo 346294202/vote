@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>API Doc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+crossorigin="anonymous"/>
+</head>
+<body>
+<p>总纲</p>
+<ul>
+<li>不需要用户验证的接口名称后面会有"no token"字样，否则需要token。</li>
+<li>需要用户验证的接口，必须在HTTP Header "VOTE-ACCESS-TOKEN"中提供token。</li>
+<li>未提供token，无效token，token过期均返回错误码"1000"，不在每个接口中赘述。</li>
+<li>返回结果统一格式<code>
+{
+  code:&lt;返回码,1成功&gt;,
+  error:"&lt;错误描述&gt;",
+  data:{&lt;返回结果&gt;}
+}
+</code></li>
+<li>如无特殊说明，当返回错误时，data字段可以忽略。</li>
+</ul>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>名称</th>
+				<th>方法</th>
+				<th>路径</th>
+				<th>参数</th>
+				<th>返回</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="method: ${methods}">
+				<td th:text="${method.name}"></td>
+				<td th:text="${method.method}"></td>
+				<td th:text="${method.path}"></td>
+				<td>
+				<ul>
+					<li th:each="param: ${method.params}" th:text="${param}"></li>
+				</ul>
+				</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

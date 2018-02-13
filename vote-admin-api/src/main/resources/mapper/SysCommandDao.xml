@@ -8,4 +8,8 @@
 		join sys_user_command uc on uc.active=1 and uc.command_id=c.id and uc.user_id=#{uid}
 	</select>	
 	
+	<select id="all" resultType="com.leoyon.vote.command.SysCommand">
+		select * from sys_command;
+	</select>
+	
 </mapper>

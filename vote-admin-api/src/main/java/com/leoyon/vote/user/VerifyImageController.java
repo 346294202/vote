@@ -6,20 +6,18 @@ import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.util.MapBuilder;
 
 @RestController
-@RequestMapping("/verify-code")
 public class VerifyImageController {
 	
 	@Autowired
 	private VerifyService verifyService;
 	
-	@GetMapping("/b64")
+	@GetMapping(value="/verify-code/b64", name="获得图片验证码,no token")
 	public JsonResponse generateVerifyImageBase64() throws IOException {
 		VerifyCode v = verifyService.generate();		
 		ByteArrayOutputStream out = new ByteArrayOutputStream(2048);

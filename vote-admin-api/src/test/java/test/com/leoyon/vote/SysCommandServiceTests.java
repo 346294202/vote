@@ -22,14 +22,12 @@ import com.leoyon.vote.util.MapBuilder;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {Application4Test.class},webEnvironment = SpringBootTest.WebEnvironment
         .RANDOM_PORT)
-public class CommandTests extends BaseWebTests{
+public class SysCommandServiceTests extends BaseDbTests{
 	
 	@Before
-	public void setUp() throws Exception {
-		super.setUp();
-		
+	public void setUp() throws Exception {		
 		dbUtil.clear(new String[]{
-				"sys_command", "sys_user_command"
+				"sys_user", "sys_command", "sys_user_command"
 		});
 	}
 	
@@ -63,32 +61,7 @@ public class CommandTests extends BaseWebTests{
 
 	private List<Map<String, Object>> init(Long uid) throws Exception {
 		
-		List<Map<String, Object>> list = Arrays.asList(
-				new MapBuilder<String,Object>()
-				.put("id", 1L)
-				.put("parent_id", 0L)
-				.put("name", "foo")
-				.put("url", "1")
-				.build(),
-				new MapBuilder<String,Object>()
-				.put("id", 2L)
-				.put("parent_id", 1L)
-				.put("name", "fo10o")
-				.put("url", "1")
-				.build(),
-				new MapBuilder<String,Object>()
-				.put("id", 3L)
-				.put("parent_id", 1L)
-				.put("name", "foo10")
-				.put("url", "1")
-				.build(),
-				new MapBuilder<String,Object>()
-				.put("id", 4L)
-				.put("parent_id", 0L)
-				.put("name", "10foo")
-				.put("url", "1")
-				.build()
-				);
+		List<Map<String, Object>> list = buildCommands();
 		
 		dbUtil.insert("sys_command", list);
 		

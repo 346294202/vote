@@ -12,7 +12,12 @@
             <groupId>com.leoyon</groupId>
             <artifactId>vote-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>        
+        </dependency>
+        <dependency>
+        	<groupId>com.leoyon</groupId>
+        	<artifactId>api-doc</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     
     <build>

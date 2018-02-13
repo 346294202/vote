@@ -3,6 +3,7 @@ package test.com.leoyon.vote;
 import java.io.IOException;
 import java.util.Collections;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -11,16 +12,13 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
+import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.Passwords;
 import com.leoyon.vote.api.Token;
-import com.leoyon.vote.dao.DbUtil;
 import com.leoyon.vote.util.MapBuilder;
 
-public class BaseWebTests {
+public class BaseWebTests extends BaseDbTests {
 
-	@Autowired
-	protected DbUtil dbUtil;
-	
 	@Autowired
 	protected TestRestTemplate restTemplate;
 
@@ -54,6 +52,10 @@ public class BaseWebTests {
 	@Before
 	public void setUp() throws Exception {		
 		dbUtil.clear("sys_user");		
+	}
+
+	protected void assertSucess(JsonResponse r) {
+		Assert.assertEquals(1,  r.getCode());
 	}
 
 }

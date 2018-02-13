@@ -8,4 +8,6 @@ public interface SysCommandDao {
 
 	List<SysCommand> listByUser(Long uid);
 
+	List<SysCommand> all();
+
 }

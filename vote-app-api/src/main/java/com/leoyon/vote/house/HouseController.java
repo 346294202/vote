@@ -20,7 +20,7 @@ public class HouseController extends AuthenticationController {
     @Autowired
     private HouseService houseService;
 
-	@GetMapping("/house")
+	@GetMapping(value="/house", name="获取用户房屋")
 	public JsonResponse list() throws ResponseException {
 		
 		User user = getLogin(false);

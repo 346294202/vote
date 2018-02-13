@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.leoyon.doc.ApiDocAnnotation;
 import com.leoyon.vote.GeneralController;
 import com.leoyon.vote.api.Error;
 import com.leoyon.vote.api.JsonResponse;
@@ -32,7 +33,12 @@ public class SysUserController extends GeneralController{
 	@Autowired
 	private VerifyService verifyService;
 
-	@PostMapping("/login")
+	@PostMapping(value="/login", name="登录,no token")
+	@ApiDocAnnotation(params={
+			"username:用户名，字符串，必须，最大128字符", 
+			"password：密码，字符串，必须，最大128字符", 
+			"key 验证码key", 
+			"code 验证码"})
 	public JsonResponse login(
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password,
@@ -65,7 +71,14 @@ public class SysUserController extends GeneralController{
 		return JsonResponse.RespSuccess(token);
 	}
 	
-	@GetMapping("/sys/user")
+	@GetMapping(value="/sys/user", name="查询系统用户")
+	@ApiDocAnnotation(params={
+			"active 有效状态，可选", 
+			"superuser 超管状态，可选", 
+			"staff 员工状态，可选", 
+			"q 模糊查询，字符串，可选", 
+			"page 页数，整数，可选，缺省0", 
+			"psize 每页个数，整数，可选，缺省20"})
 	public JsonResponse find(
 			FindUserRequest req
 			) {	
@@ -74,7 +87,14 @@ public class SysUserController extends GeneralController{
 				.build());		
 	}
 	
-	@PostMapping("/sys/user")
+	@PostMapping(value="/sys/user", name="新增系统用户")
+	@ApiDocAnnotation(params={
+			"username 用户名，字符串，必须，最大128字符", 
+			"password 密码，字符串，必须，最大128字符", 
+			"active 有效标志，整数，可选，缺省1", 
+			"superuser 是否超级管理员，整数，可选，缺省0", 
+			"staff 是否员工，整数，可选，缺省1", 
+			"email 电邮，字符串，可选，最大128字符"})
 	public JsonResponse add(
 			@RequestBody SysUser user
 			) throws Exception {
@@ -87,7 +107,12 @@ public class SysUserController extends GeneralController{
 		return JsonResponse.RespSuccess();
 	}
 	
-	@PostMapping("/sys/user/{id}")
+	@PostMapping(value="/sys/user/{id}", name="修改系统用户")
+	@ApiDocAnnotation(params={
+			"active 有效标志，整数，可选", 
+			"superuser 是否超级管理员，整数，可选", 
+			"staff 是否员工，整数，可选", 
+			"email 电邮，字符串，可选，最大128字符"})
 	public JsonResponse update(
 			@PathVariable(value="id") Long id,
 			@RequestBody SysUser user

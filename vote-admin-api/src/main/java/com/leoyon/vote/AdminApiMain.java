@@ -8,6 +8,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @SpringBootConfiguration
 @SpringBootApplication(scanBasePackages = {
+		//为了显示APIDoc页面
+		"com.leoyon.vote",
+		"com.leoyon.doc"
 })
 public class AdminApiMain {
 
