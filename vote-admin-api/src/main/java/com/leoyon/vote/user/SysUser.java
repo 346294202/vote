@@ -13,12 +13,36 @@ public class SysUser {
 	private String password;
 	private String salt;
 	private Boolean active;
-	private Boolean superuser;
-	private Boolean staff;
+	private String realName;
+	private String depart;
+	private String phone;
 	private Date dateCreate;
 	private Date lastLoginTime;
 	private Date lastLoginIp;
-	private String email;
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public String getDepart() {
+		return depart;
+	}
+
+	public void setDepart(String depart) {
+		this.depart = depart;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 	public Boolean getActive() {
 		return active;
@@ -26,22 +50,6 @@ public class SysUser {
 
 	public void setActive(Boolean active) {
 		this.active = active;
-	}
-
-	public Boolean getSuperuser() {
-		return superuser;
-	}
-
-	public void setSuperuser(Boolean superuser) {
-		this.superuser = superuser;
-	}
-
-	public Boolean getStaff() {
-		return staff;
-	}
-
-	public void setStaff(Boolean staff) {
-		this.staff = staff;
 	}
 
 	public Date getDateCreate() {
@@ -66,14 +74,6 @@ public class SysUser {
 
 	public void setLastLoginIp(Date lastLoginIp) {
 		this.lastLoginIp = lastLoginIp;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public Long getId() {

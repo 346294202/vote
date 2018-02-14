@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.leoyon.vote.dao.DbUtil;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 public class BaseDbTests {
 	
@@ -22,25 +22,25 @@ public class BaseDbTests {
 
 	protected List<Map<String, Object>> buildCommands() {
 		List<Map<String, Object>> list = Arrays.asList(
-				new MapBuilder<String,Object>()
+				new M<String,Object>()
 				.put("id", 1L)
 				.put("parent_id", 0L)
 				.put("name", "foo")
 				.put("url", "1")
 				.build(),
-				new MapBuilder<String,Object>()
+				new M<String,Object>()
 				.put("id", 2L)
 				.put("parent_id", 1L)
 				.put("name", "fo10o")
 				.put("url", "1")
 				.build(),
-				new MapBuilder<String,Object>()
+				new M<String,Object>()
 				.put("id", 3L)
 				.put("parent_id", 1L)
 				.put("name", "foo10")
 				.put("url", "1")
 				.build(),
-				new MapBuilder<String,Object>()
+				new M<String,Object>()
 				.put("id", 4L)
 				.put("parent_id", 0L)
 				.put("name", "10foo")
@@ -52,25 +52,25 @@ public class BaseDbTests {
 
 	protected List<Map<String, Object>> buildSysUsers() {
 		List<Map<String, Object>> list = Arrays.asList(
-				MapBuilder.map()
+				M.map()
 				.put("username", "wj")
 				.put("password", "111")
 				.put("salt", "asas")
 				.put("active", 1)
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("username", "w10j")
 				.put("password", "111")
 				.put("salt", "asas")
 				.put("active", 0)
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("username", "wj10")
 				.put("password", "111")
 				.put("salt", "asas")
 				.put("active", 1)
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("username", "10wj")
 				.put("password", "111")
 				.put("salt", "asas")

@@ -19,7 +19,7 @@ import com.leoyon.vote.api.Error;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.api.Token;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 @RestController
 @Scope("prototype")
@@ -83,7 +83,7 @@ public class SysUserController extends GeneralController{
 	public JsonResponse find(
 			FindSysUserRequest req
 			) {	
-		return JsonResponse.RespSuccess(new MapBuilder<>()
+		return JsonResponse.RespSuccess(new M<>()
 				.put("items", userService.find(req))
 				.build());		
 	}

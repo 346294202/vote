@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.leoyon.doc.ApiDocAnnotation;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 @RestController
 @Scope("prototype")
@@ -29,7 +29,7 @@ public class UserController extends AuthenticationController {
 			"psize 每页个数，整数，可选，缺省20"
 	})
 	public JsonResponse find(FindUserRequest reqst) {
-		return JsonResponse.RespSuccess(new MapBuilder<>()
+		return JsonResponse.RespSuccess(new M<>()
 				.put("items", userService.find(reqst))
 				.build());		
 	}

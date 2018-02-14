@@ -15,7 +15,7 @@ import org.springframework.http.client.ClientHttpResponse;
 import com.leoyon.vote.Passwords;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.Token;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 public class BaseWebTests extends BaseDbTests {
 
@@ -31,7 +31,7 @@ public class BaseWebTests extends BaseDbTests {
 		String password = "123456";
 		String salt = "sdasdasd";
 		
-		dbUtil.insert("sys_user", new MapBuilder<String,Object>()
+		dbUtil.insert("sys_user", new M<String,Object>()
 				.put("id", uid)
 				.put("username", username)
 				.put("password", Passwords.encode(password, salt))

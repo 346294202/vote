@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.user.User;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {Application4Test.class},webEnvironment = SpringBootTest.WebEnvironment
@@ -33,37 +33,37 @@ public class UserControllerTests extends BaseWebTests {
 	public void find() throws Exception {
 		
 		List<Map<String, Object>> list = Arrays.asList(
-				MapBuilder.map()
+				M.map()
 				.put("mobile", "123")
 				.put("password", "111")
 				.put("salt", "aaa")
 				.put("active", 1)
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("mobile", "234")
 				.put("password", "111")
 				.put("salt", "aaa")
 				.put("active", 1)
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("mobile", "345")
 				.put("password", "111")
 				.put("salt", "aaa")
 				.put("active", 1)
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("mobile", "456")
 				.put("password", "111")
 				.put("salt", "aaa")
 				.put("active", 1)
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("mobile", "567")
 				.put("password", "111")
 				.put("salt", "aaa")
 				.put("active", 0)
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("mobile", "678")
 				.put("password", "111")
 				.put("salt", "aaa")
@@ -79,12 +79,12 @@ public class UserControllerTests extends BaseWebTests {
 		List<Object> items = (List<Object>) r.getItem("items");
 		Assert.assertEquals(list.size(), items.size());
 		
-		r = restTemplate.getForObject("/user?q={q}", JsonResponse.class, MapBuilder.map().put("q", "56").build());
+		r = restTemplate.getForObject("/user?q={q}", JsonResponse.class, M.map().put("q", "56").build());
 		items = (List<Object>) r.getItem("items");
 		Assert.assertEquals(2, items.size());
 		r = restTemplate.getForObject("/user?q={q}&active={active}"
 				, JsonResponse.class
-				, MapBuilder.map()
+				, M.map()
 				.put("q", "56")
 				.put("active", 1)
 				.build());
@@ -94,7 +94,7 @@ public class UserControllerTests extends BaseWebTests {
 	
 	@Test
 	public void update() throws Exception {
-		dbUtil.insert("vote_user", MapBuilder.map()
+		dbUtil.insert("vote_user", M.map()
 				.put("id", 1L)
 				.put("mobile", "123")
 				.put("password", "111")

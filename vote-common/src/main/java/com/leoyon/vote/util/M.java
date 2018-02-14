@@ -3,15 +3,15 @@ package com.leoyon.vote.util;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapBuilder<K, V> {
+public class M<K, V> {
 	
-	public static MapBuilder<String, Object> map() {
-		return new MapBuilder<>();
+	public static M<String, Object> map() {
+		return new M<>();
 	}
 
 	private HashMap<K, V> peer = new HashMap<>();
 	
-	public MapBuilder<K, V> put(K key, V value) {
+	public M<K, V> put(K key, V value) {
 		peer.put(key, value);
 		return this;
 	}

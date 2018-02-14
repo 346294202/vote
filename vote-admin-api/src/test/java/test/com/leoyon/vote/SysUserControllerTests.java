@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.leoyon.vote.Passwords;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.user.SysUser;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {Application4Test.class},webEnvironment = SpringBootTest.WebEnvironment
@@ -41,11 +41,11 @@ public class SysUserControllerTests extends BaseWebTests {
 		List<SysUser> users = (List<SysUser>) ((Map<String, Object>) r.getData()).get("items");		
 		Assert.assertEquals(list.size()+1, users.size());
 		
-		r = restTemplate.getForObject("/sys/user?q={q}", JsonResponse.class, MapBuilder.map().put("q", "wj").build());
+		r = restTemplate.getForObject("/sys/user?q={q}", JsonResponse.class, M.map().put("q", "wj").build());
 		users = (List<SysUser>) ((Map<String, Object>) r.getData()).get("items");		
 		Assert.assertEquals(3, users.size());
 		
-		r = restTemplate.getForObject("/sys/user?active={active}", JsonResponse.class, MapBuilder.map().put("active", 0).build());
+		r = restTemplate.getForObject("/sys/user?active={active}", JsonResponse.class, M.map().put("active", 0).build());
 		users = (List<SysUser>) ((Map<String, Object>) r.getData()).get("items");		
 		Assert.assertEquals(2, users.size());
 	}
@@ -53,7 +53,7 @@ public class SysUserControllerTests extends BaseWebTests {
 	@Test
 	public void put() throws Exception {
 		
-		JsonResponse r = restTemplate.postForObject("/sys/user", MapBuilder.map()
+		JsonResponse r = restTemplate.postForObject("/sys/user", M.map()
 				.put("username", "10wj")
 				.put("password", "111")
 				.put("active", 0)
@@ -69,7 +69,7 @@ public class SysUserControllerTests extends BaseWebTests {
 		
 		Long id = (Long) list.get(0).get("id");
 		
-		restTemplate.postForObject("/sys/user/"+id, MapBuilder.map()
+		restTemplate.postForObject("/sys/user/"+id, M.map()
 				.put("active", 1)
 				.build(), JsonResponse.class);
 		list = dbUtil.select("select * from sys_user where username='10wj'");

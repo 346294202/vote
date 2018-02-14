@@ -11,7 +11,7 @@ import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.user.User;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 @RestController
 @Scope("prototype")
@@ -27,6 +27,6 @@ public class HouseController extends AuthenticationController {
 		
 		List<House> list = houseService.listByOwner(user);
 		
-		return JsonResponse.RespSuccess(new MapBuilder<>().put("items", list));
+		return JsonResponse.RespSuccess(new M<>().put("items", list));
 	}
 }

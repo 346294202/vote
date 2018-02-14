@@ -17,7 +17,7 @@ import com.leoyon.vote.command.SysCommand;
 import com.leoyon.vote.command.SysCommandService;
 import com.leoyon.vote.user.SysUser;
 import com.leoyon.vote.user.SysUserService;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -44,7 +44,7 @@ public class SysCommandServiceTests extends BaseDbTests{
 		
 		Long uid = 1L;
 		
-		dbUtil.insert("sys_user", new MapBuilder<String,Object>()
+		dbUtil.insert("sys_user", new M<String,Object>()
 				.put("id", uid)
 				.put("username", "ass")
 				.put("password", "ass")
@@ -68,19 +68,19 @@ public class SysCommandServiceTests extends BaseDbTests{
 		dbUtil.insert("sys_command", list);
 		
 		dbUtil.insert("sys_user_command", Arrays.asList(
-				new MapBuilder<String,Object>()
+				new M<String,Object>()
 				.put("user_id", uid)
 				.put("command_id", 1L)
 				.build(),
-				new MapBuilder<String,Object>()
+				new M<String,Object>()
 				.put("user_id", uid)
 				.put("command_id", 2L)
 				.build(),
-				new MapBuilder<String,Object>()
+				new M<String,Object>()
 				.put("user_id", uid)
 				.put("command_id", 3L)
 				.build(),
-				new MapBuilder<String,Object>()
+				new M<String,Object>()
 				.put("user_id", uid)
 				.put("command_id", 4L)
 				.build()

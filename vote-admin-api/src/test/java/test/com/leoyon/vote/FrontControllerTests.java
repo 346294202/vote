@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {Application4Test.class},webEnvironment = SpringBootTest.WebEnvironment
@@ -33,7 +33,7 @@ public class FrontControllerTests extends BaseWebTests {
 	public void front() throws Exception {
 		
 		dbUtil.insert("sys_user_command", Arrays.asList(
-				MapBuilder.map()
+				M.map()
 				.put("user_id", defUID)
 				.put("command_id", 3L)
 				.build()

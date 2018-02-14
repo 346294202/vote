@@ -1,13 +1,13 @@
-package com.leoyon.vote.user;
+package com.leoyon.vote.role;
 
-public class FindSysUserRequest {
+public class FindSysRoleRequest {
 	
 	private String q;
 	private Integer page;
 	private Integer psize;
 	private Integer active;
 	
-	public FindSysUserRequest(String q, Integer page, Integer psize, Integer active) {
+	public FindSysRoleRequest(String q, Integer page, Integer psize, Integer active) {
 		super();
 		this.q = q;
 		this.page = page;

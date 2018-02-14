@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.house.House;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,7 +33,7 @@ public class HouseControllerTests extends BaseWebTests {
 	public void find() throws Exception {
 		
 		List<Map<String, Object>> list = Arrays.asList(
-				MapBuilder.map()
+				M.map()
 				.put("area_id", 1L)
 				.put("building", 1)
 				.put("unit", 1)
@@ -42,7 +42,7 @@ public class HouseControllerTests extends BaseWebTests {
 				.put("house_status", 1)
 				.put("remark", "待出租")
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("area_id", 1L)
 				.put("building", 1)
 				.put("unit", 2)
@@ -51,7 +51,7 @@ public class HouseControllerTests extends BaseWebTests {
 				.put("house_status", 1)
 				.put("remark", "待出租")
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("area_id", 2L)
 				.put("building", 1)
 				.put("unit", 1)
@@ -60,7 +60,7 @@ public class HouseControllerTests extends BaseWebTests {
 				.put("house_status", 1)
 				.put("remark", "待出租")
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("area_id", 2L)
 				.put("building", 1)
 				.put("unit", 2)
@@ -69,7 +69,7 @@ public class HouseControllerTests extends BaseWebTests {
 				.put("house_status", 1)
 				.put("remark", "待出租")
 				.build(),
-				MapBuilder.map()
+				M.map()
 				.put("area_id", 3L)
 				.put("building", 1)
 				.put("unit", 1)

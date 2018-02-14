@@ -3,8 +3,8 @@
 <mapper namespace="com.leoyon.vote.user.dao.SysUserDao">
 
 	<insert id="addUser" parameterType="com.leoyon.vote.user.SysUser" useGeneratedKeys="true" keyProperty="id">
-		insert into sys_user (username,password,salt,active,superuser,staff,date_create,last_login_time,last_login_ip,email) values(
-			#{username},#{password},#{salt},#{active},#{superuser},#{staff},#{dateCreate},#{lastLoginTime},#{lastLoginIp},#{email}
+		insert into sys_user (username,password,salt,active,real_name,depart,phone) values(
+			#{username},#{password},#{salt},#{active},#{realName},#{depart},#{phone}
 		);
 	</insert>
 	
@@ -19,16 +19,16 @@
 		</if>	
 		<if test="active != null">
 				active = #{active},
-		</if>			
-		<if test="superuser != null">
-				superuser = #{superuser},
-		</if>			
-		<if test="staff != null">
-				staff = #{staff},
 		</if>		
-		<if test="email != null and email != ''">
-				email = #{email},
-		</if>				
+		<if test="realName != null and realName != ''">
+				real_name = #{realName},
+		</if>			
+		<if test="depart != null and depart != ''">
+				depart = #{depart},
+		</if>					
+		<if test="phone != null and phone != ''">
+				phone = #{phone},
+		</if>							
 	</set>
 	where id = #{id}
 	</update>
@@ -45,7 +45,7 @@
 		select * from sys_user 
 		<where>
 			<if test="q != null and q !=''">
-				and username like '%${q}%'
+				and (username like '%${q}%' or real_name like '%${q}%') 
 			</if>
 			<if test="active != null">
 				and active=#{active}

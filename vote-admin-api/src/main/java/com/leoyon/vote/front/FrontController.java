@@ -13,7 +13,7 @@ import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.command.Menu;
 import com.leoyon.vote.command.SysCommand;
 import com.leoyon.vote.user.SysUser;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 @RestController
 @Scope("prototype")
@@ -29,7 +29,7 @@ public class FrontController extends AuthenticationController {
 		
 		List<SysCommand> list = commandService.listByUser(user);
 		
-		return JsonResponse.RespSuccess(new MapBuilder<>()
+		return JsonResponse.RespSuccess(new M<>()
 				.put("menus", Menu.build(list)).build());
 	}
 }

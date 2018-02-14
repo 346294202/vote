@@ -13,7 +13,7 @@ import com.leoyon.vote.dao.DbUtil;
 import com.leoyon.vote.user.User;
 import com.leoyon.vote.user.UserService;
 import com.leoyon.vote.user.dao.UserDao;
-import com.leoyon.vote.util.MapBuilder;
+import com.leoyon.vote.util.M;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {Application4Test.class},webEnvironment = SpringBootTest.WebEnvironment
@@ -79,7 +79,7 @@ public class UserTests {
 		String password = "123456";
 		String salt = "sdasdasd";
 		
-		dbUtil.insert("vote_user", new MapBuilder<String,Object>()
+		dbUtil.insert("vote_user", new M<String,Object>()
 				.put("mobile", mobile)
 				.put("password", password)
 				.put("salt", salt)

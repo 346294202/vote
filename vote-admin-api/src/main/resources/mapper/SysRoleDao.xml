@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.role.dao.SysRoleDao">
+
+	<insert id="add" parameterType="com.leoyon.vote.role.SysRole" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_role (name,so,remark) values(
+			#{name},#{so},#{remark}
+		);
+	</insert>
+	
+	<update id="update" parameterType="com.leoyon.vote.role.SysRole">
+	update sys_role
+	<set>
+		<if test="name != null and name != ''">
+				name = #{name},
+		</if>
+		<if test="remark != null and remark != ''">
+				remark = #{remark},
+		</if>	
+		<if test="so != null">
+				so = #{so},
+		</if>				
+	</set>
+	where id = #{id}
+	</update>
+		
+	<select id="find" parameterType="com.leoyon.vote.role.FindSysRoleRequest" resultType="com.leoyon.vote.role.SysRole">
+		select * from sys_role 
+		<where>
+			<if test="q != null and q !=''">
+				and name like '%${q}%'
+			</if>		
+		</where>
+		order by so
+		LIMIT #{page} , #{psize};
+	</select>
+	
+</mapper>
