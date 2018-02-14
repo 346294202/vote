@@ -11,5 +11,40 @@
 	<select id="all" resultType="com.leoyon.vote.command.SysCommand">
 		select * from sys_command;
 	</select>
+
+	<insert id="add" parameterType="com.leoyon.vote.command.SysCommand" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_command (parent_id,name,url,icon,so) values(
+			#{parentId},#{name},#{url},#{icon},#{so}
+		);
+	</insert>
 	
+	<update id="update" parameterType="com.leoyon.vote.command.SysCommand">
+	update sys_command
+	<set>
+		<if test="parentId != null">
+				parent_id = #{parentId},
+		</if>	
+		<if test="name != null and name != ''">
+				name = #{name},
+		</if>
+		<if test="url != null and url != ''">
+				url = #{url},
+		</if>	
+		<if test="so != null">
+				so = #{so},
+		</if>				
+	</set>
+	where id = #{id}
+	</update>
+		
+	<select id="find" parameterType="com.leoyon.vote.command.FindSysCommandRequest" resultType="com.leoyon.vote.command.SysCommand">
+		select * from sys_command 
+		<where>
+			<if test="q != null and q !=''">
+				and name like '%${q}%'
+			</if>		
+		</where>
+		order by so
+		LIMIT #{page} , #{psize};
+	</select>	
 </mapper>

@@ -40,4 +40,25 @@ public class SysCommandServiceImp implements SysCommandService {
 		}
 	}
 
+	@Override
+	public void update(SysCommand command) {
+		commandDao.update(command);
+	}
+
+	@Override
+	public void add(SysCommand command) {
+		commandDao.add(command);
+	}
+
+	@Override
+	public List<SysCommand> find(FindSysCommandRequest rqst) {
+		return commandDao.find(rqst);
+	}
+
+	@Override
+	public List<SysCommand> all() {
+		return commandDao.all();
+	}
+
+
 }
