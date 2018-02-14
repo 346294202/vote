@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.user.dao.SysUserRoleDao">
+
+	<select id="getUserRoles" parameterType="Long" resultType="com.leoyon.vote.role.SysRole">
+		select c.* 
+		from sys_role c 
+		join sys_user_role uc on uc.active=1 and uc.role_id=c.id and uc.user_id=#{uid}
+	</select>	
+	
+	<delete id="clearUserRoles" parameterType="Long">
+		delete from sys_user_role where user_id=#{uid}
+	</delete>
+	
+	<insert id="addUserRole">
+		insert into sys_user_role(role_id, user_id) values(#{rid}, #{uid});
+	</insert>
+	
+</mapper>

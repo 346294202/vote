@@ -10,4 +10,7 @@ public interface SysRoleService {
 
 	void update(SysRole role);
 
+	List<SysRole> all();
+
+	boolean existed(Long id);
 }

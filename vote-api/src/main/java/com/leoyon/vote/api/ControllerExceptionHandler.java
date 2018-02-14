@@ -22,21 +22,21 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public JsonResponse handleException(MissingServletRequestParameterException e) {
 		LOG.error(e.getMessage(), e);
-        return JsonResponse.RespFail(Error.MISSING_PARAM.getValue(), Error.MISSING_PARAM.getLabel()+"'"+e.getParameterName()+"'");
+        return JsonResponse.fail(Error.MISSING_PARAM.getValue(), Error.MISSING_PARAM.getLabel()+"'"+e.getParameterName()+"'");
     }
 	
 	@ExceptionHandler(ResponseException.class)
     @ResponseStatus(HttpStatus.OK)
     public JsonResponse handleException(ResponseException e) {
 		LOG.error(e.getMessage(), e);
-        return JsonResponse.RespFail(e.getCode());
+        return JsonResponse.fail(e.getCode());
     }
 
 	@ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.OK)
     public JsonResponse handleException(Throwable e) {
 		LOG.error("未知异常,", e);
-        return JsonResponse.RespFail(Error.UNKNOWN_EXCEPT);
+        return JsonResponse.fail(Error.UNKNOWN_EXCEPT);
     }
 
 }

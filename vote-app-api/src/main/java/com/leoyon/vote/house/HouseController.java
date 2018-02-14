@@ -27,6 +27,6 @@ public class HouseController extends AuthenticationController {
 		
 		List<House> list = houseService.listByOwner(user);
 		
-		return JsonResponse.RespSuccess(new M<>().put("items", list));
+		return JsonResponse.sucess(new M<>().put("items", list));
 	}
 }

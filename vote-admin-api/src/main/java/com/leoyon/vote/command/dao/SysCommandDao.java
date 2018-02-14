@@ -17,4 +17,6 @@ public interface SysCommandDao {
 
 	List<SysCommand> find(FindSysCommandRequest rqst);
 
+	Long existed(Long id);
+
 }

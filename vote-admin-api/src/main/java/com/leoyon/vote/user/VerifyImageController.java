@@ -23,7 +23,7 @@ public class VerifyImageController {
 		ByteArrayOutputStream out = new ByteArrayOutputStream(2048);
 		VerifyImages.build(v.getCode(), 75, 24, out);				
 		String b64 = Base64.getEncoder().encodeToString(out.toByteArray());
-		return JsonResponse.RespSuccess(M.map()
+		return JsonResponse.sucess(M.map()
 				.put("key", v.getKey())
 				.put("imgb64", b64)
 				.build());

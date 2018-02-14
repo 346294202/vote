@@ -29,7 +29,7 @@ public class UserController extends AuthenticationController {
 			"psize 每页个数，整数，可选，缺省20"
 	})
 	public JsonResponse find(FindUserRequest reqst) {
-		return JsonResponse.RespSuccess(new M<>()
+		return JsonResponse.sucess(new M<>()
 				.put("items", userService.find(reqst))
 				.build());		
 	}
@@ -43,7 +43,7 @@ public class UserController extends AuthenticationController {
 			@RequestBody User user) {
 		user.setId(id);
 		userService.update(user);
-		return JsonResponse.RespSuccess();
+		return JsonResponse.sucess();
 	}
 	
 }

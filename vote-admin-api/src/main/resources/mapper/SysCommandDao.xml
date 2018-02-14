@@ -47,4 +47,8 @@
 		order by so
 		LIMIT #{page} , #{psize};
 	</select>	
+	
+	<select id="existed" parameterType="Long" resultType="Long">
+	select id from sys_command where id = #{id}
+	</select>	
 </mapper>

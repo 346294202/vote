@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.role.dao.SysRoleCommandDao">
+
+	<select id="getRoleCommands" parameterType="Long" resultType="com.leoyon.vote.command.SysCommand">
+		select c.* 
+		from sys_command c 
+		join sys_role_command uc on uc.active=1 and uc.command_id=c.id and uc.role_id=#{rid}
+	</select>	
+	
+	<delete id="clearRoleCommands" parameterType="Long">
+		delete from sys_role_command where role_id=#{rid}
+	</delete>
+	
+	<insert id="addRoleCommand">
+		insert into sys_role_command(role_id, command_id) values(#{rid}, #{cid});
+	</insert>
+	
+</mapper>

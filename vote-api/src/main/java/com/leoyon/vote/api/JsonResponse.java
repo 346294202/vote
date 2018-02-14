@@ -84,24 +84,24 @@ public class JsonResponse implements Serializable {
         }
     }
 
-    public static JsonResponse RespSuccess(Object data){
+    public static JsonResponse sucess(Object data){
         return new JsonResponse(SUCCESS_CODE,SUCCESS_MSG,data);
     }
 
-    public static JsonResponse RespSuccess(){
+    public static JsonResponse sucess(){
         return new JsonResponse(SUCCESS_CODE,SUCCESS_MSG,null);
     }
     
-    public static JsonResponse RespSuccess(String msg){
+    public static JsonResponse sucess(String msg){
         return new JsonResponse(SUCCESS_CODE, StringUtils.isEmpty(msg)?SUCCESS_MSG_4_CHINESE:msg,null);
     }
 
-    public static JsonResponse RespFail(int code, String msg){
+    public static JsonResponse fail(int code, String msg){
         return  new JsonResponse(code,msg,null);
     }
 
-	public static JsonResponse RespFail(Error code) {
-		return RespFail(code.getValue(), code.getLabel());
+	public static JsonResponse fail(Error code) {
+		return fail(code.getValue(), code.getLabel());
 	}
 
 	@Override

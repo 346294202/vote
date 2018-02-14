@@ -27,6 +27,8 @@ public class SysRoleControllerTests extends BaseWebTests {
 		super.setUp();		
 		setToken(1L);
 		dbUtil.clear("sys_role");
+		dbUtil.clear("sys_role_command");
+		dbUtil.clear("sys_command");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -85,6 +87,57 @@ public class SysRoleControllerTests extends BaseWebTests {
 		restTemplate.postForObject("/sys/role/"+id, role, JsonResponse.class);
 		list = dbUtil.select("select * from sys_role");
 		Assert.assertEquals("二级主管", list.get(0).get("name"));
+	}
+	
+	@Test
+	public void bindCommands() throws Exception {
+		Long rid = 1L;
+
+		dbUtil.insert("sys_role", M.map()
+				.put("id", rid)
+				.put("name", "经理")
+				.put("so", 1)
+				.put("remark", "一般")
+				.build());		
+		
+		List<Map<String, Object>> list = Arrays.asList(
+				M.map()
+				.put("id", 1L)
+				.put("parent_id", 0L)
+				.put("name", "一级1")
+				.put("so", 1)
+				.put("url", null)
+				.build(),
+				M.map()
+				.put("id", 2L)
+				.put("parent_id", 0L)
+				.put("name", "一级2")
+				.put("so", 1)
+				.put("url", null)
+				.build(),
+				M.map()
+				.put("id", 3L)
+				.put("parent_id", 1L)
+				.put("name", "二级1")
+				.put("so", 1)
+				.put("url", "/sys/level1.html")
+				.build(),
+				M.map()
+				.put("id", 4L)
+				.put("parent_id", 2L)
+				.put("name", "二级2")
+				.put("so", 1)
+				.put("url", "/sys/level1.html")
+				.build()
+				);
+		
+		dbUtil.insert("sys_command", list);
+		
+		JsonResponse r = restTemplate.postForObject("/sys/role/1/command",
+				"1,3", JsonResponse.class);
+		assertSucess(r);
+		
+		
 	}
 	
 	

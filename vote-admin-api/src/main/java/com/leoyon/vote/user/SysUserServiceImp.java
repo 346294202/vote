@@ -4,11 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.leoyon.vote.api.Token;
+import com.leoyon.vote.role.SysRole;
+import com.leoyon.vote.role.SysRoleService;
+import com.leoyon.vote.user.dao.SysUserRoleDao;
 
 @Service
-public class SysUserServiceImp implements SysUserService {
+public class SysUserServiceImp implements SysUserService, SysUserRoleService {
 	
 	@Autowired
 	private com.leoyon.vote.user.dao.SysUserDao userDao;
@@ -49,5 +54,31 @@ public class SysUserServiceImp implements SysUserService {
 		userDao.updateUser(user);
 	}
 
+	@Autowired
+	private SysUserRoleDao sysUserRoleDao;
 
+	@Override
+	public List<SysRole> getUserRoles(Long uid) {
+		return sysUserRoleDao.getUserRoles(uid);
+	}
+	
+	@Autowired
+	private SysRoleService sysRoleService;
+
+	@Override
+	 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+	public void setUserRoles(Long uid, List<Long> roleIds) throws Exception {
+		
+		for(Long id:roleIds) {
+			if(!sysRoleService.existed(id)) {
+				throw new Exception("角色ID"+id+"无效");
+			}
+		}
+		
+		sysUserRoleDao.clearUserRoles(uid);
+		
+		roleIds.forEach(id -> {
+			sysUserRoleDao.addUserRole(uid, id);
+		});
+	}
 }

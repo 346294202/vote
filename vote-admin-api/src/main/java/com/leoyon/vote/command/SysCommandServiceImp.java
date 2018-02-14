@@ -60,5 +60,13 @@ public class SysCommandServiceImp implements SysCommandService {
 		return commandDao.all();
 	}
 
+	@Override
+	public boolean existed(Long id) {
+		
+		Long ret = commandDao.existed(id);
+		
+		return ret != null && ret.equals(id);
+	}
+
 
 }

@@ -13,4 +13,8 @@ public interface SysRoleDao {
 
 	void update(SysRole role);
 
+	List<SysRole> all();
+
+	Long existed(Long id);
+
 }

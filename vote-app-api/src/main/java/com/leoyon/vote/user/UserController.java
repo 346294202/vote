@@ -40,7 +40,7 @@ public class UserController {
 		try{
 			User user = userService.add(mobile, password);
 			Token token = userService.fetchToken(user);			
-			return JsonResponse.RespSuccess(token);
+			return JsonResponse.sucess(token);
 		}catch(org.springframework.dao.DuplicateKeyException e) {
 			throw new ResponseException(Error.USER_REGISTER_FAIL_DUPLICATED);
 		}
@@ -67,6 +67,6 @@ public class UserController {
 		
 		Token token = userService.fetchToken(user);
 		
-		return JsonResponse.RespSuccess(token);
+		return JsonResponse.sucess(token);
 	}
 }

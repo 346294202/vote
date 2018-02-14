@@ -1,5 +1,6 @@
 package test.com.leoyon.vote;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class SysUserControllerTests extends BaseWebTests {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();		
-		setToken(1L);
+		setToken(defUID);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -76,5 +77,42 @@ public class SysUserControllerTests extends BaseWebTests {
 		Assert.assertFalse(Boolean.valueOf(list.get(0).get("active")+""));
 	}
 	
+
+	@Test
+	public void seUserRoles() throws Exception {
+		Long uid = 2L;
+
+		dbUtil.insert("sys_user", M.map()
+				.put("id", uid)
+				.put("username", "wj")
+				.build());		
+		
+		List<Map<String, Object>> list = Arrays.asList(
+				M.map()
+				.put("id", 1L)
+				.put("name", "经理")
+				.put("so", 1)
+				.put("remark", "一般")
+				.build(),
+				M.map()
+				.put("id", 2L)
+				.put("name", "主管")
+				.put("so", 2)
+				.put("remark", "一般")
+				.build(),
+				M.map()
+				.put("id", 3L)
+				.put("name", "客服")
+				.put("so", 3)
+				.put("remark", "一般")
+				.build()
+				);
+		
+		dbUtil.insert("sys_role", list);
+		
+		JsonResponse r = restTemplate.postForObject("/sys/user/1/role",
+				"1,3", JsonResponse.class);
+		assertSucess(r);		
+	}
 	
 }

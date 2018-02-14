@@ -24,7 +24,7 @@ public class SysCommandController extends AuthenticationController {
 	@GetMapping(value="/sys/command/all", name="获取所有菜单")
 	@ApiDocAnnotation(params={})
 	public JsonResponse all() {
-		return JsonResponse.RespSuccess(new M<>()
+		return JsonResponse.sucess(new M<>()
 				.put("items", service.all())
 				.build());		
 	}
@@ -36,7 +36,7 @@ public class SysCommandController extends AuthenticationController {
 			"psize 每页个数，整数，可选，缺省20"
 	})
 	public JsonResponse find(FindSysCommandRequest rqst) {
-		return JsonResponse.RespSuccess(new M<>()
+		return JsonResponse.sucess(new M<>()
 				.put("items", service.find(rqst))
 				.build());		
 	}
@@ -51,7 +51,7 @@ public class SysCommandController extends AuthenticationController {
 	})
 	public JsonResponse add(@RequestBody SysCommand command) {
 		service.add(command);
-		return JsonResponse.RespSuccess();
+		return JsonResponse.sucess();
 	}
 	
 	@PostMapping(value="/sys/command/{id}", name="修改系统菜单")
@@ -67,6 +67,6 @@ public class SysCommandController extends AuthenticationController {
 			@RequestBody SysCommand command) {
 		command.setId(id);
 		service.update(command);
-		return JsonResponse.RespSuccess();
+		return JsonResponse.sucess();
 	}
 }

@@ -20,6 +20,7 @@ import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.api.Token;
 import com.leoyon.vote.util.M;
+import com.leoyon.vote.util.Parses;
 
 @RestController
 @Scope("prototype")
@@ -68,7 +69,7 @@ public class SysUserController extends GeneralController{
 		
 		Token token = userService.fetchToken(user);
 		
-		return JsonResponse.RespSuccess(token);
+		return JsonResponse.sucess(token);
 	}
 	
 	@GetMapping(value="/sys/user", name="查询系统用户")
@@ -83,7 +84,7 @@ public class SysUserController extends GeneralController{
 	public JsonResponse find(
 			FindSysUserRequest req
 			) {	
-		return JsonResponse.RespSuccess(new M<>()
+		return JsonResponse.sucess(new M<>()
 				.put("items", userService.find(req))
 				.build());		
 	}
@@ -105,7 +106,7 @@ public class SysUserController extends GeneralController{
 		user.setPassword(pswd);
 		userService.add(user);
 		
-		return JsonResponse.RespSuccess();
+		return JsonResponse.sucess();
 	}
 	
 	@PostMapping(value="/sys/user/{id}", name="修改系统用户")
@@ -122,6 +123,27 @@ public class SysUserController extends GeneralController{
 		user.setId(id);		
 		userService.update(user);
 		
-		return JsonResponse.RespSuccess();
+		return JsonResponse.sucess();
+	}
+	
+	@Autowired
+	private SysUserRoleService sysUserRoleService; 
+	
+	@GetMapping(value="/sys/user/{id}/role", name="获得用户角色")
+	public JsonResponse getUserRoles(@PathVariable(value="id") Long id) {
+		return JsonResponse.sucess(new M<>()
+				.put("items", sysUserRoleService.getUserRoles(id))
+				.build());	
+	}
+	
+	@PostMapping(value="/sys/user/{id}/role", name="修改用户角色")
+	@ApiDocAnnotation(params={
+			"角色id数组，字符串，格式为'id,id,id'，必须"
+	})
+	public JsonResponse setUserRoles(
+			@PathVariable Long id, 
+			@RequestBody String ids) throws Exception {
+		sysUserRoleService.setUserRoles(id, Parses.parseList(ids, Long.class, ","));
+		return JsonResponse.sucess();
 	}
 }

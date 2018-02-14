@@ -16,4 +16,6 @@ public interface SysCommandService {
 
 	List<SysCommand>  all();
 
+	boolean existed(Long id);
+
 }

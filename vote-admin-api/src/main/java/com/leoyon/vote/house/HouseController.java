@@ -30,7 +30,7 @@ public class HouseController extends AuthenticationController {
 			"psize 每页个数，整数，可选，缺省20"
 	})
 	public JsonResponse find(FindHouseRequest reqst) {
-		return JsonResponse.RespSuccess(new M<>()
+		return JsonResponse.sucess(new M<>()
 				.put("items", houseService.find(reqst))
 				.build());	
 	}
@@ -47,7 +47,7 @@ public class HouseController extends AuthenticationController {
 	})
 	public JsonResponse add(@RequestBody House house) {
 		houseService.add(house);
-		return JsonResponse.RespSuccess();
+		return JsonResponse.sucess();
 	}
 	
 	@PostMapping(value="/house/{id}", name="修改房屋")
@@ -66,6 +66,6 @@ public class HouseController extends AuthenticationController {
 			) {
 		house.setId(id);
 		houseService.update(house);
-		return JsonResponse.RespSuccess();
+		return JsonResponse.sucess();
 	}
 }

@@ -12,6 +12,7 @@ import com.leoyon.doc.ApiDocAnnotation;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.util.M;
+import com.leoyon.vote.util.Parses;
 
 @RestController
 @Scope("prototype")
@@ -19,6 +20,13 @@ public class SysRoleController extends AuthenticationController {
 	
 	@Autowired
 	private SysRoleService sysRoleService;
+	
+	@GetMapping(value="/sys/role/all", name="获取全部角色")
+	public JsonResponse all() {
+		return JsonResponse.sucess(new M<>()
+				.put("items", sysRoleService.all())
+				.build());		
+	}
 
 	@GetMapping(value="/sys/role", name="查询系统角色")
 	@ApiDocAnnotation(params={
@@ -27,7 +35,7 @@ public class SysRoleController extends AuthenticationController {
 			"psize 每页个数，整数，可选，缺省20"
 	})
 	public JsonResponse find(FindSysRoleRequest rqst) {
-		return JsonResponse.RespSuccess(new M<>()
+		return JsonResponse.sucess(new M<>()
 				.put("items", sysRoleService.find(rqst))
 				.build());		
 	}
@@ -40,7 +48,7 @@ public class SysRoleController extends AuthenticationController {
 	})
 	public JsonResponse add(@RequestBody SysRole role) {
 		sysRoleService.add(role);
-		return JsonResponse.RespSuccess();
+		return JsonResponse.sucess();
 	}
 	
 	@PostMapping(value="/sys/role/{id}", name="修改系统角色")
@@ -54,6 +62,28 @@ public class SysRoleController extends AuthenticationController {
 			@RequestBody SysRole role) {
 		role.setId(id);
 		sysRoleService.update(role);
-		return JsonResponse.RespSuccess();
+		return JsonResponse.sucess();
+	}
+	
+	@Autowired
+	private SysRoleCommandService sysRoleCommandService;
+	
+	@GetMapping(value="/sys/role/{id}/command", name="获得角色绑定的菜单")
+	@ApiDocAnnotation(params={})
+	public JsonResponse getRoleCommands(@PathVariable Long id) {
+		return JsonResponse.sucess(new M<>()
+				.put("ids", sysRoleCommandService.getRoleCommands(id))
+				.build());
+	}
+	
+	@PostMapping(value="/sys/role/{id}/command", name="修改角色菜单")
+	@ApiDocAnnotation(params={
+			"菜单id数组，字符串，格式为'id,id,id'，必须"
+	})
+	public JsonResponse setRoleCommands(
+			@PathVariable Long id, 
+			@RequestBody String ids) throws Exception {
+		sysRoleCommandService.setRoleCommands(id, Parses.parseList(ids, Long.class, ","));
+		return JsonResponse.sucess();
 	}
 }

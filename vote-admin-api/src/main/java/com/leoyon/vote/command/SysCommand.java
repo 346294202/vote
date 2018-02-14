@@ -1,5 +1,10 @@
 package com.leoyon.vote.command;
 
+import java.util.List;
+import java.util.Vector;
+
+import org.apache.commons.lang3.StringUtils;
+
 public class SysCommand {
 	
 	private long id;//	bigint	20	0	0	-1	0	0	0		0					-1	0
@@ -50,5 +55,20 @@ public class SysCommand {
 		this.icon = icon;
 		return this;
 	}
+	
+	public static void colleatLeafs(Long id, List<SysCommand> commands, List<Long> leafs) {
+		
+		for(SysCommand c:commands) {
+			if(id.equals(c.getId())) {
+				if(!StringUtils.isBlank(c.getUrl())) {//is leaf
+					leafs.add(id);
+				} else if(id.equals(c.getParentId())) {
+					colleatLeafs(c.getId(), commands, leafs);
+				}
+			}
+		}
+		
+	}
+
 
 }
