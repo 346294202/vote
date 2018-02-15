@@ -1,7 +1,6 @@
 package com.leoyon.vote.user;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,14 +42,10 @@ public class SysUserController extends GeneralController{
 	public JsonResponse login(
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password,
-			@RequestParam(value = "key", required=false) String key,
+			@RequestParam(value = "key") String key,
 			@RequestParam(value = "code") String code
 			) throws Exception {
-		
-		if(StringUtils.isBlank(key)) {
-			key = getCookie(VerifyCode.KEY_NAME);
-		}
-		
+				
 		LOG.info(key+": "+code);
 		
 		if(!verifyService.verify(key, code)) {

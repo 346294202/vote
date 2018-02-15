@@ -21,14 +21,15 @@ public class BaseWebTests extends BaseDbTests {
 
 	@Autowired
 	protected TestRestTemplate restTemplate;
+	
+	String username = "15158087185";
+	String password = "123456";
 
 	public BaseWebTests() {
 		super();
 	}
 
 	protected void setToken(Long uid) throws Exception {
-		String username = "15158087185";
-		String password = "123456";
 		String salt = "sdasdasd";
 		
 		dbUtil.insert("sys_user", new M<String,Object>()

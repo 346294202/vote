@@ -7,6 +7,8 @@ import java.util.Map;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 public class JsonResponse implements Serializable {
@@ -49,6 +51,7 @@ public class JsonResponse implements Serializable {
 	}
 	
 	@SuppressWarnings("unchecked")
+	@JsonIgnore
 	public Map<String, Object> getMap() {
 		return (Map<String, Object>) getData();
 	}
