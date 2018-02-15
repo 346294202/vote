@@ -10,6 +10,21 @@ public class House {
 	private Integer houseType;
 	private Integer houseStatus;
 	private String remark;
+	private Float constructionArea;
+	private Float netArea;
+	
+	public Float getConstructionArea() {
+		return constructionArea;
+	}
+	public void setConstructionArea(Float constructionArea) {
+		this.constructionArea = constructionArea;
+	}
+	public Float getNetArea() {
+		return netArea;
+	}
+	public void setNetArea(Float netArea) {
+		this.netArea = netArea;
+	}
 	public Long getId() {
 		return id;
 	}

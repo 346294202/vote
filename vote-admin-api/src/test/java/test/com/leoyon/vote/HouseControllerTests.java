@@ -25,7 +25,7 @@ public class HouseControllerTests extends BaseWebTests {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-		dbUtil.clear("vote_house");
+		dbUtil.clear("basic_house");
 		setToken(defUID);
 	}
 
@@ -80,7 +80,7 @@ public class HouseControllerTests extends BaseWebTests {
 				.build()
 				);
 		
-		dbUtil.insert("vote_house", list);
+		dbUtil.insert("basic_house", list);
 		
 		JsonResponse r = restTemplate.getForObject("/house", JsonResponse.class);
 		assertSucess(r);
@@ -100,7 +100,7 @@ public class HouseControllerTests extends BaseWebTests {
 		JsonResponse r = restTemplate.postForObject("/house", house, JsonResponse.class);
 		assertSucess(r);
 		
-		List<Map<String, Object>> list = dbUtil.select("select * from vote_house");
+		List<Map<String, Object>> list = dbUtil.select("select * from basic_house");
 		Assert.assertEquals("新增", list.get(0).get("remark"));
 		Long id = (Long) list.get(0).get("id");
 		
@@ -109,7 +109,7 @@ public class HouseControllerTests extends BaseWebTests {
 		r = restTemplate.postForObject("/house/"+id, house, JsonResponse.class);
 		assertSucess(r);
 		
-		list = dbUtil.select("select * from vote_house");
+		list = dbUtil.select("select * from basic_house");
 		Assert.assertEquals("修改", list.get(0).get("remark"));
 	}
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.leoyon.vote.house.dao.HouseDao">
 	
 	<select id="listByOwner" parameterType="Long" resultType="com.leoyon.vote.house.House">
-	select * from vote_house h join vote_house_user hu on hu.house_id=h.id and hu.user_id=#{uid} and hu.active=1;
+	select * from basic_house h join basic_house_user hu on hu.house_id=h.id and hu.user_id=#{uid} and hu.active=1;
 	</select>	
 	
 </mapper>

@@ -3,13 +3,13 @@
 <mapper namespace="com.leoyon.vote.house.dao.HouseDao">
 	
 	<insert id="add" parameterType="com.leoyon.vote.house.House" useGeneratedKeys="true" keyProperty="id">
-		insert into vote_house (area_id,building,unit,number,house_type,house_status,remark) values(
-			#{areaId},#{building},#{unit},#{number},#{houseType},#{houseStatus},#{remark}
+		insert into basic_house (area_id,building,unit,number,house_type,house_status,remark,construction_area,net_area) values(
+			#{areaId},#{building},#{unit},#{number},#{houseType},#{houseStatus},#{remark},#{constructionArea},#{netArea}
 		);
 	</insert>	
 	
 	<select id="find" parameterType="com.leoyon.vote.house.FindHouseRequest" resultType="com.leoyon.vote.house.House">
-		select * from vote_house 
+		select * from basic_house 
 		<where>
 			<if test="areaId != null">
 				and area_id=#{areaId}
@@ -28,14 +28,15 @@
 			</if>			
 			<if test="houseStatus != null">
 				and house_status=#{houseStatus}
-			</if>																	
+			</if>				
+																				
 		</where>
 		order by date_create desc
 		LIMIT #{page} , #{psize};
 	</select>
 	
 	<update id="update" parameterType="com.leoyon.vote.house.House">
-	update vote_house
+	update basic_house
 	<set>
 		<if test="areaId != null">
 				area_id = #{areaId},
@@ -58,6 +59,12 @@
 		<if test="remark != null and remark != ''">
 				remark = #{remark},
 		</if>	
+		<if test="constructionArea != null">
+			construction_area=#{constructionArea}
+		</if>			
+		<if test="netArea != null">
+			net_area=#{netArea}
+		</if>		
 	</set>
 	where id = #{id}	
 	</update>

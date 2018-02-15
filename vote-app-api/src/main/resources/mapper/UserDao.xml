@@ -3,17 +3,17 @@
 <mapper namespace="com.leoyon.vote.user.dao.UserDao">
 
 	<insert id="addUser" parameterType="com.leoyon.vote.user.User" useGeneratedKeys="true" keyProperty="id">
-		insert into vote_user (mobile, password, salt) values(
+		insert into basic_user (mobile, password, salt) values(
 			#{mobile}, #{password}, #{salt}
 		);
 	</insert>
 	
 	<select id="getUser" parameterType="String" resultType="com.leoyon.vote.user.User">
-	select * from vote_user where mobile=#{mobile} and active=1;
+	select * from basic_user where mobile=#{mobile} and active=1;
 	</select>
 	
 	<select id="getUserById" parameterType="Long" resultType="com.leoyon.vote.user.User">
-	select * from vote_user where id=#{id} and active=1;
+	select * from basic_user where id=#{id} and active=1;
 	</select>	
 	
 </mapper>

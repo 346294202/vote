@@ -10,7 +10,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.vote.api.Token;
 import com.leoyon.vote.user.VerifyCode;
 
 @RunWith(SpringJUnit4ClassRunner.class)
