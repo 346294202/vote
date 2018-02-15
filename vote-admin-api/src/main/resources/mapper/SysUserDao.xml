@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.leoyon.vote.user.dao.SysUserDao">
-
+	
+	<sql id="SelectColumns">
+		id,username,active,real_name,depart,phone,date_create,last_login_time,last_login_ip
+	</sql>
+	
 	<insert id="addUser" parameterType="com.leoyon.vote.user.SysUser" useGeneratedKeys="true" keyProperty="id">
 		insert into sys_user (username,password,salt,active,real_name,depart,phone) values(
 			#{username},#{password},#{salt},#{active},#{realName},#{depart},#{phone}
@@ -38,11 +42,11 @@
 	</select>
 	
 	<select id="getUserById" parameterType="Long" resultType="com.leoyon.vote.user.SysUser">
-		select * from sys_user where id=#{id} and active=1;
+		select <include refid="SelectColumns"/> from sys_user where id=#{id} and active=1;
 	</select>	
 	
 	<select id="findUser" parameterType="com.leoyon.vote.user.FindSysUserRequest" resultType="com.leoyon.vote.user.SysUser">
-		select * from sys_user 
+		select <include refid="SelectColumns"/> from sys_user 
 		<where>
 			<if test="q != null and q !=''">
 				and (username like '%${q}%' or real_name like '%${q}%') 

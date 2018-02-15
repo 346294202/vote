@@ -10,7 +10,8 @@ public class GeneralWebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new AllowCrossDomainHeaderInterceptor()).addPathPatterns("/**");
-		registry.addInterceptor(new TokenHandlerInterceptor()).addPathPatterns("/**")
+		registry.addInterceptor(new TokenHandlerInterceptor())
+			.addPathPatterns("/**")
 			.excludePathPatterns("/login")
 			.excludePathPatterns("/register")
 			.excludePathPatterns("/verify-code/**")

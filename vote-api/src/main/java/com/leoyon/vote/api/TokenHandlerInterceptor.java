@@ -11,12 +11,16 @@ public class TokenHandlerInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		String token = request.getHeader(Token.TOKEN_NAME);
-		if(StringUtils.isBlank(token)) {
-			throw new ResponseException(Error.TOKEN_EXCEPT);
-		}
 		
-		request.setAttribute(Token.TOKEN_NAME, token);
+		//OPTIONS不就行Token检查
+		if(!request.getMethod().equals("OPTIONS")) {
+			String token = request.getHeader(Token.TOKEN_NAME);
+			if(StringUtils.isBlank(token)) {
+				throw new ResponseException(Error.TOKEN_EXCEPT);
+			}
+			
+			request.setAttribute(Token.TOKEN_NAME, token);
+		}
 		
 		return super.preHandle(request, response, handler);
 	}
