@@ -5,7 +5,7 @@ server:
 db:
   url: jdbc:mysql://localhost:3306/vote_dev?useUnicode=true&characterEncoding=utf-8&useSSL=false
   username: root
-  password: 123456
+  password: 111
   
 app:
   tokenExpirSeconds: 10
