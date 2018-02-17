@@ -37,11 +37,16 @@ public class SysUserServiceImp implements SysUserService, SysUserRoleService {
 	}
 
 	@Override
-	public List<SysUser> find(FindSysUserRequest req) {
+	public List<com.leoyon.vote.user.FindSysUserresponse> find(FindSysUserRequest req) {
 		if(req.getPsize() < 1)
 			req.setPsize(appConfig.getPageSize());
 		req.setPage(req.getPage()*req.getPsize());
-		return userDao.findUser(req);
+		
+		List<FindSysUserresponse> ret = userDao.findUser(req);
+		for(FindSysUserresponse i:ret) {
+			i.setRoles(sysUserRoleDao.getUserRoles(i.getId()));
+		}
+		return ret;
 	}
 
 	@Override

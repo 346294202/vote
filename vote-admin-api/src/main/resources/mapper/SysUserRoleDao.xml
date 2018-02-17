@@ -5,7 +5,7 @@
 	<select id="getUserRoles" parameterType="Long" resultType="com.leoyon.vote.role.SysRole">
 		select c.* 
 		from sys_role c 
-		join sys_user_role uc on uc.active=1 and uc.role_id=c.id and uc.user_id=#{uid}
+		join sys_user_role uc on uc.role_id=c.id and uc.user_id=#{uid}
 	</select>	
 	
 	<delete id="clearUserRoles" parameterType="Long">

@@ -13,7 +13,7 @@ public interface SysUserDao {
 	
 	SysUser getUserById(Long id);
 
-	List<SysUser> findUser(FindSysUserRequest request);
+	List<com.leoyon.vote.user.FindSysUserresponse> findUser(FindSysUserRequest request);
 
 	void updateUser(SysUser user);
 }

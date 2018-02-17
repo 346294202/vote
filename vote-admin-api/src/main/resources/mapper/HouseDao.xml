@@ -9,29 +9,40 @@
 	</insert>	
 	
 	<select id="find" parameterType="com.leoyon.vote.house.FindHouseRequest" resultType="com.leoyon.vote.house.House">
-		select * from basic_house 
+		select h.* from basic_house h
 		<where>
 			<if test="areaId != null">
-				and area_id=#{areaId}
+				and h.area_id=#{areaId}
 			</if>
 			<if test="building != null">
-				and building=#{building}
+				and h.building=#{building}
 			</if>		
 			<if test="unit != null">
-				and unit=#{unit}
+				and h.unit=#{unit}
 			</if>		
 			<if test="unit != null">
-				and number=#{number}
+				and h.number=#{number}
 			</if>				
 			<if test="houseType != null">
-				and house_type=#{houseType}
+				and h.house_type=#{houseType}
 			</if>			
 			<if test="houseStatus != null">
-				and house_status=#{houseStatus}
-			</if>				
-																				
+				and h.house_status=#{houseStatus}
+			</if>	
+			<if test="ownerName != null and ownerName != ''">
+				and h.id in (
+					select house_id from basic_user_house hu
+					join basic_user u on u.id=hu.user_id and u.real_name like '%${ownerName}%'
+				)
+			</if>	
+			<if test="ownerMobile != null and ownerMobile != ''">
+				and h.id in (
+					select house_id from basic_user_house hu
+					join basic_user u on u.id=hu.user_id and u.mobile=#{ownerMobile}
+				)
+			</if>	
 		</where>
-		order by date_create desc
+		order by h.date_create desc
 		LIMIT #{page} , #{psize};
 	</select>
 	

@@ -27,9 +27,11 @@ public class FindHouseRequestArgumentResolver implements HandlerMethodArgumentRe
 				Parses.parse(webRequest.getParameter("unit"), Integer.class, null),
 				Parses.parse(webRequest.getParameter("number"), Integer.class, null),
 				Parses.parse(webRequest.getParameter("page"), Integer.class, 0),
-				Parses.parse(webRequest.getParameter("psize"), Integer.class, 20),				
+				Parses.parse(webRequest.getParameter("psize"), Integer.class, 20),
 				Parses.parse(webRequest.getParameter("houseType"), Integer.class, null),
-				Parses.parse(webRequest.getParameter("houseStatus"), Integer.class, null)	
+				Parses.parse(webRequest.getParameter("houseStatus"), Integer.class, null),
+				webRequest.getParameter("ownerName"),
+				webRequest.getParameter("ownerMobile")
 				);
 	}
 	

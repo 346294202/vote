@@ -48,7 +48,7 @@
 		select <include refid="SelectColumns"/> from sys_user where id=#{id} and active=1;
 	</select>	
 	
-	<select id="findUser" parameterType="com.leoyon.vote.user.FindSysUserRequest" resultType="com.leoyon.vote.user.SysUser">
+	<select id="findUser" parameterType="com.leoyon.vote.user.FindSysUserRequest" resultType="com.leoyon.vote.user.FindSysUserresponse">
 		select <include refid="SelectColumns"/> from sys_user 
 		<where>
 			<if test="q != null and q !=''">

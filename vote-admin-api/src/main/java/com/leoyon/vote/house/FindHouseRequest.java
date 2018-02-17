@@ -10,9 +10,11 @@ public class FindHouseRequest {
 	private Integer psize;
 	private Integer houseType;
 	private Integer houseStatus;
-	
+	private String ownerName;
+	private String ownerMobile;
+
 	public FindHouseRequest(Long areaId, Integer building, Integer unit, Integer number, Integer page, Integer psize,
-			Integer houseType, Integer houseStatus) {
+			Integer houseType, Integer houseStatus, String ownerName, String ownerMobile) {
 		super();
 		this.areaId = areaId;
 		this.building = building;
@@ -22,6 +24,24 @@ public class FindHouseRequest {
 		this.psize = psize;
 		this.houseType = houseType;
 		this.houseStatus = houseStatus;
+		this.ownerName = ownerName;
+		this.ownerMobile = ownerMobile;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public String getOwnerMobile() {
+		return ownerMobile;
+	}
+
+	public void setOwnerMobile(String ownerMobile) {
+		this.ownerMobile = ownerMobile;
 	}
 
 	public Integer getHouseType() {

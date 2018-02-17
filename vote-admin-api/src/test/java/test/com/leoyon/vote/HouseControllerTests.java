@@ -25,7 +25,9 @@ public class HouseControllerTests extends BaseWebTests {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
+		dbUtil.clear("basic_user");
 		dbUtil.clear("basic_house");
+		dbUtil.clear("basic_user_house");
 		setToken(defUID);
 	}
 
@@ -34,6 +36,7 @@ public class HouseControllerTests extends BaseWebTests {
 		
 		List<Map<String, Object>> list = Arrays.asList(
 				M.map()
+				.put("id", 1L)
 				.put("area_id", 1L)
 				.put("building", 1)
 				.put("unit", 1)
@@ -43,6 +46,7 @@ public class HouseControllerTests extends BaseWebTests {
 				.put("remark", "待出租")
 				.build(),
 				M.map()
+				.put("id", 2L)
 				.put("area_id", 1L)
 				.put("building", 1)
 				.put("unit", 2)
@@ -52,6 +56,7 @@ public class HouseControllerTests extends BaseWebTests {
 				.put("remark", "待出租")
 				.build(),
 				M.map()
+				.put("id", 3L)
 				.put("area_id", 2L)
 				.put("building", 1)
 				.put("unit", 1)
@@ -61,6 +66,7 @@ public class HouseControllerTests extends BaseWebTests {
 				.put("remark", "待出租")
 				.build(),
 				M.map()
+				.put("id", 4L)
 				.put("area_id", 2L)
 				.put("building", 1)
 				.put("unit", 2)
@@ -70,6 +76,7 @@ public class HouseControllerTests extends BaseWebTests {
 				.put("remark", "待出租")
 				.build(),
 				M.map()
+				.put("id", 5L)
 				.put("area_id", 3L)
 				.put("building", 1)
 				.put("unit", 1)
@@ -82,8 +89,45 @@ public class HouseControllerTests extends BaseWebTests {
 		
 		dbUtil.insert("basic_house", list);
 		
-		JsonResponse r = restTemplate.getForObject("/house", JsonResponse.class);
+		JsonResponse r = restTemplate.getForObject("/basic/house", JsonResponse.class);
 		assertSucess(r);
+		Assert.assertEquals(list.size(), ((List<?>)r.getMap().get("items")).size());
+		
+		dbUtil.insert("basic_user", Arrays.asList(
+				M.map()
+				.put("id", 1L)
+				.put("mobile", "15158778921")
+				.put("password", "1")
+				.put("salt", "1")
+				.build(),
+				M.map()
+				.put("id", 2L)
+				.put("mobile", "13920341977")
+				.put("password", "1")
+				.put("salt", "1")
+				.build()
+				));
+		
+		dbUtil.insert("basic_user_house", Arrays.asList(
+				M.map()
+				.put("user_id", 1L)
+				.put("house_id", 1L)
+				.build(),
+				M.map()
+				.put("user_id", 1L)
+				.put("house_id", 2L)
+				.build(),
+				M.map()
+				.put("user_id", 2L)
+				.put("house_id", 3L)
+				.build()
+				));
+		
+		r = restTemplate.getForObject("/basic/house?ownerMobile={ownerMobile}", JsonResponse.class, M.map()
+				.put("ownerMobile", "15158778921")
+				.build());
+		assertSucess(r);
+		Assert.assertEquals(2, ((List<?>)r.getMap().get("items")).size());
 	}
 	
 	@Test
@@ -97,7 +141,7 @@ public class HouseControllerTests extends BaseWebTests {
 		house.setHouseStatus(1);
 		house.setRemark("新增");
 		
-		JsonResponse r = restTemplate.postForObject("/house", house, JsonResponse.class);
+		JsonResponse r = restTemplate.postForObject("/basic/house", house, JsonResponse.class);
 		assertSucess(r);
 		
 		List<Map<String, Object>> list = dbUtil.select("select * from basic_house");
@@ -106,7 +150,7 @@ public class HouseControllerTests extends BaseWebTests {
 		
 		house = new House();
 		house.setRemark("修改");
-		r = restTemplate.postForObject("/house/"+id, house, JsonResponse.class);
+		r = restTemplate.postForObject("/basic/house/"+id, house, JsonResponse.class);
 		assertSucess(r);
 		
 		list = dbUtil.select("select * from basic_house");

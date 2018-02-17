@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.leoyon.vote.Passwords;
 import com.leoyon.vote.api.JsonResponse;
+import com.leoyon.vote.user.FindSysUserresponse;
 import com.leoyon.vote.user.SysUser;
 import com.leoyon.vote.util.M;
 
@@ -26,6 +27,7 @@ public class SysUserControllerTests extends BaseWebTests {
 	public void setUp() throws Exception {
 		super.setUp();		
 		setToken(defUID);
+		dbUtil.clear("sys_role");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -39,16 +41,67 @@ public class SysUserControllerTests extends BaseWebTests {
 		JsonResponse r = restTemplate.getForObject("/sys/user", JsonResponse.class);
 		assertSucess(r);
 		
-		List<SysUser> users = (List<SysUser>) ((Map<String, Object>) r.getData()).get("items");		
+		List<Map<String, Object>> users = (List<Map<String, Object>>) ((Map<String, Object>) r.getData()).get("items");		
 		Assert.assertEquals(list.size()+1, users.size());
 		
 		r = restTemplate.getForObject("/sys/user?q={q}", JsonResponse.class, M.map().put("q", "wj").build());
-		users = (List<SysUser>) ((Map<String, Object>) r.getData()).get("items");		
+		users = (List<Map<String, Object>>) ((Map<String, Object>) r.getData()).get("items");		
 		Assert.assertEquals(3, users.size());
 		
 		r = restTemplate.getForObject("/sys/user?active={active}", JsonResponse.class, M.map().put("active", 0).build());
-		users = (List<SysUser>) ((Map<String, Object>) r.getData()).get("items");		
+		users = (List<Map<String, Object>>) ((Map<String, Object>) r.getData()).get("items");		
 		Assert.assertEquals(2, users.size());
+		
+		dbUtil.insert("sys_role", Arrays.asList(
+				M.map()
+				.put("id", 1L)
+				.put("name", "Menu1")
+				.build(),
+				M.map()
+				.put("id", 2L)
+				.put("name", "Menu2")
+				.build(),
+				M.map()
+				.put("id", 3L)
+				.put("name", "Menu3")
+				.build(),
+				M.map()
+				.put("id", 4L)
+				.put("name", "Menu4")
+				.build(),
+				M.map()
+				.put("id", 5L)
+				.put("name", "Menu5")
+				.build()
+				));
+		
+		dbUtil.insert("sys_user_role", Arrays.asList(
+				M.map()
+				.put("user_id", users.get(0).get("id"))
+				.put("role_id", 1L)
+				.build(),
+				M.map()
+				.put("user_id", users.get(0).get("id"))
+				.put("role_id", 2L)
+				.build(),
+				M.map()
+				.put("user_id", users.get(1).get("id"))
+				.put("role_id", 1L)
+				.build(),
+				M.map()
+				.put("user_id", users.get(1).get("id"))
+				.put("role_id", 2L)
+				.build(),
+				M.map()
+				.put("user_id", users.get(1).get("id"))
+				.put("role_id", 3L)
+				.build()
+				));
+		
+		r = restTemplate.getForObject("/sys/user?active={active}", JsonResponse.class, M.map().put("active", 0).build());
+		users = (List<Map<String, Object>>) ((Map<String, Object>) r.getData()).get("items");		
+		Assert.assertEquals(2, ((List<Map<String, Object>>)users.get(0).get("roles")).size());
+		
 	}
 
 	@Test

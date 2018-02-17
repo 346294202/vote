@@ -21,12 +21,14 @@ public class HouseController extends AuthenticationController {
 	@Autowired
 	private HouseService houseService;
 
-	@GetMapping(value="/house", name="查询房屋")
+	@GetMapping(value="/basic/house", name="查询房屋")
 	@ApiDocAnnotation(params={
 			"areaId 小区id，整数，可选", 
 			"building 楼栋号，整数，可选", 
 			"unit 单元，整数，可选", 
 			"number 房号，整数，可选", 
+			"ownerName 业主姓名，模糊查询，字符串，可选", 
+			"ownerMobile 业主手机，字符串，可选", 
 			"page 页数，整数，可选，缺省0", 
 			"psize 每页个数，整数，可选，缺省20"
 	})
@@ -36,7 +38,7 @@ public class HouseController extends AuthenticationController {
 				.build());	
 	}
 	
-	@PostMapping(value="/house", name="新增房屋")
+	@PostMapping(value="/basic/house", name="新增房屋")
 	@ApiDocAnnotation(params={
 			"areaId 小区id，整数，必须",
 			"building 楼栋，整数，必须",
@@ -52,7 +54,7 @@ public class HouseController extends AuthenticationController {
 		return JsonResponse.sucess();
 	}
 	
-	@PostMapping(value="/house/{id}", name="修改房屋")
+	@PostMapping(value="/basic/house/{id}", name="修改房屋")
 	@ApiDocAnnotation(params={
 			"areaId 小区id，整数",
 			"building 楼栋，整数",
