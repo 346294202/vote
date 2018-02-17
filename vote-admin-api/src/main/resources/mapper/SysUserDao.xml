@@ -32,6 +32,9 @@
 		</if>					
 		<if test="phone != null and phone != ''">
 				phone = #{phone},
+		</if>		
+		<if test="updateUid != null">
+				update_uid=#{updateUid},
 		</if>							
 	</set>
 	where id = #{id}

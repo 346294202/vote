@@ -1,4 +1,5 @@
-insert into sys_user(username,password,salt,active,superuser,staff,email) values('admin','VP_62BF8F958C8BCC37A15C4C9C69A20049','wqdszc',1,1,1,'346204202@qq.com');
+insert into sys_user(username,password,salt,active) 
+values('admin','VP_62BF8F958C8BCC37A15C4C9C69A20049','wqdszc',1);
 
 INSERT INTO `sys_command` VALUES ('1', '0', '系统管理',  '', '1');
 INSERT INTO `sys_command` VALUES ('2', '1', '用户管理',  'sys/userInfo.html', '1');

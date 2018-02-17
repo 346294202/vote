@@ -25,8 +25,12 @@
 		</if>					
 		<if test="remark != null and remark != ''">
 				remark = #{remark},
+		</if>
+		<if test="updateUid != null">
+				update_uid=#{updateUid},
 		</if>							
 	</set>
+	
 	where id = #{id}
 	</update>
 		

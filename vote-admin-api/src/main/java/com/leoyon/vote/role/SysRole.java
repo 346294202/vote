@@ -1,6 +1,8 @@
 package com.leoyon.vote.role;
 
-public class SysRole {
+import com.leoyon.vote.AdminPojo;
+
+public class SysRole extends AdminPojo{
 	
 	private Long id;
 	private String name;

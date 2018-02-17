@@ -19,7 +19,10 @@
 		</if>	
 		<if test="so != null">
 				so = #{so},
-		</if>				
+		</if>			
+		<if test="updateUid != null">
+				update_uid=#{updateUid},
+		</if>			
 	</set>
 	where id = #{id}
 	</update>

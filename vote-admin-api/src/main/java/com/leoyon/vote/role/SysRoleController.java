@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.leoyon.doc.ApiDocAnnotation;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
+import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.M;
 import com.leoyon.vote.util.Parses;
 
@@ -46,8 +47,9 @@ public class SysRoleController extends AuthenticationController {
 			"so 排序号，整数，可选，缺省0",
 			"remark 备注，字符串，可选，最大255字符",
 	})
-	public JsonResponse add(@RequestBody SysRole role) {
-		sysRoleService.add(role);
+	public JsonResponse add(@RequestBody SysRole entity) throws ResponseException {
+		entity.setUpdateUid(getLogin(false).getId());
+		sysRoleService.add(entity);
 		return JsonResponse.sucess();
 	}
 	
@@ -59,9 +61,10 @@ public class SysRoleController extends AuthenticationController {
 	})
 	public JsonResponse update(
 			@PathVariable Long id,
-			@RequestBody SysRole role) {
-		role.setId(id);
-		sysRoleService.update(role);
+			@RequestBody SysRole entity) throws ResponseException {
+		entity.setUpdateUid(getLogin(false).getId());
+		entity.setId(id);
+		sysRoleService.update(entity);
 		return JsonResponse.sucess();
 	}
 	

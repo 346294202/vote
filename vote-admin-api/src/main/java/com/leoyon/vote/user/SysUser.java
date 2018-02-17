@@ -4,9 +4,10 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.leoyon.vote.AdminPojo;
 import com.leoyon.vote.Passwords;
 
-public class SysUser {
+public class SysUser extends AdminPojo{
 	
 	private Long id;
 	private String username;
@@ -16,7 +17,6 @@ public class SysUser {
 	private String realName;
 	private String depart;
 	private String phone;
-	private Date dateCreate;
 	private Date lastLoginTime;
 	private Date lastLoginIp;
 
@@ -50,14 +50,6 @@ public class SysUser {
 
 	public void setActive(Boolean active) {
 		this.active = active;
-	}
-
-	public Date getDateCreate() {
-		return dateCreate;
-	}
-
-	public void setDateCreate(Date dateCreate) {
-		this.dateCreate = dateCreate;
 	}
 
 	public Date getLastLoginTime() {

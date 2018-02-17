@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.leoyon.doc.ApiDocAnnotation;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
+import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.M;
 
 @RestController
@@ -47,7 +48,8 @@ public class AreaController extends AuthenticationController {
 			"icon 图标编码，整数，可选，缺省1",
 			"so 排序号，整数，可选，缺省0",
 	})
-	public JsonResponse add(@RequestBody Area entity) {
+	public JsonResponse add(@RequestBody Area entity) throws ResponseException {
+		entity.setUpdateUid(getLogin(false).getId());
 		areaService.add(entity);
 		return JsonResponse.sucess();
 	}
@@ -62,7 +64,8 @@ public class AreaController extends AuthenticationController {
 	})
 	public JsonResponse update(
 			@PathVariable Long id,
-			@RequestBody Area entity) {
+			@RequestBody Area entity) throws ResponseException {
+		entity.setUpdateUid(getLogin(false).getId());
 		entity.setId(id);
 		areaService.update(entity);
 		return JsonResponse.sucess();

@@ -5,7 +5,9 @@ import java.util.Vector;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class SysCommand {
+import com.leoyon.vote.AdminPojo;
+
+public class SysCommand extends AdminPojo {
 	
 	private long id;//	bigint	20	0	0	-1	0	0	0		0					-1	0
 	private long parentId;//	bigint	20	0	-1	0	0	0	0		0	上级命令id				0	0

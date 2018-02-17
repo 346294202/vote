@@ -1,71 +1,26 @@
 package com.leoyon.vote.user;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leoyon.doc.ApiDocAnnotation;
-import com.leoyon.vote.GeneralController;
-import com.leoyon.vote.api.Error;
+import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.vote.api.ResponseException;
-import com.leoyon.vote.api.Token;
 import com.leoyon.vote.util.M;
 import com.leoyon.vote.util.Parses;
 
 @RestController
 @Scope("prototype")
-public class SysUserController extends GeneralController{
+public class SysUserController extends AuthenticationController {
 	
-	private Logger LOG = LoggerFactory.getLogger(getClass());
-
 	@Autowired
 	private SysUserService userService;
-	
-	@Autowired
-	private VerifyService verifyService;
-
-	@PostMapping(value="/login", name="登录,no token")
-	@ApiDocAnnotation(params={
-			"username:用户名，字符串，必须，最大128字符", 
-			"password：密码，字符串，必须，最大128字符", 
-			"key 验证码key", 
-			"code 验证码"})
-	public JsonResponse login(
-			@RequestParam(value = "username") String username,
-			@RequestParam(value = "password") String password,
-			@RequestParam(value = "key") String key,
-			@RequestParam(value = "code") String code
-			) throws Exception {
-				
-		LOG.info(key+": "+code);
-		
-		if(!verifyService.verify(key, code)) {
-			throw new ResponseException(Error.VARIFY_FAILED);
-		}
-		
-		SysUser user = userService.get(username);
-		
-		if(user == null) {
-			throw new ResponseException(Error.USER_LOGIN_FAIL_NOT_EXSISTED);
-		}
-		
-		if(!user.matchPassword(password)) {
-			throw new ResponseException(Error.USER_LOGIN_FAIL);
-		}
-		
-		Token token = userService.fetchToken(user);
-		
-		return JsonResponse.sucess(token);
-	}
 	
 	@GetMapping(value="/sys/user", name="查询系统用户")
 	@ApiDocAnnotation(params={
@@ -93,14 +48,13 @@ public class SysUserController extends GeneralController{
 			"staff 是否员工，整数，可选，缺省1", 
 			"email 电邮，字符串，可选，最大128字符"})
 	public JsonResponse add(
-			@RequestBody SysUser user
+			@RequestBody SysUser entity
 			) throws Exception {
-		
-		String pswd = user.getPassword();
-		user.setSalt(RandomStringUtils.randomAlphabetic(16));
-		user.setPassword(pswd);
-		userService.add(user);
-		
+		entity.setUpdateUid(getLogin(false).getId());
+		String pswd = entity.getPassword();
+		entity.setSalt(RandomStringUtils.randomAlphabetic(16));
+		entity.setPassword(pswd);
+		userService.add(entity);
 		return JsonResponse.sucess();
 	}
 	
@@ -112,11 +66,11 @@ public class SysUserController extends GeneralController{
 			"email 电邮，字符串，可选，最大128字符"})
 	public JsonResponse update(
 			@PathVariable(value="id") Long id,
-			@RequestBody SysUser user
+			@RequestBody SysUser entity
 			) throws Exception {
-		
-		user.setId(id);		
-		userService.update(user);
+		entity.setUpdateUid(getLogin(false).getId());
+		entity.setId(id);		
+		userService.update(entity);
 		
 		return JsonResponse.sucess();
 	}

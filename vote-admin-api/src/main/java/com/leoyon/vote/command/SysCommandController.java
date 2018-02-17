@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.leoyon.doc.ApiDocAnnotation;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
+import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.M;
 
 
@@ -49,8 +50,9 @@ public class SysCommandController extends AuthenticationController {
 			"icon 图标编码，整数，可选，缺省1",
 			"so 排序号，整数，可选，缺省0",
 	})
-	public JsonResponse add(@RequestBody SysCommand command) {
-		service.add(command);
+	public JsonResponse add(@RequestBody SysCommand entity) throws ResponseException {
+		entity.setUpdateUid(getLogin(false).getId());
+		service.add(entity);
 		return JsonResponse.sucess();
 	}
 	
@@ -64,9 +66,10 @@ public class SysCommandController extends AuthenticationController {
 	})
 	public JsonResponse update(
 			@PathVariable Long id,
-			@RequestBody SysCommand command) {
-		command.setId(id);
-		service.update(command);
+			@RequestBody SysCommand entity) throws ResponseException {
+		entity.setUpdateUid(getLogin(false).getId());
+		entity.setId(id);
+		service.update(entity);
 		return JsonResponse.sucess();
 	}
 }

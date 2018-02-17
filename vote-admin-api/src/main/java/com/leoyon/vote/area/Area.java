@@ -1,6 +1,8 @@
 package com.leoyon.vote.area;
 
-public class Area {
+import com.leoyon.vote.AdminPojo;
+
+public class Area extends AdminPojo {
 	private Long id;//	bigint	20	0	0	0	0	0	0		0					-1	0
 	private String name;//	varchar	255	0	0	0	0	0	0		0		utf8mb4	utf8mb4_unicode_ci		0	0
 	private String address;//	varchar	255	0	-1	0	0	0	0		0		utf8mb4	utf8mb4_unicode_ci		0	0

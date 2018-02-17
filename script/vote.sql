@@ -26,6 +26,9 @@ CREATE TABLE `basic_area` (
   `developer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `service` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remark` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_create` timestamp default current_timestamp,
+  `update_time` timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP,
+  `update_uid` bigint(20),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -44,7 +47,9 @@ CREATE TABLE `basic_house` (
   `construction_area` float(255,0) DEFAULT NULL COMMENT '建筑面积',
   `net_area` float(255,0) DEFAULT NULL COMMENT '套内面积',
   `remark` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
-  `date_create` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_create` timestamp default current_timestamp,
+  `update_time` timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP,
+  `update_uid` bigint(20),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -59,6 +64,9 @@ CREATE TABLE `sys_command` (
   `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `icon` int(11) DEFAULT '1' COMMENT '图标编码：1，2，3，4，5',
   `so` int(255) DEFAULT '0' COMMENT '排序',
+    `date_create` timestamp default current_timestamp,
+  `update_time` timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP,
+  `update_uid` bigint(20),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -71,7 +79,9 @@ CREATE TABLE `sys_role` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `so` int(255) DEFAULT '0' COMMENT '排序号',
   `remark` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
-  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_create` timestamp default current_timestamp,
+  `update_time` timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP,
+  `update_uid` bigint(20),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -99,9 +109,11 @@ CREATE TABLE `sys_user` (
   `real_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '姓名',
   `depart` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '部门',
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_create` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `last_login_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `last_login_ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `date_create` timestamp default current_timestamp,
+  `update_time` timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP,
+  `update_uid` bigint(20),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uidx_username` (`username`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=510 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

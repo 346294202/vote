@@ -1,6 +1,8 @@
 package com.leoyon.vote.house;
 
-public class House {
+import com.leoyon.vote.AdminPojo;
+
+public class House extends AdminPojo {
 
 	private Long id;
 	private Long areaId;
