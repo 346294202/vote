@@ -1,5 +1,7 @@
 package com.leoyon.vote.user;
 
+import com.leoyon.doc.ApiParamCtor;
+
 public class FindUserRequest {
 	
 	private String q;
@@ -7,6 +9,7 @@ public class FindUserRequest {
 	private Integer psize;
 	private Integer active;
 	
+	@ApiParamCtor
 	public FindUserRequest(String q, Integer page, Integer psize, Integer active) {
 		super();
 		this.q = q;

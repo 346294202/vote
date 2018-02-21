@@ -1,5 +1,7 @@
 package com.leoyon.vote.role;
 
+import com.leoyon.doc.ApiParamCtor;
+
 public class FindSysRoleRequest {
 	
 	private String q;
@@ -7,6 +9,7 @@ public class FindSysRoleRequest {
 	private Integer psize;
 	private Integer active;
 	
+	@ApiParamCtor
 	public FindSysRoleRequest(String q, Integer page, Integer psize, Integer active) {
 		super();
 		this.q = q;

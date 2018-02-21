@@ -124,6 +124,11 @@
 						<source>${version.java}</source>
 						<target>${version.java}</target>
 						<encoding>${project.build.sourceEncoding}</encoding>
+						<forceJavacCompilerUse>true</forceJavacCompilerUse>
+						<fork>true</fork>
+						<compilerArgs>
+		                    <arg>-parameters</arg>
+		                </compilerArgs>
 					</configuration>
 				</plugin>
 

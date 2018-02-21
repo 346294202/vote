@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.leoyon.doc.ApiParam;
+import com.leoyon.doc.ApiParamCtor;
 import com.leoyon.doc.MethodItem;
 
 public class MethodItemTests {
@@ -70,6 +72,31 @@ public class MethodItemTests {
 			
 		}
 	}
+	
+	public static class FindUserRequest {
+		
+		private String q;
+		private Integer page;
+		private Integer size;
+		
+		@ApiParamCtor
+		public FindUserRequest(String q, Integer page, Integer size) {
+			super();
+			this.q = q;
+			this.page = page;
+			this.size = size;
+		}
+		
+	}
+	
+	public class MyController4 {
+		@GetMapping(value="/user", name="Find user")
+		public void FindUser(
+				FindUserRequest req
+				) {
+			
+		}
+	}
 
 	@Test
 	public void generate() {
@@ -77,9 +104,11 @@ public class MethodItemTests {
 		List<MethodItem> ms = MethodItem.generate(Arrays.asList(
 				new MyController1(), 
 				new MyController2(), 
-				new MyController3()));
+				new MyController3(),
+				new MyController4()
+				));
 		
-		assertEquals(3, ms.size());
+		assertEquals(4, ms.size());
 		int i = 0;
 		assertEquals("GET", ms.get(i).getMethod());
 		assertEquals("/user", ms.get(i).getPath());
@@ -97,6 +126,13 @@ public class MethodItemTests {
 		assertEquals("/user/{id}", ms.get(i).getPath());
 		assertEquals("Update user", ms.get(i).getName());
 		assertEquals(4, ms.get(i).getParams().size());
+		++i;
+		
+		assertEquals("GET", ms.get(i).getMethod());
+		assertEquals("/user", ms.get(i).getPath());
+		assertEquals("Find user", ms.get(i).getName());
+		assertEquals(3, ms.get(i).getParams().size());
+		++i;
 	}
 
 }

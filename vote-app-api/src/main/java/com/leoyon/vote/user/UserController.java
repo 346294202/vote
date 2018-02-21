@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.doc.ApiDoc;
 import com.leoyon.vote.api.Error;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.api.Token;
@@ -23,11 +22,6 @@ public class UserController {
 	private MobileVerifyService mobileVerifyService;
 
 	@PostMapping(value="/register", name="注册")
-	@ApiDoc(params={
-			"mobile:手机号，字符串，必须，最大13字符 ",
-			"password：密码，字符串，必须，最大128字符",
-			"code:验证码，字符串，必须，最大6字符",
-	})
 	public JsonResponse register(
 			@RequestParam(value = "mobile") String mobile,
 			@RequestParam(value = "password") String password,
@@ -47,10 +41,6 @@ public class UserController {
 	}
 	
 	@PostMapping(value="/login", name="登录")
-	@ApiDoc(params={
-			"mobile:手机号，字符串，必须，最大13字符 ",
-			"password：密码，字符串，必须，最大128字符",
-	})
 	public JsonResponse login(
 			@RequestParam(value = "mobile") String mobile,
 			@RequestParam(value = "password") String password) throws Exception {

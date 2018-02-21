@@ -10,6 +10,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ApiParam {
+	
+	String name() default "";
 
 	String desc() default "";
 

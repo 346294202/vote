@@ -1,5 +1,7 @@
 package com.leoyon.vote.command;
 
+import com.leoyon.doc.ApiParamCtor;
+
 public class FindSysCommandRequest {
 	
 	private String q;
@@ -7,6 +9,7 @@ public class FindSysCommandRequest {
 	private Integer psize;
 	private Integer active;
 	
+	@ApiParamCtor
 	public FindSysCommandRequest(String q, Integer page, Integer psize, Integer active) {
 		super();
 		this.q = q;

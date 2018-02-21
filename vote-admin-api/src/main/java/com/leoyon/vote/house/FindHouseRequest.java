@@ -1,5 +1,7 @@
 package com.leoyon.vote.house;
 
+import com.leoyon.doc.ApiParamCtor;
+
 public class FindHouseRequest {
 		
 	private Long areaId;
@@ -13,6 +15,7 @@ public class FindHouseRequest {
 	private String ownerName;
 	private String ownerMobile;
 
+	@ApiParamCtor
 	public FindHouseRequest(Long areaId, Integer building, Integer unit, Integer number, Integer page, Integer psize,
 			Integer houseType, Integer houseStatus, String ownerName, String ownerMobile) {
 		super();

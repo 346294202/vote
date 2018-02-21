@@ -1,5 +1,7 @@
 package com.leoyon.vote.area;
 
+import com.leoyon.doc.ApiParamCtor;
+
 public class FindAreaRequest {
 	
 	private String q;
@@ -7,6 +9,7 @@ public class FindAreaRequest {
 	private Integer psize;
 	private Integer active;
 	
+	@ApiParamCtor
 	public FindAreaRequest(String q, Integer page, Integer psize, Integer active) {
 		super();
 		this.q = q;
