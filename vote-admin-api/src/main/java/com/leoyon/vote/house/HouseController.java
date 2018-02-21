@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leoyon.doc.ApiDocAnnotation;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
@@ -22,16 +21,6 @@ public class HouseController extends AuthenticationController {
 	private HouseService houseService;
 
 	@GetMapping(value="/basic/house", name="查询房屋")
-	@ApiDocAnnotation(params={
-			"areaId 小区id，整数，可选", 
-			"building 楼栋号，整数，可选", 
-			"unit 单元，整数，可选", 
-			"number 房号，整数，可选", 
-			"ownerName 业主姓名，模糊查询，字符串，可选", 
-			"ownerMobile 业主手机，字符串，可选", 
-			"page 页数，整数，可选，缺省0", 
-			"psize 每页个数，整数，可选，缺省20"
-	})
 	public JsonResponse find(FindHouseRequest reqst) {
 		return JsonResponse.sucess(new M<>()
 				.put("items", houseService.find(reqst))
@@ -39,15 +28,6 @@ public class HouseController extends AuthenticationController {
 	}
 	
 	@PostMapping(value="/basic/house", name="新增房屋")
-	@ApiDocAnnotation(params={
-			"areaId 小区id，整数，必须",
-			"building 楼栋，整数，必须",
-			"unit 单元，整数，必须",
-			"number 房号，整数，必须",
-			"houseType 房屋类型，整数，必须",
-			"houseStatus 房屋状态，整数，必须",
-			"remark 备注，字符串，可选，最大255",
-	})
 	public JsonResponse add(@RequestBody House entity) throws ResponseException {
 		entity.setUpdateUid(getLogin(false).getId());
 		houseService.add(entity);
@@ -55,15 +35,6 @@ public class HouseController extends AuthenticationController {
 	}
 	
 	@PostMapping(value="/basic/house/{id}", name="修改房屋")
-	@ApiDocAnnotation(params={
-			"areaId 小区id，整数",
-			"building 楼栋，整数",
-			"unit 单元，整数",
-			"number 房号，整数",
-			"houseType 房屋类型，整数",
-			"houseStatus 房屋状态，整数",
-			"remark 备注，字符串，最大255",
-	})
 	public JsonResponse update(
 			@PathVariable(value="id") Long id,
 			@RequestBody House entity

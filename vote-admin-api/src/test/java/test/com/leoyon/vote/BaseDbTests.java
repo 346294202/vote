@@ -12,7 +12,7 @@ import com.leoyon.vote.util.M;
 public class BaseDbTests {
 	
 	protected Long defUID = 1L;
-	protected String defUname = "wj";
+	protected String defUname = "super";
 
 	@Autowired
 	protected DbUtil dbUtil;

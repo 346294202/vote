@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leoyon.doc.ApiDocAnnotation;
 import com.leoyon.vote.GeneralController;
 import com.leoyon.vote.api.Error;
 import com.leoyon.vote.api.JsonResponse;
@@ -27,11 +26,6 @@ public class LoginController extends GeneralController {
 	private VerifyService verifyService;
 
 	@PostMapping(value="/login", name="登录,no token")
-	@ApiDocAnnotation(params={
-			"username:用户名，字符串，必须，最大128字符", 
-			"password：密码，字符串，必须，最大128字符", 
-			"key 验证码key", 
-			"code 验证码"})
 	public JsonResponse login(
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password,

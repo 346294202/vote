@@ -40,9 +40,17 @@ crossorigin="anonymous"/>
 				<td th:text="${method.method}"></td>
 				<td th:text="${method.path}"></td>
 				<td>
-				<ul>
-					<li th:each="param: ${method.params}" th:text="${param}"></li>
-				</ul>
+				<table>
+					<tr th:each="param: ${method.params}">
+					<td th:text="${param.name}"></td>
+					<td th:text="${param.desc}"></td>
+					<td th:text="${param.typeName}"></td>
+					<td th:text="${param.requiredName}"></td>
+					<td th:text="${param.maxLengthName}"></td>
+					<td th:text="${param.minLengthName}"></td>
+					<td th:text="${param.defaultValueName}"></td>
+					</tr>
+				</table>
 				</td>
 				<td></td>
 			</tr>
