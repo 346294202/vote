@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.user.dao.UserDao">
+	
+	<select id="findHouse" parameterType="com.leoyon.vote.user.FindUserHouseRequest" resultType="com.leoyon.vote.user.FindUserHouseResponse">
+		select 
+			u.id as userId,
+	u.mobile,
+	u.date_create as dateCreate,
+	u.real_name as realName,
+	u.email,
+	u.gender,
+	u.birthday,
+	
+	uh.house_id as houseId,
+	a.name as areaName,
+	CONCAT(h.building,'栋',h.unit,'单元',h.number,'号') as houseText,
+	
+		uh.owner_status as ownerStatus,
+	uh.owner_type as ownerType,
+	uh.owner_reason as ownerReason,
+	su.real_name as ownerUpdateUname,
+	uh.owner_update_time as ownerUpdateTime
+	
+		from basic_user_house uh
+		join basic_user u on u.id=uh.user_id
+		join basic_house h on h.id=uh.house_id
+		join basic_area a on a.id=h.area_id
+		left join sys_user su on su.id=uh.owner_update_uid
+		
+		<where>
+			<if test="realName != null and realName != ''">
+				u.rea_name=#{realName}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				u.mobile=#{mobile}
+			</if>
+			<if test="dateCreateStart != null">
+				u.date_create&gt;#{dateCreateStart}
+			</if>
+			<if test="dateCreateEnd != null">
+				u.date_create&lt;#{dateCreateEnd}
+			</if>
+			<if test="ownerStatus != null">
+				uh.owner_status=#{ownerStatus}
+			</if>
+		</where>
+		order by uh.owner_update_time desc
+		LIMIT #{page} , #{psize};
+	</select>
+	
+</mapper>

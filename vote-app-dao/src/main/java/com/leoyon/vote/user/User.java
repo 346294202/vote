@@ -1,5 +1,7 @@
 package com.leoyon.vote.user;
 
+import java.util.Date;
+
 import com.leoyon.vote.Passwords;
 
 public class User {
@@ -9,6 +11,71 @@ public class User {
 	private String password;	
 	private String salt;
 	private boolean active;
+	
+	private Date dateCreate;
+	private Long updateUid;
+	private Date updateTime;
+	private String realName;
+	private String email;
+	private Integer gender;
+	private Date birthday;
+
+
+	public Date getDateCreate() {
+		return dateCreate;
+	}
+
+	public void setDateCreate(Date dateCreate) {
+		this.dateCreate = dateCreate;
+	}
+
+	public Long getUpdateUid() {
+		return updateUid;
+	}
+
+	public void setUpdateUid(Long updateUid) {
+		this.updateUid = updateUid;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Integer getGender() {
+		return gender;
+	}
+
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
 
 	public boolean isActive() {
 		return active;

@@ -1,5 +1,8 @@
 package com.leoyon.vote.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -8,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Parses {
 
 	@SuppressWarnings("unchecked")
-	public static <T> T parse(String s, Class<T> clazz, T defValue) {
+	public static <T> T parse(String s, Class<T> clazz, T defValue) throws ParseException {
 		if(StringUtils.isBlank(s))
 			return defValue;		
 		if(clazz.equals(Integer.class))
@@ -19,6 +22,9 @@ public class Parses {
 			return (T) Double.valueOf(s);
 		if(clazz.equals(Boolean.class))
 			return (T) Boolean.valueOf(s);
+		if(clazz.equals(Date.class)) {
+			return (T) DateFormat.getDateInstance().parse(s);
+		}
 		return null;
 	}
 

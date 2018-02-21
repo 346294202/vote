@@ -37,6 +37,7 @@ public class BaseWebTests extends BaseDbTests {
 				.put("username", username)
 				.put("password", Passwords.encode(password, salt))
 				.put("salt", salt)
+				.put("real_name", defUname)
 				.build());
 		
 		restTemplate.getRestTemplate().setInterceptors(Collections.singletonList(new ClientHttpRequestInterceptor() {

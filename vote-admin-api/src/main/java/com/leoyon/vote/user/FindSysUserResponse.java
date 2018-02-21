@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import com.leoyon.vote.role.SysRole;
 
-public class FindSysUserresponse extends SysUser {
+public class FindSysUserResponse extends SysUser {
 
 	private Collection<SysRole> roles;
 

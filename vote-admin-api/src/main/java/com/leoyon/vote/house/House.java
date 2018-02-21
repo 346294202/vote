@@ -14,7 +14,21 @@ public class House extends AdminPojo {
 	private String remark;
 	private Float constructionArea;
 	private Float netArea;
+	private String ownerName;
+	private String ownerPhone;
 	
+	public String getOwnerName() {
+		return ownerName;
+	}
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+	public String getOwnerPhone() {
+		return ownerPhone;
+	}
+	public void setOwnerPhone(String ownerPhone) {
+		this.ownerPhone = ownerPhone;
+	}
 	public Float getConstructionArea() {
 		return constructionArea;
 	}

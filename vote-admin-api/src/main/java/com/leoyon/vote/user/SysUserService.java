@@ -14,7 +14,7 @@ public interface SysUserService {
 
 	SysUser get(Long id);
 
-	List<com.leoyon.vote.user.FindSysUserresponse> find(FindSysUserRequest req);
+	List<com.leoyon.vote.user.FindSysUserResponse> find(FindSysUserRequest req);
 
 	void add(SysUser user);
 
