@@ -8,5 +8,5 @@ db:
   password: 111
   
 app:
-  tokenExpirSeconds: 10
+  tokenExpirSeconds: 1
   

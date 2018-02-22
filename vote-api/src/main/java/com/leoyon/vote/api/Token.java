@@ -22,9 +22,18 @@ public class Token {
 		return expir;
 	}
 
+	/**
+	 * 
+	 * @param value
+	 * @param expir 过期时间，秒
+	 * @return
+	 */
 	public static Token build(Object value, Integer expir) {
 		//TODO 前期调试结束后对token进行编码
-		String token = String.format("VT-%s-%d-%s", value, 1000*expir+System.currentTimeMillis(), RandomStringUtils.randomAlphabetic(16));
+		Long currentMS = System.currentTimeMillis();
+		Long expiredMS =  1000*expir+currentMS;
+//		System.out.println((1000*expir)+"+"+currentMS+"="+expiredMS);
+		String token = String.format("VT-%s-%d-%s", value, expiredMS, RandomStringUtils.randomAlphabetic(16));
 		return new Token(token, expir);
 	}
 
@@ -34,8 +43,10 @@ public class Token {
 		if(parts.length != 4) {
 			return false;
 		}
-		Long expiredMS = Long.parseLong(parts[2]); 
-		return expiredMS < System.currentTimeMillis();
+		Long expiredMS = Long.parseLong(parts[2]);
+		Long currentMS = System.currentTimeMillis();
+//		System.out.println(expiredMS+"-"+currentMS+"="+(expiredMS-currentMS));
+		return expiredMS < currentMS;
 	}
 
 	public String getValue() {

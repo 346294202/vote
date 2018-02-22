@@ -22,14 +22,20 @@ public class BaseWebTests extends BaseDbTests {
 	@Autowired
 	protected TestRestTemplate restTemplate;
 	
+	protected int tokenExpirSeconds = 1;
+	
 	String username = "15158087185";
 	String password = "123456";
 
 	public BaseWebTests() {
 		super();
 	}
-
+	
 	protected void setToken(Long uid) throws Exception {
+		setToken(uid, tokenExpirSeconds);
+	}
+
+	protected void setToken(Long uid, int expie) throws Exception {
 		String salt = "sdasdasd";
 		
 		dbUtil.insert("sys_user", new M<String,Object>()
@@ -39,13 +45,13 @@ public class BaseWebTests extends BaseDbTests {
 				.put("salt", salt)
 				.put("real_name", defUname)
 				.build());
-		
+		final String tokenValue = Token.build(uid+"", expie).getToken();
 		restTemplate.getRestTemplate().setInterceptors(Collections.singletonList(new ClientHttpRequestInterceptor() {
 			
 			@Override
 			public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
 					throws IOException {
-				request.getHeaders().add(Token.TOKEN_NAME, Token.build(uid+"", 1000).getToken());
+				request.getHeaders().add(Token.TOKEN_NAME, tokenValue);
 				return execution.execute(request, body);
 			}
 		}));
@@ -54,6 +60,7 @@ public class BaseWebTests extends BaseDbTests {
 	@Before
 	public void setUp() throws Exception {		
 		dbUtil.clear("sys_user");		
+		restTemplate.getRestTemplate().setInterceptors(null);
 	}
 
 	protected void assertSucess(JsonResponse r) {

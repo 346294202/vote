@@ -14,8 +14,15 @@ public class TokenHandlerInterceptor extends HandlerInterceptorAdapter {
 		
 		//OPTIONS不就行Token检查
 		if(!request.getMethod().equals("OPTIONS")) {
-			String token = request.getHeader(Token.TOKEN_NAME);
-			if(StringUtils.isBlank(token)) {
+			
+			String tokenValue = request.getHeader(Token.TOKEN_NAME);
+			if(StringUtils.isBlank(tokenValue)) {
+				throw new ResponseException(Error.TOKEN_EXCEPT);
+			}
+			
+			Token token = new Token(tokenValue, 0);
+			
+			if(token.isExpired()) {
 				throw new ResponseException(Error.TOKEN_EXCEPT);
 			}
 			

@@ -18,13 +18,7 @@ public abstract class AuthenticationController extends GeneralController {
 	}
 
 	public SysUser getLogin(boolean silence) throws ResponseException {
-		Token token = new Token((String) request.getAttribute(Token.TOKEN_NAME), 0);
-		
-		if(token.isExpired()) {
-			if(silence)
-				return null;
-			throw new ResponseException(Error.TOKEN_EXCEPT);
-		}
+		Token token = (Token) request.getAttribute(Token.TOKEN_NAME);
 		
 		Long id = Long.parseLong(token.getValue());
 		
