@@ -21,7 +21,7 @@ public class MethodItem {
 	private String name;
 	private String path;
 	private String method;
-	private Collection<MethodParam> params;
+	private Collection<AbstractMethodParam> params;
 	
 	public String getName() {
 		return name;
@@ -32,11 +32,11 @@ public class MethodItem {
 	public String getMethod() {
 		return method;
 	}
-	public Collection<MethodParam> getParams() {
+	public Collection<AbstractMethodParam> getParams() {
 		return params;
 	}
 	
-	public MethodItem(String name, String path, String method, Collection<MethodParam> params) {
+	public MethodItem(String name, String path, String method, Collection<AbstractMethodParam> params) {
 		super();
 		this.name = name;
 		this.path = path;
@@ -51,11 +51,13 @@ public class MethodItem {
 		for(Object o:objs) {
 			
 			for(Method m:o.getClass().getMethods()) {
+				if(m.getAnnotation(ApiParamIgnore.class) != null)
+					continue;
 				
 				String name = null;
 				String path = null;
 				String requestMethod = null;
-				Vector<MethodParam> params = new Vector<>();
+				Vector<AbstractMethodParam> params = new Vector<>();
 				
 				for(Annotation a:m.getAnnotations()) {					
 					if(GetMapping.class.isInstance(a)) {			
@@ -87,15 +89,21 @@ public class MethodItem {
 		return methods;
 	}
 	
-	private static void collectCtorParameters(Parameter[] paramsIn, Vector<MethodParam> paramsOut) {
+	private static void collectCtorParameters(Parameter[] paramsIn, Vector<AbstractMethodParam> paramsOut) {
 		for(Parameter p:paramsIn) {
-			MethodParam param = new MethodParam();
+			if(p.getAnnotation(ApiParamIgnore.class) != null)
+				continue;
+			AbstractMethodParam param = new SimpleMethodParam();
 			param.setName(p.getName());
 			param.setType(p.getType());
 			ApiParam a = p.getAnnotation(ApiParam.class);
 			if(a != null) {
 				if(!StringUtils.isBlank(a.name()))
 					param.setName(a.name());
+				if(a.max() > 0)
+					param.setMaxLength(a.max());
+				if(a.min() > 0)
+					param.setMinLength(a.min());
 				param.setDesc(a.desc());
 				param.setRequired(a.required());
 			}
@@ -103,53 +111,76 @@ public class MethodItem {
 		}
 	}
 	
-	private static void collectParameters(Parameter[] paramsIn, Vector<MethodParam> paramsOut) {
+	private static void collectParameters(Parameter[] paramsIn, Vector<AbstractMethodParam> paramsOut) {
 		for(Parameter p:paramsIn) {
-			for(Annotation a:p.getAnnotations()) {
-				if(RequestParam.class.isInstance(a)) {
-					RequestParam rp = (RequestParam) a;
-					MethodParam param = new MethodParam();
-					param.setRequired(rp.required());
-					param.setName(rp.value());
-					if(StringUtils.isBlank(param.getName()))
-						param.setName(p.getName());
-					param.setDesc(rp.name());
-					param.setType(p.getType());
-					param.setDefaultValue(rp.defaultValue());
+			if(p.getAnnotation(ApiParamIgnore.class) != null)
+				continue;
+			{
+				RequestBody a = p.getAnnotation(RequestBody.class);
+				if(a != null) {
+					Vector<AbstractMethodParam> jsonParams = new Vector<>();
+					collect(p.getType(), jsonParams);
+					JsonMethodParam param = new JsonMethodParam();
+					param.setParams(jsonParams);
 					paramsOut.add(param);
-				} else if(RequestBody.class.isInstance(a) 
-						&& !p.getType().isPrimitive()
-						&& !String.class.equals(p.getType())) {
-					collect(p.getType(), paramsOut);
-				} else if(ApiParam.class.isInstance(a)) {
-					ApiParam rp = (ApiParam) a;
-					MethodParam param = new MethodParam();
-					param.setRequired(rp.required());
-					param.setName(p.getName());
-					param.setDesc(rp.desc());
-					param.setType(p.getType());
-					paramsOut.add(param);
-				} else if(PathVariable.class.isInstance(a)) {
-					PathVariable rp = (PathVariable) a;
-					MethodParam param = new MethodParam();
-					param.setRequired(rp.required());
-					param.setName(rp.value());
-					if(StringUtils.isBlank(param.getName()))
-						param.setName(p.getName());
-					param.setDesc(rp.name());
-					param.setType(p.getType());
-					paramsOut.add(param);
+					continue;
 				}
-				
 			}
 			
-			collectCtor(p.getType(), paramsOut);
-				
+			AbstractMethodParam param = null;
+			{
+				RequestParam rp = p.getAnnotation(RequestParam.class);
+				if(rp != null) {
+					param = new SimpleMethodParam();
+					param.setRequired(rp.required());
+					param.setName(StringUtils.isBlank(rp.value()) ? rp.name() : rp.value());
+					
+					param.setDefaultValue(rp.defaultValue());
+				}
+			}
+
+			if(param == null){
+				PathVariable rp = p.getAnnotation(PathVariable.class);
+				if(rp != null) {
+					param = new SimpleMethodParam();
+					param.setRequired(rp.required());
+					param.setName(StringUtils.isBlank(rp.value()) ? rp.name() : rp.value());
+					param.setType(p.getType());
+				}
+			}
+			
+			{
+				ApiParam rp = p.getAnnotation(ApiParam.class);
+				if(rp != null) {
+					if(param == null) {
+						param = new SimpleMethodParam();
+						param.setRequired(rp.required());
+						if(rp.max() > 0)
+							param.setMaxLength(rp.max());
+						if(rp.min() > 0)
+							param.setMinLength(rp.min());
+					}
+					param.setDesc(rp.desc());
+				}
+			}
+			
+			if(param == null) {
+				collectCtor(p.getType(), paramsOut);
+			} else {
+				if(StringUtils.isBlank(param.getName())) {
+					param.setName(p.getName());
+				}
+				param.setType(p.getType());
+				paramsOut.add(param);
+			}
+			
 		}
 	}
 	
-	private static void collectCtor(Class<?> clazz, Vector<MethodParam> paramsOut) {
+	private static void collectCtor(Class<?> clazz, Vector<AbstractMethodParam> paramsOut) {
 		for(Constructor<?> c:clazz.getConstructors()) {
+			if(c.getAnnotation(ApiParamIgnore.class) != null)
+				continue;
 			ApiParamCtor a = c.getAnnotation(ApiParamCtor.class);
 			if(a != null) {
 				collectCtorParameters(c.getParameters(), paramsOut);
@@ -158,20 +189,26 @@ public class MethodItem {
 		}
 	}
 	
-	private static void collect(Class<?> clazz, Vector<MethodParam> paramsOut) {
+	private static void collect(Class<?> clazz, Vector<AbstractMethodParam> paramsOut) {
 		Vector<String> fieldNames = new Vector<>();
-		HashMap<String, MethodParam> params = new HashMap<>();
+		HashMap<String, SimpleMethodParam> params = new HashMap<>();
 		
 		for(Method m:clazz.getMethods()) {
+			if(m.getAnnotation(ApiParamIgnore.class) != null)
+				continue;
 			ApiParam a = m.getAnnotation(ApiParam.class);
 			if(a != null) {
 				String name = m.getName().substring(3);
-				MethodParam param = new MethodParam();
+				SimpleMethodParam param = new SimpleMethodParam();
 				param.setName(StringUtils.uncapitalize(name));
 				param.setDefaultValue(a.defaultValue());
 				param.setType(getParamType(m));
 				param.setDesc(a.desc());
 				param.setRequired(a.required());
+				if(a.max() > 0)
+					param.setMaxLength(a.max());
+				if(a.min() > 0)
+					param.setMinLength(a.min());
 				params.put(name, param);
 				
 			}
@@ -179,7 +216,7 @@ public class MethodItem {
 				String name = m.getName().substring(3);
 				if(fieldNames.contains(name) && !params.containsKey(name)) {
 					
-					MethodParam param = new MethodParam();
+					SimpleMethodParam param = new SimpleMethodParam();
 					param.setName(StringUtils.uncapitalize(name));
 					param.setType(getParamType(m));
 					params.put(name, param);

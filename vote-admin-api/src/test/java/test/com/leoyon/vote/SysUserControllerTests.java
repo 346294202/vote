@@ -10,11 +10,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import com.leoyon.vote.Passwords;
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.vote.user.FindSysUserResponse;
-import com.leoyon.vote.user.SysUser;
 import com.leoyon.vote.util.M;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,6 +28,7 @@ public class SysUserControllerTests extends BaseWebTests {
 		super.setUp();		
 		setToken(defUID);
 		dbUtil.clear("sys_role");
+		dbUtil.clear("sys_user_role");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -163,8 +164,10 @@ public class SysUserControllerTests extends BaseWebTests {
 		
 		dbUtil.insert("sys_role", list);
 		
+		MultiValueMap<String, Object> data = new LinkedMultiValueMap<>();
+		data.add("ids", "1,3");
 		JsonResponse r = restTemplate.postForObject("/sys/user/1/role",
-				"1,3", JsonResponse.class);
+				data, JsonResponse.class);
 		assertSucess(r);		
 	}
 	

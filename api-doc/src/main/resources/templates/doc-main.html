@@ -16,10 +16,10 @@ crossorigin="anonymous"/>
 <li>需要用户验证的接口，必须在HTTP Header "VOTE-ACCESS-TOKEN"中提供token。</li>
 <li>未提供token，无效token，token过期均返回错误码"1000"，不在每个接口中赘述。</li>
 <li>返回结果统一格式<code>
-{
-  code:&lt;返回码,1成功&gt;,
-  error:"&lt;错误描述&gt;",
-  data:{&lt;返回结果&gt;}
+{<br/>
+  code:&lt;返回码,1成功&gt;,<br/>
+  error:"&lt;错误描述&gt;",<br/>
+  data:{&lt;返回结果&gt;}<br/>
 }
 </code></li>
 <li>如无特殊说明，当返回错误时，data字段可以忽略。</li>
@@ -40,17 +40,9 @@ crossorigin="anonymous"/>
 				<td th:text="${method.method}"></td>
 				<td th:text="${method.path}"></td>
 				<td>
-				<table>
-					<tr th:each="param: ${method.params}">
-					<td th:text="${param.name}"></td>
-					<td th:text="${param.desc}"></td>
-					<td th:text="${param.typeName}"></td>
-					<td th:text="${param.requiredName}"></td>
-					<td th:text="${param.maxLengthName}"></td>
-					<td th:text="${param.minLengthName}"></td>
-					<td th:text="${param.defaultValueName}"></td>
-					</tr>
-				</table>
+				 <ul>
+				 	<li th:each="p: ${method.params}" ><code th:utext="${p}"></code></li>
+				 </ul>
 				</td>
 				<td></td>
 			</tr>

@@ -2,6 +2,7 @@ package com.leoyon.vote.user;
 
 import java.util.Date;
 
+import com.leoyon.doc.ApiParam;
 import com.leoyon.doc.ApiParamCtor;
 
 public class FindUserHouseRequest {
@@ -15,8 +16,19 @@ public class FindUserHouseRequest {
 	private Integer psize;
 	
 	@ApiParamCtor
-	public FindUserHouseRequest(String realName, String mobile, Date dateCreateStart, Date dateCreateEnd,
-			Integer ownerStatus, Integer page, Integer psize) {
+	public FindUserHouseRequest(
+			@ApiParam(desc="业主姓名")
+			String realName, 
+			@ApiParam(desc="业主手机")
+			String mobile, 
+			@ApiParam(desc="注册日期起")
+			Date dateCreateStart, 
+			@ApiParam(desc="注册日期止")
+			Date dateCreateEnd,
+			@ApiParam(desc="认证状态")
+			Integer ownerStatus,
+			Integer page, 
+			Integer psize) {
 		super();
 		this.realName = realName;
 		this.mobile = mobile;

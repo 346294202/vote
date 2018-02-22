@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.util.M;
@@ -66,8 +68,9 @@ public class SysUserController extends AuthenticationController {
 	
 	@PostMapping(value="/sys/user/{id}/role", name="修改用户角色")
 	public JsonResponse setUserRoles(
-			@PathVariable(value="id") Long id, 
-			@RequestBody String ids) throws Exception {
+			@PathVariable(value="id") Long id,
+			@ApiParam(desc="格式'id,id,...'")
+			@RequestParam("ids") String ids) throws Exception {
 		sysUserRoleService.setUserRoles(id, Parses.parseList(ids, Long.class, ","));
 		return JsonResponse.sucess();
 	}

@@ -5,6 +5,8 @@ import java.util.Vector;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.leoyon.doc.ApiParam;
+import com.leoyon.doc.ApiParamIgnore;
 import com.leoyon.vote.AdminPojo;
 
 public class SysCommand extends AdminPojo {
@@ -16,12 +18,15 @@ public class SysCommand extends AdminPojo {
 	private Integer icon;//	int	11	0	-1	0	0	0	0	1	0	图标编码：1，2，3，4，5				0	0
 	private Integer so;
 	
+	@ApiParam(desc="排序号")
 	public Integer getSo() {
 		return so;
 	}
 	public void setSo(Integer so) {
 		this.so = so;
 	}
+	
+	@ApiParamIgnore
 	public long getId() {
 		return id;
 	}
@@ -32,10 +37,13 @@ public class SysCommand extends AdminPojo {
 	public long getParentId() {
 		return parentId;
 	}
+	@ApiParam(desc="上级菜单id")
 	public SysCommand setParentId(long parentId) {
 		this.parentId = parentId;
 		return this;
 	}
+	
+	@ApiParam(desc="名称")
 	public String getName() {
 		return name;
 	}
@@ -43,6 +51,8 @@ public class SysCommand extends AdminPojo {
 		this.name = name;
 		return this;
 	}
+	
+	@ApiParam(desc="路径")
 	public String getUrl() {
 		return url;
 	}
@@ -50,6 +60,8 @@ public class SysCommand extends AdminPojo {
 		this.url = url;
 		return this;
 	}
+	
+	@ApiParam(desc="图标，1，2，3，4")
 	public Integer getIcon() {
 		return icon;
 	}

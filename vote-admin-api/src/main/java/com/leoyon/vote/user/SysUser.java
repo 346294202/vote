@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.leoyon.doc.ApiParam;
+import com.leoyon.doc.ApiParamIgnore;
 import com.leoyon.vote.AdminPojo;
 import com.leoyon.vote.Passwords;
 
@@ -20,6 +22,7 @@ public class SysUser extends AdminPojo{
 	private Date lastLoginTime;
 	private Date lastLoginIp;
 
+	@ApiParam(desc="姓名")
 	public String getRealName() {
 		return realName;
 	}
@@ -28,6 +31,7 @@ public class SysUser extends AdminPojo{
 		this.realName = realName;
 	}
 
+	@ApiParam(desc="部门")
 	public String getDepart() {
 		return depart;
 	}
@@ -36,6 +40,7 @@ public class SysUser extends AdminPojo{
 		this.depart = depart;
 	}
 
+	@ApiParam(desc="手机")
 	public String getPhone() {
 		return phone;
 	}
@@ -44,6 +49,7 @@ public class SysUser extends AdminPojo{
 		this.phone = phone;
 	}
 
+	@ApiParam(desc="是否有效")
 	public Boolean getActive() {
 		return active;
 	}
@@ -56,10 +62,12 @@ public class SysUser extends AdminPojo{
 		return lastLoginTime;
 	}
 
+	@ApiParamIgnore
 	public void setLastLoginTime(Date lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
 	}
 
+	@ApiParamIgnore
 	public Date getLastLoginIp() {
 		return lastLoginIp;
 	}
@@ -68,6 +76,7 @@ public class SysUser extends AdminPojo{
 		this.lastLoginIp = lastLoginIp;
 	}
 
+	@ApiParamIgnore
 	public Long getId() {
 		return id;
 	}
@@ -76,6 +85,7 @@ public class SysUser extends AdminPojo{
 		this.id = id;
 	}
 
+	@ApiParam(desc="用户名")
 	public String getUsername() {
 		return username;
 	}
@@ -84,6 +94,7 @@ public class SysUser extends AdminPojo{
 		this.username = username;
 	}
 
+	@ApiParam(desc="密码")
 	public String getPassword() {
 		return password;
 	}
@@ -92,6 +103,7 @@ public class SysUser extends AdminPojo{
 		this.password = StringUtils.isBlank(salt) ? password : Passwords.encode(password, salt);
 	}
 
+	@ApiParamIgnore
 	public String getSalt() {
 		return salt;
 	}

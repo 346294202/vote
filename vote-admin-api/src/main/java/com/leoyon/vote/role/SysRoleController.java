@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leoyon.doc.ApiParam;
@@ -65,9 +66,9 @@ public class SysRoleController extends AuthenticationController {
 	
 	@PostMapping(value="/sys/role/{id}/command", name="修改角色菜单")
 	public JsonResponse setRoleCommands(
-			@PathVariable(value="id") Long id, 
-			@ApiParam(desc="菜单id数组,格式为'id,id,id'", required=true)
-			@RequestBody String ids) throws Exception {
+			@PathVariable(value="id") Long id,
+			@ApiParam(desc="格式'id,id,...'")
+			@RequestParam(value="ids", required=true) String ids) throws Exception {
 		sysRoleCommandService.setRoleCommands(id, Parses.parseList(ids, Long.class, ","));
 		return JsonResponse.sucess();
 	}

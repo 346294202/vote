@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.GeneralController;
 import com.leoyon.vote.api.Error;
 import com.leoyon.vote.api.JsonResponse;
@@ -27,9 +28,13 @@ public class LoginController extends GeneralController {
 
 	@PostMapping(value="/login", name="登录,no token")
 	public JsonResponse login(
+			@ApiParam(desc="用户名'")
 			@RequestParam(value = "username") String username,
+			@ApiParam(desc="密码")
 			@RequestParam(value = "password") String password,
+			@ApiParam(desc="验证码KEY")
 			@RequestParam(value = "key") String key,
+			@ApiParam(desc="验证码")
 			@RequestParam(value = "code") String code
 			) throws Exception {
 				

@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.role.SysRole;
@@ -133,8 +135,10 @@ public class SysRoleControllerTests extends BaseWebTests {
 		
 		dbUtil.insert("sys_command", list);
 		
+		MultiValueMap<String, Object> data = new LinkedMultiValueMap<>();
+		data.add("ids", "1,3");
 		JsonResponse r = restTemplate.postForObject("/sys/role/1/command",
-				"1,3", JsonResponse.class);
+				data, JsonResponse.class);
 		assertSucess(r);
 		
 		

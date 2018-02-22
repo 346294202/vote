@@ -6,19 +6,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.CONSTRUCTOR})
+@Target({ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ApiParam {
+public @interface ApiParamCtor {
 	
-	String name() default "";
-
-	String desc() default "";
-
-	boolean required() default true;
-
-	String defaultValue() default "";
-	
-	int max() default 0;
-	int min() default 0;
 }

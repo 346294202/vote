@@ -119,13 +119,13 @@ public class MethodItemTests {
 		assertEquals("POST", ms.get(i).getMethod());
 		assertEquals("/user", ms.get(i).getPath());
 		assertEquals("Add user", ms.get(i).getName());
-		assertEquals(3, ms.get(i).getParams().size());
+		assertEquals(1, ms.get(i).getParams().size());
 		++i;
 		
 		assertEquals("POST", ms.get(i).getMethod());
 		assertEquals("/user/{id}", ms.get(i).getPath());
 		assertEquals("Update user", ms.get(i).getName());
-		assertEquals(4, ms.get(i).getParams().size());
+		assertEquals(2, ms.get(i).getParams().size());
 		++i;
 		
 		assertEquals("GET", ms.get(i).getMethod());

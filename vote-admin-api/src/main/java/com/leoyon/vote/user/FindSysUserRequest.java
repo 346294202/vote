@@ -1,5 +1,6 @@
 package com.leoyon.vote.user;
 
+import com.leoyon.doc.ApiParam;
 import com.leoyon.doc.ApiParamCtor;
 
 public class FindSysUserRequest {
@@ -10,7 +11,15 @@ public class FindSysUserRequest {
 	private Integer active;
 	
 	@ApiParamCtor
-	public FindSysUserRequest(String q, Integer page, Integer psize, Integer active) {
+	public FindSysUserRequest(
+			@ApiParam(desc="模糊查询")
+			String q, 
+			@ApiParam(desc="页码")
+			Integer page,
+			@ApiParam(desc="页大小")
+			Integer psize, 
+			@ApiParam(desc="用户有效性")
+			Integer active) {
 		super();
 		this.q = q;
 		this.page = page;
