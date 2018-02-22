@@ -1,10 +1,9 @@
 package com.leoyon.vote.product;
 
-import com.leoyon.vote.AdminPojo;
+import com.leoyon.vote.AbstractResource;
 
-public class BaseProduct extends AdminPojo {
+public class BaseProduct extends AbstractResource<BaseProduct> {
 
-	private Long id;
 	private String name;
 	private String desc;
 	private String priceDesc;
@@ -13,14 +12,6 @@ public class BaseProduct extends AdminPojo {
 	private Integer subType;
 	private String remark;
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
 	}

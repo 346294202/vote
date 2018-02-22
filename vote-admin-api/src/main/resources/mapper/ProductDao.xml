@@ -8,6 +8,7 @@
 			<if test="q != null and q !=''">
 				name like '%${q}%'
 			</if>
+			and `delete`=1
 	</where>
 			order by so
 		LIMIT #{page} , #{psize};

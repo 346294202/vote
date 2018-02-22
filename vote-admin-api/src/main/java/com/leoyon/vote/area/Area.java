@@ -1,23 +1,14 @@
 package com.leoyon.vote.area;
 
 import com.leoyon.doc.ApiParam;
-import com.leoyon.doc.ApiParamIgnore;
-import com.leoyon.vote.AdminPojo;
+import com.leoyon.vote.AbstractResource;
 
-public class Area extends AdminPojo {
-	private Long id;//	bigint	20	0	0	0	0	0	0		0					-1	0
+public class Area extends AbstractResource<Area> {
 	private String name;//	varchar	255	0	0	0	0	0	0		0		utf8mb4	utf8mb4_unicode_ci		0	0
 	private String address;//	varchar	255	0	-1	0	0	0	0		0		utf8mb4	utf8mb4_unicode_ci		0	0
 	private String developer;//	varchar	255	0	-1	0	0	0	0		0		utf8mb4	utf8mb4_unicode_ci		0	0
 	private String service;//	varchar	255	0	-1	0	0	0	0		0		utf8mb4	utf8mb4_unicode_ci		0	0
 	private String remark;//	varchar	255	0	-1	0	0	0	0		0		utf8mb4	utf8mb4_unicode_ci		0	0
-	public Long getId() {
-		return id;
-	}
-	@ApiParamIgnore
-	public void setId(Long id) {
-		this.id = id;
-	}
 	@ApiParam(desc="名称")
 	public String getName() {
 		return name;

@@ -33,13 +33,15 @@
 			<if test="q != null and q !=''">
 				and name like '%${q}%'
 			</if>		
+			and `delete`=1
 		</where>
+		
 		order by so
 		LIMIT #{page} , #{psize};
 	</select>
 	
 	<select id="all" resultType="com.leoyon.vote.role.SysRole">
-		select * from sys_role
+		select * from sys_role where `delete`=1
 	</select>
 	
 	<select id="existed" parameterType="Long" resultType="Long">

@@ -42,6 +42,7 @@
 					join basic_user u on u.id=hu.user_id and u.mobile=#{ownerMobile}
 				)
 			</if>	
+			and `delete`=1
 		</where>
 		order by h.date_create desc
 		LIMIT #{page} , #{psize};

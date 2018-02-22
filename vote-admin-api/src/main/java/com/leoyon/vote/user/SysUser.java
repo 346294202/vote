@@ -6,12 +6,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.leoyon.doc.ApiParam;
 import com.leoyon.doc.ApiParamIgnore;
-import com.leoyon.vote.AdminPojo;
+import com.leoyon.vote.AbstractResource;
 import com.leoyon.vote.Passwords;
 
-public class SysUser extends AdminPojo{
+public class SysUser extends AbstractResource<SysUser> {
 	
-	private Long id;
 	private String username;
 	private String password;
 	private String salt;
@@ -74,15 +73,6 @@ public class SysUser extends AdminPojo{
 
 	public void setLastLoginIp(Date lastLoginIp) {
 		this.lastLoginIp = lastLoginIp;
-	}
-
-	@ApiParamIgnore
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	@ApiParam(desc="用户名")

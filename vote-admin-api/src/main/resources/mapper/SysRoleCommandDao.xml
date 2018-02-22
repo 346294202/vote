@@ -6,6 +6,7 @@
 		select c.* 
 		from sys_command c 
 		join sys_role_command uc on uc.active=1 and uc.command_id=c.id and uc.role_id=#{rid}
+		where c.`delete`=1
 	</select>	
 	
 	<delete id="clearRoleCommands" parameterType="Long">

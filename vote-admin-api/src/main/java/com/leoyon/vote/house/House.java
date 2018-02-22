@@ -1,12 +1,10 @@
 package com.leoyon.vote.house;
 
 import com.leoyon.doc.ApiParam;
-import com.leoyon.doc.ApiParamIgnore;
-import com.leoyon.vote.AdminPojo;
+import com.leoyon.vote.AbstractResource;
 
-public class House extends AdminPojo {
+public class House extends AbstractResource<House> {
 
-	private Long id;
 	private Long areaId;
 	private Integer building;
 	private Integer unit;
@@ -48,13 +46,6 @@ public class House extends AdminPojo {
 		this.netArea = netArea;
 	}
 	
-	@ApiParamIgnore
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	@ApiParam(desc="小区id")
 	public Long getAreaId() {
 		return areaId;

@@ -1,17 +1,13 @@
 package com.leoyon.vote.command;
 
 import java.util.List;
-import java.util.Vector;
-
 import org.apache.commons.lang3.StringUtils;
 
 import com.leoyon.doc.ApiParam;
-import com.leoyon.doc.ApiParamIgnore;
-import com.leoyon.vote.AdminPojo;
+import com.leoyon.vote.AbstractResource;
 
-public class SysCommand extends AdminPojo {
+public class SysCommand extends AbstractResource<SysCommand> {
 	
-	private long id;//	bigint	20	0	0	-1	0	0	0		0					-1	0
 	private long parentId;//	bigint	20	0	-1	0	0	0	0		0	上级命令id				0	0
 	private String name;//	varchar	255	0	0	0	0	0	0		0	名称	utf8mb4	utf8mb4_unicode_ci		0	0
 	private String url;//	varchar	255	0	-1	0	0	0	0		0		utf8mb4	utf8mb4_unicode_ci		0	0
@@ -26,14 +22,6 @@ public class SysCommand extends AdminPojo {
 		this.so = so;
 	}
 	
-	@ApiParamIgnore
-	public long getId() {
-		return id;
-	}
-	public SysCommand setId(long id) {
-		this.id = id;
-		return this;
-	}
 	public long getParentId() {
 		return parentId;
 	}

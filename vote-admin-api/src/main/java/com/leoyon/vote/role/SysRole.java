@@ -1,23 +1,14 @@
 package com.leoyon.vote.role;
 
 import com.leoyon.doc.ApiParam;
-import com.leoyon.doc.ApiParamIgnore;
-import com.leoyon.vote.AdminPojo;
+import com.leoyon.vote.AbstractResource;
 
-public class SysRole extends AdminPojo{
+public class SysRole extends AbstractResource<SysRole> {
 	
-	private Long id;
 	private String name;
 	private Integer so;
 	private String remark;
 	
-	@ApiParamIgnore
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	@ApiParam(desc="名称")
 	public String getName() {
 		return name;

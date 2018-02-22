@@ -6,10 +6,11 @@
 		select c.* 
 		from sys_command c 
 		join sys_user_command uc on uc.active=1 and uc.command_id=c.id and uc.user_id=#{uid}
+		where c.`delete`=1
 	</select>	
 	
 	<select id="all" resultType="com.leoyon.vote.command.SysCommand">
-		select * from sys_command;
+		select * from sys_command where `delete`=1;
 	</select>
 
 	<insert id="add" parameterType="com.leoyon.vote.command.SysCommand" useGeneratedKeys="true" keyProperty="id">
@@ -46,6 +47,7 @@
 			<if test="q != null and q !=''">
 				and name like '%${q}%'
 			</if>		
+			and `delete`=1
 		</where>
 		order by so
 		LIMIT #{page} , #{psize};

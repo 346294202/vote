@@ -30,7 +30,6 @@
 				update_uid=#{updateUid},
 		</if>							
 	</set>
-	
 	where id = #{id}
 	</update>
 		
@@ -39,14 +38,15 @@
 		<where>
 			<if test="q != null and q !=''">
 				and name like '%${q}%'
-			</if>		
+			</if>	
+			and `delete`=1	
 		</where>
 		order by so
 		LIMIT #{page} , #{psize};
 	</select>	
 	
 	<select id="all" resultType="com.leoyon.vote.area.Area">
-		select * from basic_area;
+		select * from basic_area where `delete`=1;
 	</select>	
 	
 </mapper>
