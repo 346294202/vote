@@ -33,4 +33,9 @@ public class AreaServiceImp implements AreaService {
 		return areaDao.all();
 	}
 
+	@Override
+	public void delete(Area entity) {
+		areaDao.delete(entity);
+	}
+
 }

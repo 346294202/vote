@@ -2,6 +2,7 @@ package com.leoyon.vote.area;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,6 +49,16 @@ public class AreaController extends AuthenticationController {
 		entity.setUpdateUid(getLogin(false).getId());
 		entity.setId(id);
 		areaService.update(entity);
+		return JsonResponse.sucess();
+	}
+	
+	@DeleteMapping(value="/basic/area/{id}", name="删除小区")
+	public JsonResponse delete(
+			@PathVariable(value="id") Long id) throws ResponseException {
+		Area entity = new Area();
+		entity.setUpdateUid(getLogin(false).getId());
+		entity.setId(id);
+		areaService.delete(entity);
 		return JsonResponse.sucess();
 	}
 }

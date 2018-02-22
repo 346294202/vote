@@ -88,4 +88,7 @@
 	where id = #{id}	
 	</update>
 	
+	<update id="delete" parameterType="com.leoyon.vote.house.House">
+	update basic_house set `delete`=2,update_uid=#{updateUid} where id = #{id};
+	</update>
 </mapper>

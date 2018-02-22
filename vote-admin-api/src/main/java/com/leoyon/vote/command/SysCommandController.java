@@ -2,6 +2,7 @@ package com.leoyon.vote.command;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +50,16 @@ public class SysCommandController extends AuthenticationController {
 		entity.setUpdateUid(getLogin(false).getId());
 		entity.setId(id);
 		service.update(entity);
+		return JsonResponse.sucess();
+	}
+	
+	@DeleteMapping(value="/sys/command/{id}", name="删除系统菜单")
+	public JsonResponse delete(
+			@PathVariable(value="id") Long id) throws ResponseException {
+		SysCommand entity = new SysCommand();
+		entity.setUpdateUid(getLogin(false).getId());
+		entity.setId(id);
+		service.delete(entity);
 		return JsonResponse.sucess();
 	}
 }

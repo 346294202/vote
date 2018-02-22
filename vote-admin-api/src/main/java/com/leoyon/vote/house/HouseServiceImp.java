@@ -26,4 +26,9 @@ public class HouseServiceImp implements HouseService{
 		houseDao.update(house);
 	}
 
+	@Override
+	public void delete(House entity) {
+		houseDao.delete(entity);
+	}
+
 }

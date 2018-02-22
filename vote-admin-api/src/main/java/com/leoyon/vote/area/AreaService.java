@@ -12,4 +12,6 @@ public interface AreaService {
 
 	List<Area> all();
 
+	void delete(Area entity);
+
 }

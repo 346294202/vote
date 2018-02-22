@@ -40,6 +40,10 @@
 	where id = #{id}
 	</update>
 	
+	<update id="delete" parameterType="com.leoyon.vote.user.SysUser">
+	update sys_user set `delete`=2,update_uid=#{updateUid} where id = #{id};
+	</update>
+	
 	<select id="getUser" parameterType="String" resultType="com.leoyon.vote.user.SysUser">
 		select * from sys_user where username=#{username} and active=1;
 	</select>

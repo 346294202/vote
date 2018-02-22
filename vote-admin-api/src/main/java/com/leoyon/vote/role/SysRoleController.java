@@ -2,6 +2,7 @@ package com.leoyon.vote.role;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,6 +71,16 @@ public class SysRoleController extends AuthenticationController {
 			@ApiParam(desc="格式'id,id,...'")
 			@RequestParam(value="ids", required=true) String ids) throws Exception {
 		sysRoleCommandService.setRoleCommands(id, Parses.parseList(ids, Long.class, ","));
+		return JsonResponse.sucess();
+	}
+	
+	@DeleteMapping(value="/sys/role/{id}", name="删除角色")
+	public JsonResponse delete(
+			@PathVariable(value="id") Long id) throws ResponseException {
+		SysRole entity = new SysRole();
+		entity.setUpdateUid(getLogin(false).getId());
+		entity.setId(id);
+		sysRoleService.delete(entity);
 		return JsonResponse.sucess();
 	}
 }

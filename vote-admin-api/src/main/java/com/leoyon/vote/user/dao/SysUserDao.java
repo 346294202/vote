@@ -16,4 +16,6 @@ public interface SysUserDao {
 	List<com.leoyon.vote.user.FindSysUserResponse> findUser(FindSysUserRequest request);
 
 	void updateUser(SysUser user);
+
+	void delete(SysUser entity);
 }

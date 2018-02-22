@@ -28,4 +28,6 @@ public interface ProductDao {
 
 	void updateSpec(ProductSpec i);
 
+	void delete(Product entity);
+
 }

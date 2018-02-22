@@ -10,4 +10,6 @@ public interface ProductService {
 
 	void update(Product entity);
 
+	void delete(Product entity);
+
 }

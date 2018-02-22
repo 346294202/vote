@@ -71,4 +71,9 @@ public class SysRoleServiceImp implements SysRoleService, SysRoleCommandService 
 		return ret != null && ret.equals(id);
 	}
 
+	@Override
+	public void delete(SysRole entity) {
+		dao.delete(entity);
+	}
+
 }

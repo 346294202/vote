@@ -95,4 +95,8 @@
 	</set>
 	where id = #{id}
 	</update>	
+	
+	<update id="delete" parameterType="com.leoyon.vote.product.Product">
+	update basic_product set `delete`=2,update_uid=#{updateUid} where id = #{id};
+	</update>
 </mapper>

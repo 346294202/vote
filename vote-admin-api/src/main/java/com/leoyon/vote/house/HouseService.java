@@ -10,4 +10,6 @@ public interface HouseService {
 
 	void update(House house);
 
+	void delete(House entity);
+
 }

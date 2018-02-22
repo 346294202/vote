@@ -18,4 +18,6 @@ public interface SysCommandService {
 
 	boolean existed(Long id);
 
+	void delete(SysCommand entity);
+
 }

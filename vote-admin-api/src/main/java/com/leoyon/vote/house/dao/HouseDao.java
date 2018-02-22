@@ -13,4 +13,6 @@ public interface HouseDao {
 
 	void update(House house);
 
+	void delete(House entity);
+
 }

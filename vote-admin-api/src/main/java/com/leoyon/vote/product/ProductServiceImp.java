@@ -67,4 +67,9 @@ public class ProductServiceImp implements ProductService {
 		}
 	}
 
+	@Override
+	public void delete(Product entity) {
+		dao.delete(entity);
+	}
+
 }

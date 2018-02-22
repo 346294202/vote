@@ -68,5 +68,10 @@ public class SysCommandServiceImp implements SysCommandService {
 		return ret != null && ret.equals(id);
 	}
 
+	@Override
+	public void delete(SysCommand entity) {
+		commandDao.delete(entity);
+	}
+
 
 }

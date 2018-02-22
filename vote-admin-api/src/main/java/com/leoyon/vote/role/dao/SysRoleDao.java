@@ -17,4 +17,6 @@ public interface SysRoleDao {
 
 	Long existed(Long id);
 
+	void delete(SysRole entity);
+
 }

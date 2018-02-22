@@ -20,5 +20,7 @@ public interface SysUserService {
 
 	void update(SysUser user);
 
+	void delete(SysUser entity);
+
 
 }

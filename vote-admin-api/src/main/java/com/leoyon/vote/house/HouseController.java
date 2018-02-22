@@ -2,6 +2,7 @@ package com.leoyon.vote.house;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,16 @@ public class HouseController extends AuthenticationController {
 		entity.setUpdateUid(getLogin(false).getId());
 		entity.setId(id);
 		houseService.update(entity);
+		return JsonResponse.sucess();
+	}
+	
+	@DeleteMapping(value="/basic/house/{id}", name="删除房屋")
+	public JsonResponse delete(
+			@PathVariable(value="id") Long id) throws ResponseException {
+		House entity = new House();
+		entity.setUpdateUid(getLogin(false).getId());
+		entity.setId(id);
+		houseService.delete(entity);
 		return JsonResponse.sucess();
 	}
 }

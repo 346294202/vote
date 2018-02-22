@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,6 +49,16 @@ public class ProductController extends AuthenticationController {
 		entity.setUpdateUid(getLogin(false).getId());
 		entity.setUpdateTime(new Date());
 		productService.update(entity);
+		return JsonResponse.sucess();
+	}
+	
+	@DeleteMapping(value="/basic/product/{id}", name="删除产品")
+	public JsonResponse delete(
+			@PathVariable(value="id") Long id) throws ResponseException {
+		Product entity = new Product();
+		entity.setUpdateUid(getLogin(false).getId());
+		entity.setId(id);
+		productService.delete(entity);
 		return JsonResponse.sucess();
 	}
 }

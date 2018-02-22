@@ -47,4 +47,8 @@
 	<select id="existed" parameterType="Long" resultType="Long">
 	select id from sys_role where id = #{id}
 	</select>	
+	
+	<update id="delete" parameterType="com.leoyon.vote.role.SysRole">
+	update sys_role set `delete`=2,update_uid=#{updateUid} where id = #{id};
+	</update>
 </mapper>

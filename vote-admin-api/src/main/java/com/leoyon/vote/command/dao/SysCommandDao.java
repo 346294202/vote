@@ -19,4 +19,6 @@ public interface SysCommandDao {
 
 	Long existed(Long id);
 
+	void delete(SysCommand entity);
+
 }

@@ -3,6 +3,7 @@ package com.leoyon.vote.user;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
+import com.leoyon.vote.api.ResponseException;
+import com.leoyon.vote.role.SysRole;
 import com.leoyon.vote.util.M;
 import com.leoyon.vote.util.Parses;
 
@@ -72,6 +75,16 @@ public class SysUserController extends AuthenticationController {
 			@ApiParam(desc="格式'id,id,...'")
 			@RequestParam("ids") String ids) throws Exception {
 		sysUserRoleService.setUserRoles(id, Parses.parseList(ids, Long.class, ","));
+		return JsonResponse.sucess();
+	}
+	
+	@DeleteMapping(value="/sys/user/{id}", name="删除系统用户")
+	public JsonResponse delete(
+			@PathVariable(value="id") Long id) throws ResponseException {
+		SysUser entity = new SysUser();
+		entity.setUpdateUid(getLogin(false).getId());
+		entity.setId(id);
+		userService.delete(entity);
 		return JsonResponse.sucess();
 	}
 }

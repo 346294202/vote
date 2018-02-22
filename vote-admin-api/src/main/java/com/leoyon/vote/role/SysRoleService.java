@@ -13,4 +13,6 @@ public interface SysRoleService {
 	List<SysRole> all();
 
 	boolean existed(Long id);
+
+	void delete(SysRole entity);
 }

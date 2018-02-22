@@ -86,4 +86,9 @@ public class SysUserServiceImp implements SysUserService, SysUserRoleService {
 			sysUserRoleDao.addUserRole(uid, id);
 		});
 	}
+
+	@Override
+	public void delete(SysUser entity) {
+		userDao.delete(entity);	
+	}
 }

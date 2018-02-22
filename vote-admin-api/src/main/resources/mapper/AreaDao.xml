@@ -32,6 +32,10 @@
 	</set>
 	where id = #{id}
 	</update>
+	
+	<update id="delete" parameterType="com.leoyon.vote.area.Area">
+	update basic_area set `delete`=2,update_uid=#{updateUid} where id = #{id};
+	</update>
 		
 	<select id="find" parameterType="com.leoyon.vote.area.FindAreaRequest" resultType="com.leoyon.vote.area.Area">
 		select * from basic_area 
