@@ -100,7 +100,7 @@ public abstract class AbstractMethodParam {
 		return minLength != null ? "最小"+maxLength : "";
 	}
 	
-	public String getInfo() {
+	public String getInfo(String tab) {
 		StringBuilder sb = new StringBuilder();
 		if(!StringUtils.isBlank(desc)) {
 			sb.append(desc+",");
@@ -123,6 +123,6 @@ public abstract class AbstractMethodParam {
 	}
 	
 	public String getText() {
-		return getName()+":"+getInfo();
+		return getName()+":"+getInfo("");
 	}
 }

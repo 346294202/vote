@@ -4,7 +4,10 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
@@ -120,7 +123,7 @@ public class MethodItem {
 				if(a != null) {
 					Vector<AbstractMethodParam> jsonParams = new Vector<>();
 					collect(p.getType(), jsonParams);
-					JsonMethodParam param = new JsonMethodParam();
+					JsonObjectMethodParam param = new JsonObjectMethodParam();
 					param.setParams(jsonParams);
 					paramsOut.add(param);
 					continue;
@@ -191,50 +194,113 @@ public class MethodItem {
 	
 	private static void collect(Class<?> clazz, Vector<AbstractMethodParam> paramsOut) {
 		Vector<String> fieldNames = new Vector<>();
-		HashMap<String, SimpleMethodParam> params = new HashMap<>();
+		HashMap<String, AbstractMethodParam> params = new HashMap<>();
 		
 		for(Method m:clazz.getMethods()) {
 			if(m.getAnnotation(ApiParamIgnore.class) != null)
 				continue;
+			
+			String name = null;
+			String defVal = null;
+			Class<?> type = getPropertyClass(m);
+			ParameterizedType pType = getParameterizedType(m);
+			Integer max = null;
+			Integer min = null;
+			String desc = null;
+			boolean required = false;
+			
+			boolean create = false;
+			
 			ApiParam a = m.getAnnotation(ApiParam.class);
 			if(a != null) {
-				String name = m.getName().substring(3);
-				SimpleMethodParam param = new SimpleMethodParam();
-				param.setName(StringUtils.uncapitalize(name));
-				param.setDefaultValue(a.defaultValue());
-				param.setType(getParamType(m));
-				param.setDesc(a.desc());
-				param.setRequired(a.required());
+				name = getPropertyName(m);
+				defVal = a.defaultValue();
+				desc = a.desc();
+				required = a.required();
 				if(a.max() > 0)
-					param.setMaxLength(a.max());
+					max = a.max();
 				if(a.min() > 0)
-					param.setMinLength(a.min());
-				params.put(name, param);
-				
-			}
-			if(m.getName().startsWith("get") || m.getName().startsWith("set")) {
-				String name = m.getName().substring(3);
-				if(fieldNames.contains(name) && !params.containsKey(name)) {
+					min = a.min();
+				create = true;
+			} else {
+				if(m.getName().startsWith("get") || m.getName().startsWith("set") || m.getName().startsWith("is")) {
 					
-					SimpleMethodParam param = new SimpleMethodParam();
-					param.setName(StringUtils.uncapitalize(name));
-					param.setType(getParamType(m));
-					params.put(name, param);
-				} else
-					fieldNames.add(name);
-				
+					name = getPropertyName(m);
+					if(fieldNames.contains(name) && !params.containsKey(name)) {
+						create = true;
+					} else
+						fieldNames.add(name);
+				}
 			}
+			
+			if(create) {
+				AbstractMethodParam param = createParam(type, pType);
+				param.setName(StringUtils.uncapitalize(name));
+				param.setType(type);
+				param.setDesc(desc);
+				param.setRequired(required);
+				param.setDefaultValue(defVal);
+				param.setMaxLength(max);
+				param.setMinLength(min);
+				
+				params.put(name, param);
+			}
+			
 		}
 		
 		paramsOut.addAll(params.values());
 		
 	}
-	private static Class<?> getParamType(Method m) {
-		if(m.getName().startsWith("get"))
+	
+	private static String getPropertyName(Method m) {
+		String name;
+		if(m.getName().startsWith("is"))
+			name = m.getName().substring(2);
+		else
+			name = m.getName().substring(3);
+		return name;
+	}
+	
+	private static AbstractMethodParam createParam(Class<?> type, ParameterizedType pType) {
+		if(pType != null) {
+			if(pType.getActualTypeArguments()[0] instanceof Class) {
+				Class clazz = (Class) pType.getActualTypeArguments()[0];
+				
+				if(clazz.isPrimitive()
+						|| clazz.equals(String.class)
+						|| clazz.equals(Date.class)) {
+					new SimpleMethodParam();
+				} else {
+					Vector<AbstractMethodParam> params = new Vector<>();
+					collect(clazz, params);
+					JsonObjectMethodParam param = new JsonObjectMethodParam();
+					param.setParams(params);
+					return new JsonListMethodParam(param);
+				}
+			}
+		}
+		return new SimpleMethodParam();
+	}
+	
+	private static Class<?> getPropertyClass(Method m) {
+		if(m.getName().startsWith("get") || m.getName().startsWith("is"))
 			return m.getReturnType();
 		if(m.getName().startsWith("set")) {
 			return m.getParameters()[0].getType();
 		}
+		return null;
+	}
+	
+	private static ParameterizedType getParameterizedType(Method m) {
+		Type type = null;
+	
+		if(m.getName().startsWith("get") || m.getName().startsWith("is"))
+			type = m.getGenericReturnType();
+		if(m.getName().startsWith("set")) {
+			type = m.getParameters()[0].getParameterizedType();
+		}
+		if(type != null && type instanceof ParameterizedType)
+			return (ParameterizedType) type;
 		return null;
 	}
 }

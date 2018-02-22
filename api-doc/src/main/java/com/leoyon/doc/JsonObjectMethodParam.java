@@ -2,7 +2,7 @@ package com.leoyon.doc;
 
 import java.util.Collection;
 
-public class JsonMethodParam extends AbstractMethodParam {
+public class JsonObjectMethodParam extends AbstractMethodParam {
 
 	private Collection<AbstractMethodParam> params;
 
@@ -15,19 +15,19 @@ public class JsonMethodParam extends AbstractMethodParam {
 	}
 	
 	@Override
-	public String getInfo() {
+	public String getInfo(String tab) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{<br/>");
 		params.forEach(i -> {
-			sb.append("&nbsp;&nbsp;"+i.getName()+":"+i.getInfo()+"<br/>");
+			sb.append(tab+"&nbsp;"+i.getName()+":"+i.getInfo(tab+"&nbsp;")+"<br/>");
 		});
-		sb.append("}");
+		sb.append(tab+"}");
 		return sb.toString();
 	}
 
 	@Override
 	public String toString() {
-		return getInfo();
+		return getInfo("");
 	}
 	
 	
