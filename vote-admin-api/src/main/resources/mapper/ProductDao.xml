@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.product.dao.ProductDao">
+	
+	<select id="find" parameterType="com.leoyon.vote.product.FindProductRequest" resultType="com.leoyon.vote.product.Product">
+	select * from basic_product
+	<where>
+			<if test="q != null and q !=''">
+				name like '%${q}%'
+			</if>
+	</where>
+			order by so
+		LIMIT #{page} , #{psize};
+	</select>
+	
+	<select id="getPictures" parameterType="Long" resultType="com.leoyon.vote.picture.Picture">
+	select p.*
+	from basic_picture p
+	join basic_product_picture pp on pp.picture_id=p.id and pp.product_id=#{productId}
+	</select>
+	
+	<select id="getSpecs" parameterType="Long" resultType="com.leoyon.vote.product.ProductSpec">
+	select *
+	from basic_product_spec 
+	where product_id= #{productId}
+	order by so;
+	</select>
+	
+	<insert id="add" parameterType="com.leoyon.vote.product.Product" useGeneratedKeys="true" keyProperty="id">
+	insert into 
+	basic_product(`desc`,`price_desc`,`so`,`remark`,`type`,`name`,`sub_type`,`update_uid`)
+	values (#{desc},#{priceDesc},#{so},#{remark},#{type},#{name},#{subType},#{updateUid})
+	</insert>
+	
+	<insert id="addPicture" parameterType="com.leoyon.vote.product.dao.ProductPicture">
+	insert into 
+	basic_product_picture(picture_id,product_id)
+	values(#{pictureId},#{productId})
+	</insert>
+	
+	<insert id="addSpec" parameterType="com.leoyon.vote.product.ProductSpec">
+	insert into 
+	basic_product_spec(`product_id`,`name`,`price`, `remark`,`so`)
+	values(#{productId},#{name},#{price}, #{remark},#{so})
+	</insert>
+	
+	<update id="update" parameterType="com.leoyon.vote.product.Product" >
+	update basic_product
+	<set>
+		<if test="desc != null and desc != ''">
+				desc = #{desc},
+		</if>
+		<if test="priceDesc != null and priceDesc != ''">
+				price_desc = #{priceDesc},
+		</if>	
+		<if test="so != null">
+				so = #{so},
+		</if>		
+		<if test="remark != null and remark != ''">
+				remark = #{remark},
+		</if>			
+		<if test="type != null">
+				type=#{type},
+		</if>
+		<if test="name != null and name != ''">
+				name = #{name},
+		</if>	
+		<if test="subType != null">
+				sub_type=#{subType},
+		</if>	
+		<if test="updateUid != null">
+				update_uid=#{updateUid},
+		</if>							
+	</set>
+	where id = #{id}
+	</update>
+	
+	<delete id="clearPictures" parameterType="Long">
+	delete from basic_product_picture where product_id=#{productId}
+	</delete>
+	
+	<update id="updateSpec" parameterType="com.leoyon.vote.product.ProductSpec">
+	update basic_product_spec
+	<set>
+		<if test="so != null">
+				so = #{so},
+		</if>
+		<if test="name != null and name != ''">
+				name = #{name},
+		</if>
+		<if test="price != null">
+				price=#{price},
+		</if>							
+	</set>
+	where id = #{id}
+	</update>	
+</mapper>

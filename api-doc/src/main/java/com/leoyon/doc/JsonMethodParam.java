@@ -13,9 +13,9 @@ public class JsonMethodParam extends AbstractMethodParam {
 	public void setParams(Collection<AbstractMethodParam> params) {
 		this.params = params;
 	}
-
+	
 	@Override
-	public String toString() {
+	public String getInfo() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{<br/>");
 		params.forEach(i -> {
@@ -23,6 +23,11 @@ public class JsonMethodParam extends AbstractMethodParam {
 		});
 		sb.append("}");
 		return sb.toString();
+	}
+
+	@Override
+	public String toString() {
+		return getInfo();
 	}
 	
 	
