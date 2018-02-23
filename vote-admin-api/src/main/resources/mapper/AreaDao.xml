@@ -47,7 +47,18 @@
 		</where>
 		order by so
 		LIMIT #{page} , #{psize};
-	</select>	
+	</select>
+	
+	<select id="count" parameterType="com.leoyon.vote.area.FindAreaRequest" resultType="Integer">
+		select count(*) from basic_area 
+		<where>
+			<if test="q != null and q !=''">
+				and name like '%${q}%'
+			</if>	
+			and `delete`=1	
+		</where>
+	</select>
+	
 	
 	<select id="all" resultType="com.leoyon.vote.area.Area">
 		select * from basic_area where `delete`=1;

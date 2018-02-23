@@ -21,4 +21,6 @@ public interface SysCommandDao {
 
 	void delete(SysCommand entity);
 
+	int count(FindSysCommandRequest rqst);
+
 }

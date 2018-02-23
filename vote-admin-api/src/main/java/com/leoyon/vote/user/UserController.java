@@ -26,6 +26,7 @@ public class UserController extends AuthenticationController {
 			FindUserHouseRequest req
 			) {	
 		return JsonResponse.sucess(new M<>()
+				.put("count", userService.countHouse(req))
 				.put("items", userService.findHouse(req))
 				.build());		
 	}

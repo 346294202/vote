@@ -12,4 +12,6 @@ public interface ProductService {
 
 	void delete(Product entity);
 
+	int count(FindProductRequest req);
+
 }

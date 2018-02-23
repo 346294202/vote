@@ -22,5 +22,7 @@ public interface SysUserService {
 
 	void delete(SysUser entity);
 
+	int count(FindSysUserRequest req);
+
 
 }

@@ -48,5 +48,31 @@
 		order by uh.owner_update_time desc
 		LIMIT #{page} , #{psize};
 	</select>
+
+	<select id="countHouse" parameterType="com.leoyon.vote.user.FindUserHouseRequest" resultType="Integer">
+		select count(*)
+		from basic_user_house uh
+		join basic_user u on u.id=uh.user_id
+		join basic_house h on h.id=uh.house_id
+		join basic_area a on a.id=h.area_id
+		left join sys_user su on su.id=uh.owner_update_uid
+		<where>
+			<if test="realName != null and realName != ''">
+				u.rea_name=#{realName}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				u.mobile=#{mobile}
+			</if>
+			<if test="dateCreateStart != null">
+				u.date_create&gt;#{dateCreateStart}
+			</if>
+			<if test="dateCreateEnd != null">
+				u.date_create&lt;#{dateCreateEnd}
+			</if>
+			<if test="ownerStatus != null">
+				uh.owner_status=#{ownerStatus}
+			</if>
+		</where>
+	</select>
 	
 </mapper>

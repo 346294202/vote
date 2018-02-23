@@ -28,6 +28,7 @@ public class ProductController extends AuthenticationController {
 	public JsonResponse find(FindProductRequest req) {
 		List<Product> items = productService.find(req);
 		return JsonResponse.sucess(new M<>()
+				.put("count", productService.count(req))
 				.put("items", items)
 				.build());	
 	}

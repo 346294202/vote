@@ -35,9 +35,18 @@
 			</if>		
 			and `delete`=1
 		</where>
-		
 		order by so
 		LIMIT #{page} , #{psize};
+	</select>
+	
+	<select id="count" parameterType="com.leoyon.vote.role.FindSysRoleRequest" resultType="Integer">
+			select count(*) from sys_role 
+		<where>
+			<if test="q != null and q !=''">
+				and name like '%${q}%'
+			</if>		
+			and `delete`=1
+		</where>
 	</select>
 	
 	<select id="all" resultType="com.leoyon.vote.role.SysRole">

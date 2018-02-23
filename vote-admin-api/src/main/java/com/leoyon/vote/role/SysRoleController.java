@@ -34,6 +34,7 @@ public class SysRoleController extends AuthenticationController {
 	@GetMapping(value="/sys/role", name="查询系统角色")
 	public JsonResponse find(FindSysRoleRequest rqst) {
 		return JsonResponse.sucess(new M<>()
+				.put("count", sysRoleService.count(rqst))
 				.put("items", sysRoleService.find(rqst))
 				.build());		
 	}

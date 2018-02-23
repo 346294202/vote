@@ -13,6 +13,16 @@
 			order by so
 		LIMIT #{page} , #{psize};
 	</select>
+
+	<select id="count" parameterType="com.leoyon.vote.product.FindProductRequest" resultType="Integer">
+	select count(*) from basic_product
+	<where>
+			<if test="q != null and q !=''">
+				name like '%${q}%'
+			</if>
+			and `delete`=1
+	</where>
+	</select>
 	
 	<select id="getPictures" parameterType="Long" resultType="com.leoyon.vote.picture.Picture">
 	select p.*

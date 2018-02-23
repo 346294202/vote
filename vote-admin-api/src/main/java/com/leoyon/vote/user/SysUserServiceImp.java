@@ -91,4 +91,9 @@ public class SysUserServiceImp implements SysUserService, SysUserRoleService {
 	public void delete(SysUser entity) {
 		userDao.delete(entity);	
 	}
+
+	@Override
+	public int count(FindSysUserRequest req) {
+		return userDao.count(req);
+	}
 }

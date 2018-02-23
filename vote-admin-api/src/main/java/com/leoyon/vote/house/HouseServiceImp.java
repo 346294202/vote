@@ -31,4 +31,9 @@ public class HouseServiceImp implements HouseService{
 		houseDao.delete(entity);
 	}
 
+	@Override
+	public int count(FindHouseRequest reqst) {
+		return houseDao.count(reqst);
+	}
+
 }

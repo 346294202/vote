@@ -57,6 +57,16 @@
 		LIMIT #{page} , #{psize};
 	</select>	
 	
+	<select id="count" parameterType="com.leoyon.vote.command.FindSysCommandRequest" resultType="Integer">
+		select count(*) from sys_command 
+		<where>
+			<if test="q != null and q !=''">
+				and name like '%${q}%'
+			</if>		
+			and `delete`=1
+		</where>
+	</select>	
+	
 	<select id="existed" parameterType="Long" resultType="Long">
 	select id from sys_command where id = #{id}
 	</select>	

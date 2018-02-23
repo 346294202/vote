@@ -12,4 +12,6 @@ public interface HouseService {
 
 	void delete(House entity);
 
+	int count(FindHouseRequest reqst);
+
 }

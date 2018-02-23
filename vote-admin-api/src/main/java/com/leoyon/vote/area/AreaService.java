@@ -14,4 +14,6 @@ public interface AreaService {
 
 	void delete(Area entity);
 
+	int count(FindAreaRequest rqst);
+
 }

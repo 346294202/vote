@@ -38,4 +38,9 @@ public class AreaServiceImp implements AreaService {
 		areaDao.delete(entity);
 	}
 
+	@Override
+	public int count(FindAreaRequest rqst) {
+		return areaDao.count(rqst);
+	}
+
 }

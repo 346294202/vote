@@ -10,5 +10,7 @@ public interface UserService {
 
 	void updateHouse(UserHouse entity);
 
+	int countHouse(FindUserHouseRequest req);
+
 	
 }

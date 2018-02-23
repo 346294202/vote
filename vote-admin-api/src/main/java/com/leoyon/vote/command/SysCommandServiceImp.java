@@ -48,5 +48,10 @@ public class SysCommandServiceImp implements SysCommandService {
 		commandDao.delete(entity);
 	}
 
+	@Override
+	public int count(FindSysCommandRequest rqst) {
+		return commandDao.count(rqst);
+	}
+
 
 }

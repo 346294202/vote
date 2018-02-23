@@ -72,4 +72,9 @@ public class ProductServiceImp implements ProductService {
 		dao.delete(entity);
 	}
 
+	@Override
+	public int count(FindProductRequest req) {
+		return dao.count(req);
+	}
+
 }

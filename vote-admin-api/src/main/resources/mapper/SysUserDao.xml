@@ -66,5 +66,18 @@
 		order by date_create desc
 		LIMIT #{page} , #{psize};
 	</select>
+
+	<select id="count" parameterType="com.leoyon.vote.user.FindSysUserRequest" resultType="Integer">
+		select count(*) from sys_user 
+		<where>
+			<if test="q != null and q !=''">
+				and (username like '%${q}%' or real_name like '%${q}%') 
+			</if>
+			<if test="active != null">
+				and active=#{active}
+			</if>		
+			and `delete`=1	
+		</where>
+	</select>
 	
 </mapper>

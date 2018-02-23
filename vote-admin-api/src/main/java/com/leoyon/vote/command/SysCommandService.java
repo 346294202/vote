@@ -18,4 +18,6 @@ public interface SysCommandService {
 
 	void delete(SysCommand entity);
 
+	int count(FindSysCommandRequest rqst);
+
 }

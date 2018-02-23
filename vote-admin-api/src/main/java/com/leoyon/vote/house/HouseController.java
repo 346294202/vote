@@ -24,6 +24,7 @@ public class HouseController extends AuthenticationController {
 	@GetMapping(value="/basic/house", name="查询房屋")
 	public JsonResponse find(FindHouseRequest reqst) {
 		return JsonResponse.sucess(new M<>()
+				.put("count", houseService.count(reqst))
 				.put("items", houseService.find(reqst))
 				.build());	
 	}

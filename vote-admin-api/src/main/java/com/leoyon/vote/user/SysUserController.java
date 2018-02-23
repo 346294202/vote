@@ -15,7 +15,6 @@ import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
-import com.leoyon.vote.role.SysRole;
 import com.leoyon.vote.util.M;
 import com.leoyon.vote.util.Parses;
 
@@ -31,6 +30,7 @@ public class SysUserController extends AuthenticationController {
 			FindSysUserRequest req
 			) {	
 		return JsonResponse.sucess(new M<>()
+				.put("count", userService.count(req))
 				.put("items", userService.find(req))
 				.build());		
 	}

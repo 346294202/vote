@@ -1,6 +1,5 @@
 package com.leoyon.vote.role;
 
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Vector;
@@ -118,6 +117,11 @@ public class SysRoleServiceImp implements SysRoleService, SysRoleCommandService 
 				}
 			}
 		}
+	}
+
+	@Override
+	public int count(FindSysRoleRequest rqst) {
+		return dao.count(rqst);
 	}
 
 }
