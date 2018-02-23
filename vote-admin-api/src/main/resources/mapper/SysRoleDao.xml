@@ -50,7 +50,7 @@
 	</select>
 	
 	<select id="all" resultType="com.leoyon.vote.role.SysRole">
-		select * from sys_role where `delete`=1
+		select * from sys_role where `delete`=1 order by so
 	</select>
 	
 	<select id="existed" parameterType="Long" resultType="Long">

@@ -10,7 +10,7 @@
 	</select>	
 	
 	<select id="all" resultType="com.leoyon.vote.command.SysCommand">
-		select * from sys_command where `delete`=1;
+		select * from sys_command where `delete`=1 order by so;
 	</select>
 
 	<insert id="add" parameterType="com.leoyon.vote.command.SysCommand" useGeneratedKeys="true" keyProperty="id">
