@@ -60,7 +60,8 @@
 			</if>
 			<if test="active != null">
 				and active=#{active}
-			</if>			
+			</if>		
+			and `delete`=1	
 		</where>
 		order by date_create desc
 		LIMIT #{page} , #{psize};

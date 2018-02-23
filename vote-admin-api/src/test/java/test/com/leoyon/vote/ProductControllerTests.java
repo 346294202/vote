@@ -2,12 +2,19 @@ package test.com.leoyon.vote;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import com.fasterxml.jackson.databind.deser.std.JsonNodeDeserializer;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.picture.Picture;
 import com.leoyon.vote.product.Product;
@@ -139,4 +147,15 @@ public class ProductControllerTests extends BaseWebTests {
 		assertSucess(r);
 	}
 	
+	@Test
+	@Ignore("检查前段数据为什么异常")
+	public void add_bug1() throws JsonParseException, IOException {
+		ObjectMapper om = new ObjectMapper();
+		JsonParser jp = om.getJsonFactory().createJsonParser("{\"name\":\"大肆发放\",\"desc\":\"111\",\"price_desc\":\"222\",\"so\":\"3\",\"remark\":\"\",\"specs\":[{\"name\":\"放大\",\"price\":\"44\",\"remark\":\"法大使馆\",\"so\":\"11\"}]}");
+		
+		JsonResponse r = restTemplate.postForObject("/basic/product", 
+				jp.readValueAs(Product.class), 
+				JsonResponse.class);
+		assertSucess(r);
+	}
 }
