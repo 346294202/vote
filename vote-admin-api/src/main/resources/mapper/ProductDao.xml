@@ -71,6 +71,9 @@
 		</if>	
 		<if test="updateUid != null">
 				update_uid=#{updateUid},
+		</if>	
+		<if test="active != null">
+				active=#{active},
 		</if>							
 	</set>
 	where id = #{id}

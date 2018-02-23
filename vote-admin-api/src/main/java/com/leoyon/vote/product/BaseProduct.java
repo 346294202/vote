@@ -11,6 +11,7 @@ public class BaseProduct extends AbstractResource<BaseProduct> {
 	private Integer type;
 	private Integer subType;
 	private String remark;
+	private Boolean active; 
 	
 	public String getName() {
 		return name;
@@ -66,5 +67,13 @@ public class BaseProduct extends AbstractResource<BaseProduct> {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }
