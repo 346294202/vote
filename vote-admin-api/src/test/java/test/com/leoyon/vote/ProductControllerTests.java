@@ -148,12 +148,41 @@ public class ProductControllerTests extends BaseWebTests {
 	}
 	
 	@Test
-	@Ignore("检查前段数据为什么异常")
-	public void add_bug1() throws JsonParseException, IOException {
+	@Ignore("检查前端数据为什么异常")
+	public void add_debug() throws JsonParseException, IOException {
 		ObjectMapper om = new ObjectMapper();
 		JsonParser jp = om.getJsonFactory().createJsonParser("{\"name\":\"大肆发放\",\"desc\":\"111\",\"price_desc\":\"222\",\"so\":\"3\",\"remark\":\"\",\"specs\":[{\"name\":\"放大\",\"price\":\"44\",\"remark\":\"法大使馆\",\"so\":\"11\"}]}");
 		
 		JsonResponse r = restTemplate.postForObject("/basic/product", 
+				jp.readValueAs(Product.class), 
+				JsonResponse.class);
+		assertSucess(r);
+	}
+	
+	@Test
+	public void update_debug() throws Exception {
+		dbUtil.insert("basic_product", M.map()
+				.put("id", 1L)
+				.put("name", "P1")
+				.put("type", 1)
+				.build());
+		
+		dbUtil.insert("basic_product_picture", M.map()
+				.put("picture_id", 1L)
+				.put("product_id", 1L)
+				.build());
+		
+		dbUtil.insert("basic_product_spec", M.map()
+				.put("id", 1L)
+				.put("product_id", 1L)
+				.put("name", "PS1")
+				.put("price", 128.65)
+				.build());
+		
+		ObjectMapper om = new ObjectMapper();
+		JsonParser jp = om.getJsonFactory().createJsonParser("{\"type\":1,\"name\":\"fdsaf111111\",\"desc\":\"fdsaf\",\"priceDesc\":\"fsaf\",\"so\":\"12\",\"remark\":\"fdsa\",\"specs\":[{\"id\":3,\"productId\":3,\"name\":\"123fds\",\"price\":31,\"remark\":\"fds\",\"so\":123},{\"id\":4,\"productId\":3,\"name\":\"dsaf\",\"price\":1233,\"remark\":\"ddsfd\",\"so\":3214}],\"pictures\":[]}");
+		
+		JsonResponse r = restTemplate.postForObject("/basic/product/1", 
 				jp.readValueAs(Product.class), 
 				JsonResponse.class);
 		assertSucess(r);

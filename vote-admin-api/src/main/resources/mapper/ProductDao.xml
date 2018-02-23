@@ -49,22 +49,22 @@
 	update basic_product
 	<set>
 		<if test="desc != null and desc != ''">
-				desc = #{desc},
+				`desc`=#{desc},
 		</if>
 		<if test="priceDesc != null and priceDesc != ''">
-				price_desc = #{priceDesc},
+				price_desc=#{priceDesc},
 		</if>	
 		<if test="so != null">
-				so = #{so},
+				so=#{so},
 		</if>		
 		<if test="remark != null and remark != ''">
-				remark = #{remark},
+				`remark`=#{remark},
 		</if>			
 		<if test="type != null">
-				type=#{type},
+				`type`=#{type},
 		</if>
 		<if test="name != null and name != ''">
-				name = #{name},
+				name=#{name},
 		</if>	
 		<if test="subType != null">
 				sub_type=#{subType},
@@ -94,6 +94,9 @@
 		</if>
 		<if test="price != null">
 				price=#{price},
+		</if>	
+		<if test="remark != null and remark != ''">
+				`remark`=#{remark},
 		</if>							
 	</set>
 	where id = #{id}
