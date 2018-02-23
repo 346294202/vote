@@ -16,31 +16,6 @@ public class SysCommandServiceImp implements SysCommandService {
 	private SysCommandDao commandDao; 
 
 	@Override
-	public List<SysCommand> listByUser(SysUser user) {	
-		List<SysCommand> all = commandDao.all();
-		
-		List<SysCommand> byUser = commandDao.listByUser(user.getId());
-		
-		Vector<SysCommand> ret = new Vector<>();
-		ret.addAll(byUser);
-		for(SysCommand c:byUser) {
-			collect(c, all, ret);
-		}
-		return ret;
-	}
-
-	private void collect(SysCommand child, List<SysCommand> all, List<SysCommand> ret) {
-		for(SysCommand c:all) {
-			if(c.getId() == child.getParentId()) {
-				ret.add(c);
-				if(c.getParentId() > 0) {
-					collect(c, all, ret);
-				}
-			}
-		}
-	}
-
-	@Override
 	public void update(SysCommand command) {
 		commandDao.update(command);
 	}

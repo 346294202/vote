@@ -10,4 +10,11 @@ public interface SysRoleCommandService {
 
 	void setRoleCommands(Long roleId, List<Long> commandIds) throws Exception;
 
+	/**
+	 * 获得指导角色的所有command
+	 * @param roles
+	 * @return
+	 */
+	List<SysCommand> collectCommands(List<SysRole> roles);
+
 }
