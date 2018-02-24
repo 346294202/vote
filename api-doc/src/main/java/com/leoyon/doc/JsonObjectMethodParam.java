@@ -17,11 +17,13 @@ public class JsonObjectMethodParam extends AbstractMethodParam {
 	@Override
 	public String getInfo(String tab) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("{<br/>");
+		if(!isValueType())
+			sb.append("{<br/>");
 		params.forEach(i -> {
 			sb.append(tab+"&nbsp;"+i.getName()+":"+i.getInfo(tab+"&nbsp;")+"<br/>");
 		});
-		sb.append(tab+"}");
+		if(!isValueType())
+			sb.append(tab+"}");
 		return sb.toString();
 	}
 
@@ -33,3 +35,4 @@ public class JsonObjectMethodParam extends AbstractMethodParam {
 	
 	
 }
+

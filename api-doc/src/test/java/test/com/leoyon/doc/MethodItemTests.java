@@ -134,5 +134,11 @@ public class MethodItemTests {
 		assertEquals(3, ms.get(i).getParams().size());
 		++i;
 	}
+	
+	@Test
+	public void isValue() {
+		assertFalse(Long.class.isPrimitive());
+		assertTrue(Number.class.isAssignableFrom(Double.class));
+	}
 
 }

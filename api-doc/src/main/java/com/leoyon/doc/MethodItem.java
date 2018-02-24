@@ -264,11 +264,8 @@ public class MethodItem {
 	private static AbstractMethodParam createParam(Class<?> type, ParameterizedType pType) {
 		if(pType != null) {
 			if(pType.getActualTypeArguments()[0] instanceof Class) {
-				Class clazz = (Class) pType.getActualTypeArguments()[0];
-				
-				if(clazz.isPrimitive()
-						|| clazz.equals(String.class)
-						|| clazz.equals(Date.class)) {
+				Class clazz = (Class) pType.getActualTypeArguments()[0];				
+				if(AbstractMethodParam.isValueType(clazz)) {
 					new SimpleMethodParam();
 				} else {
 					Vector<AbstractMethodParam> params = new Vector<>();

@@ -125,4 +125,17 @@ public abstract class AbstractMethodParam {
 	public String getText() {
 		return getName()+":"+getInfo("");
 	}
+	
+	public static boolean isValueType(Class<?> clazz) {
+		return clazz.isPrimitive()
+				|| clazz.equals(String.class)
+				|| clazz.equals(Date.class)
+				|| Number.class.isAssignableFrom(clazz);
+	}
+
+	public boolean isValueType() {
+		if(type == null)
+			return false;
+		return isValueType(type);
+	}
 }
