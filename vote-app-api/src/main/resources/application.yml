@@ -8,5 +8,14 @@ db:
   password: 123456
   
 app:
-  tokenExpirSeconds: 10
+  tokenExpirSeconds: 36000
+  
+jsondoc:
+  version: 1.0
+  basePath: http://localhost:8080
+  packages: 
+    - com.example.controller
+    - com.example.model
+  playgroundEnabled: true
+  displayMethodAs: URI  
   
