@@ -41,7 +41,7 @@ crossorigin="anonymous"/>
 				<td th:text="${method.path}"></td>
 				<td>
 				 <ul>
-				 	<li th:each="p: ${method.params}" ><code th:utext="${p}"></code></li>
+				 	<li th:each="p: ${method.parameters}" ><code th:utext="${p}"></code></li>
 				 </ul>
 				</td>
 				<td></td>

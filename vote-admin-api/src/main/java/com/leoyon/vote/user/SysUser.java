@@ -4,10 +4,11 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.leoyon.doc.ApiParam;
-import com.leoyon.doc.ApiParamIgnore;
 import com.leoyon.vote.AbstractResource;
 import com.leoyon.vote.Passwords;
+
+import wj.flydoc.ApiParam;
+import wj.flydoc.ApiParamIgnore;
 
 public class SysUser extends AbstractResource<SysUser> {
 	

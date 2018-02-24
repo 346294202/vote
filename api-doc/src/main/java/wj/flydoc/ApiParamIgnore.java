@@ -1,4 +1,4 @@
-package com.leoyon.doc;
+package wj.flydoc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

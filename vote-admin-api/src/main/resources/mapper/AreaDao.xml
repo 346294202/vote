@@ -11,19 +11,19 @@
 	<update id="update" parameterType="com.leoyon.vote.area.Area">
 	update basic_area
 	<set>
-		<if test="name != null and name != ''">
+		<if test="name != null">
 				name = #{name},
 		</if>
-		<if test="address != null and address != ''">
+		<if test="address != null">
 				address = #{address},
 		</if>		
-		<if test="developer != null and developer != ''">
+		<if test="developer != null">
 				developer = #{developer},
 		</if>				
-		<if test="service != null and service != ''">
+		<if test="service != null">
 				service = #{service},
 		</if>					
-		<if test="remark != null and remark != ''">
+		<if test="remark != null">
 				remark = #{remark},
 		</if>
 		<if test="updateUid != null">

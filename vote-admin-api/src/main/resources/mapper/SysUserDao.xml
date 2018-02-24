@@ -15,22 +15,22 @@
 	<update id="updateUser" parameterType="com.leoyon.vote.user.SysUser">
 	update sys_user
 	<set>
-		<if test="username != null and username != ''">
+		<if test="username != null">
 				username = #{username},
 		</if>
-		<if test="password != null and password != ''">
+		<if test="password != null">
 				password = #{password},
 		</if>	
 		<if test="active != null">
 				active = #{active},
 		</if>		
-		<if test="realName != null and realName != ''">
+		<if test="realName != null">
 				real_name = #{realName},
 		</if>			
-		<if test="depart != null and depart != ''">
+		<if test="depart != null">
 				depart = #{depart},
 		</if>					
-		<if test="phone != null and phone != ''">
+		<if test="phone != null">
 				phone = #{phone},
 		</if>		
 		<if test="updateUid != null">

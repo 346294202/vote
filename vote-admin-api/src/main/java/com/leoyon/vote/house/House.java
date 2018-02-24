@@ -1,7 +1,8 @@
 package com.leoyon.vote.house;
 
-import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.AbstractResource;
+
+import wj.flydoc.ApiParam;
 
 public class House extends AbstractResource<House> {
 

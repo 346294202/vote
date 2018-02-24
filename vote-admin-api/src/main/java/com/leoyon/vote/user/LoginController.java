@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.GeneralController;
 import com.leoyon.vote.api.Error;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.api.Token;
+
+import wj.flydoc.ApiParam;
 
 @RestController
 @Scope("prototype")

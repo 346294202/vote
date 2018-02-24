@@ -2,8 +2,8 @@ package com.leoyon.vote.user;
 
 import java.util.Date;
 
-import com.leoyon.doc.ApiParam;
-import com.leoyon.doc.ApiParamIgnore;
+import wj.flydoc.ApiParam;
+import wj.flydoc.ApiParamIgnore;
 
 public class UserHouse {
 

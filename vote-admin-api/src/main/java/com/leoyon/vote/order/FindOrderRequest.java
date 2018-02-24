@@ -2,8 +2,8 @@ package com.leoyon.vote.order;
 
 import java.util.Date;
 
-import com.leoyon.doc.ApiParam;
-import com.leoyon.doc.ApiParamCtor;
+import wj.flydoc.ApiParam;
+import wj.flydoc.ApiParamCtor;
 
 public class FindOrderRequest {
 

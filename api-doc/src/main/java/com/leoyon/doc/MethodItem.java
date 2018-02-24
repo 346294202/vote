@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import wj.flydoc.ApiParam;
+import wj.flydoc.ApiParamCtor;
+import wj.flydoc.ApiParamIgnore;
+
 public class MethodItem {
 	private String name;
 	private String path;
@@ -35,7 +39,7 @@ public class MethodItem {
 	public String getMethod() {
 		return method;
 	}
-	public Collection<AbstractMethodParam> getParams() {
+	public Collection<AbstractMethodParam> getParameters() {
 		return params;
 	}
 	

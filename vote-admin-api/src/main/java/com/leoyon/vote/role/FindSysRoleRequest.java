@@ -1,6 +1,6 @@
 package com.leoyon.vote.role;
 
-import com.leoyon.doc.ApiParamCtor;
+import wj.flydoc.ApiParamCtor;
 
 public class FindSysRoleRequest {
 	

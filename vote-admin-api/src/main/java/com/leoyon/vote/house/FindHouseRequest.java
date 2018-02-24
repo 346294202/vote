@@ -1,7 +1,7 @@
 package com.leoyon.vote.house;
 
-import com.leoyon.doc.ApiParam;
-import com.leoyon.doc.ApiParamCtor;
+import wj.flydoc.ApiParam;
+import wj.flydoc.ApiParamCtor;
 
 public class FindHouseRequest {
 		

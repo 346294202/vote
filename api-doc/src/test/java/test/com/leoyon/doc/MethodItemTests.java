@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.leoyon.doc.ApiParam;
-import com.leoyon.doc.ApiParamCtor;
 import com.leoyon.doc.MethodItem;
+
+import wj.flydoc.ApiParam;
+import wj.flydoc.ApiParamCtor;
 
 public class MethodItemTests {
 	
@@ -113,25 +114,25 @@ public class MethodItemTests {
 		assertEquals("GET", ms.get(i).getMethod());
 		assertEquals("/user", ms.get(i).getPath());
 		assertEquals("Query User", ms.get(i).getName());
-		assertEquals(2, ms.get(i).getParams().size());
+		assertEquals(2, ms.get(i).getParameters().size());
 		++i;
 		
 		assertEquals("POST", ms.get(i).getMethod());
 		assertEquals("/user", ms.get(i).getPath());
 		assertEquals("Add user", ms.get(i).getName());
-		assertEquals(1, ms.get(i).getParams().size());
+		assertEquals(1, ms.get(i).getParameters().size());
 		++i;
 		
 		assertEquals("POST", ms.get(i).getMethod());
 		assertEquals("/user/{id}", ms.get(i).getPath());
 		assertEquals("Update user", ms.get(i).getName());
-		assertEquals(2, ms.get(i).getParams().size());
+		assertEquals(2, ms.get(i).getParameters().size());
 		++i;
 		
 		assertEquals("GET", ms.get(i).getMethod());
 		assertEquals("/user", ms.get(i).getPath());
 		assertEquals("Find user", ms.get(i).getName());
-		assertEquals(3, ms.get(i).getParams().size());
+		assertEquals(3, ms.get(i).getParameters().size());
 		++i;
 	}
 	

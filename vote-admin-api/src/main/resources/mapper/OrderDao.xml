@@ -22,10 +22,10 @@
 			<if test="orderStatus != null">
 				o.order_status=#{orderStatus}
 			</if>
-			<if test="userRealName != null and userRealName != ''">
+			<if test="userRealName != null">
 				u.real_name=#{userRealName}
 			</if>
-			<if test="userMobile != null and userMobile != ''">
+			<if test="userMobile != null">
 				u.mobile=#{userMobile}
 			</if>
 			<if test="areaId != null">
@@ -65,10 +65,10 @@
 			<if test="orderStatus != null">
 				o.order_status=#{orderStatus}
 			</if>
-			<if test="userRealName != null and userRealName != ''">
+			<if test="userRealName != null">
 				u.real_name=#{userRealName}
 			</if>
-			<if test="userMobile != null and userMobile != ''">
+			<if test="userMobile != null">
 				u.mobile=#{userMobile}
 			</if>
 			<if test="areaId != null">

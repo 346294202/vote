@@ -11,10 +11,10 @@
 	<update id="update" parameterType="com.leoyon.vote.role.SysRole">
 	update sys_role
 	<set>
-		<if test="name != null and name != ''">
+		<if test="name != null">
 				name = #{name},
 		</if>
-		<if test="remark != null and remark != ''">
+		<if test="remark != null">
 				remark = #{remark},
 		</if>	
 		<if test="so != null">

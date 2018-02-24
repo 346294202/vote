@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.M;
 import com.leoyon.vote.util.Parses;
+
+import wj.flydoc.ApiParam;
 
 @RestController
 @Scope("prototype")

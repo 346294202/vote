@@ -3,8 +3,9 @@ package com.leoyon.vote.command;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
-import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.AbstractResource;
+
+import wj.flydoc.ApiParam;
 
 public class SysCommand extends AbstractResource<SysCommand> {
 	
