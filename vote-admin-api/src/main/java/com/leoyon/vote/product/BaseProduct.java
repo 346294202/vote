@@ -7,7 +7,7 @@ public class BaseProduct extends AbstractResource<BaseProduct> {
 	private String name;
 	private String desc;
 	private String priceDesc;
-	private Integer so;
+	private String so;
 	private Integer type;
 	private Integer subType;
 	private String remark;
@@ -37,11 +37,11 @@ public class BaseProduct extends AbstractResource<BaseProduct> {
 		this.priceDesc = priceDesc;
 	}
 
-	public Integer getSo() {
+	public String getSo() {
 		return so;
 	}
 
-	public void setSo(Integer so) {
+	public void setSo(String so) {
 		this.so = so;
 	}
 

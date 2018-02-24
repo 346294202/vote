@@ -20,7 +20,13 @@ public abstract class AuthenticationController extends GeneralController {
 	public SysUser getLogin(boolean silence) throws ResponseException {
 		Token token = (Token) request.getAttribute(Token.TOKEN_NAME);
 		
-		Long id = Long.parseLong(token.getValue());
+		String value = token.getValue();
+		
+		if(value == null) {
+			throw new ResponseException(Error.TOKEN_EXCEPT);
+		}
+		
+		Long id = Long.parseLong(value);
 		
 		SysUser user = userService.get(id);
 		

@@ -36,6 +36,10 @@ public class AreaControllerTests extends BaseWebTests {
 		
 		Area entity = new Area();
 		entity.setName("金蓝半岛");
+		entity.setAddress("东坡路");
+		entity.setDeveloper("frftgrejgbjd");
+		entity.setService("frftgrejgbjd");
+		entity.setRemark("frftgrejgbjd");
 		
 		JsonResponse r = restTemplate.postForObject("/basic/area", entity, JsonResponse.class);
 		assertSucess(r);

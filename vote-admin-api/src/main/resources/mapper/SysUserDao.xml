@@ -7,8 +7,8 @@
 	</sql>
 	
 	<insert id="addUser" parameterType="com.leoyon.vote.user.SysUser" useGeneratedKeys="true" keyProperty="id">
-		insert into sys_user (username,password,salt,active,real_name,depart,phone) values(
-			#{username},#{password},#{salt},#{active},#{realName},#{depart},#{phone}
+		insert into sys_user (username,password,salt,active,real_name,depart,phone,`update_uid`) values(
+			#{username},#{password},#{salt},#{active},#{realName},#{depart},#{phone},#{updateUid}
 		);
 	</insert>
 	

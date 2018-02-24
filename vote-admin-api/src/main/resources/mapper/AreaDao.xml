@@ -3,8 +3,8 @@
 <mapper namespace="com.leoyon.vote.area.dao.AreaDao">
 
 	<insert id="add" parameterType="com.leoyon.vote.area.Area" useGeneratedKeys="true" keyProperty="id">
-		insert into basic_area (name,address,developer,service,remark) values(
-			#{name},#{address},#{developer},#{service},#{remark}
+		insert into basic_area (name,address,developer,service,remark,`update_uid`) values(
+			#{name},#{address},#{developer},#{service},#{remark},#{updateUid}
 		);
 	</insert>
 	

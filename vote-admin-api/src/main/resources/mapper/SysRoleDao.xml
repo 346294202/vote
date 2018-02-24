@@ -3,8 +3,8 @@
 <mapper namespace="com.leoyon.vote.role.dao.SysRoleDao">
 
 	<insert id="add" parameterType="com.leoyon.vote.role.SysRole" useGeneratedKeys="true" keyProperty="id">
-		insert into sys_role (name,so,remark) values(
-			#{name},#{so},#{remark}
+		insert into sys_role (name,so,remark,`update_uid`) values(
+			#{name},#{so},#{remark},#{updateUid}
 		);
 	</insert>
 	

@@ -14,8 +14,8 @@
 	</select>
 
 	<insert id="add" parameterType="com.leoyon.vote.command.SysCommand" useGeneratedKeys="true" keyProperty="id">
-		insert into sys_command (parent_id,name,url,icon,so) values(
-			#{parentId},#{name},#{url},#{icon},#{so}
+		insert into sys_command (parent_id,name,url,icon,so,`update_uid`,level) values(
+			#{parentId},#{name},#{url},#{icon},#{so},#{updateUid},#{level}
 		);
 	</insert>
 	
@@ -33,7 +33,13 @@
 		</if>	
 		<if test="so != null">
 				so = #{so},
+		</if>
+		<if test="icon != null">
+				icon = #{icon},
 		</if>		
+		<if test="level != null">
+				level = #{level},
+		</if>	
 		<if test="updateUid != null">
 				update_uid=#{updateUid},
 		</if>				

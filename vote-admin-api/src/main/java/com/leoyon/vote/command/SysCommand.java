@@ -13,6 +13,7 @@ public class SysCommand extends AbstractResource<SysCommand> {
 	private String url;//	varchar	255	0	-1	0	0	0	0		0		utf8mb4	utf8mb4_unicode_ci		0	0
 	private Integer icon;//	int	11	0	-1	0	0	0	0	1	0	图标编码：1，2，3，4，5				0	0
 	private Integer so;
+	private Integer level;
 	
 	@ApiParam(desc="排序号")
 	public Integer getSo() {
@@ -70,6 +71,12 @@ public class SysCommand extends AbstractResource<SysCommand> {
 			}
 		}
 		
+	}
+	public Integer getLevel() {
+		return level;
+	}
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 
 

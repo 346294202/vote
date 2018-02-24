@@ -3,9 +3,9 @@
 <mapper namespace="com.leoyon.vote.house.dao.HouseDao">
 	
 	<insert id="add" parameterType="com.leoyon.vote.house.House" useGeneratedKeys="true" keyProperty="id">
-		insert into basic_house (area_id,building,unit,number,house_type,house_status,remark,construction_area,net_area,owner_name,owner_phone) values(
+		insert into basic_house (area_id,building,unit,number,house_type,house_status,remark,construction_area,net_area,owner_name,owner_phone,`update_uid`) values(
 			#{areaId},#{building},#{unit},#{number},#{houseType},#{houseStatus},#{remark},#{constructionArea},#{netArea}
-			,#{ownerName},#{ownerPhone}
+			,#{ownerName},#{ownerPhone},#{updateUid}
 		);
 	</insert>	
 	
