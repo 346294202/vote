@@ -82,6 +82,11 @@ public class ProductControllerTests extends BaseWebTests {
 		List<Map<String, Object>> specs = (List<Map<String, Object>>) items.get(0).get("specs");
 		assertEquals(1, specs.size());
 		assertEquals("PS1", specs.get(0).get("name"));
+		
+		r = restTemplate.getForObject("/basic/product?type=2", JsonResponse.class);
+		assertSucess(r);
+		items = (List<Map<String, Object>>) r.getItem("items");
+		assertEquals(0, items.size());
 	}
 	
 	@Test
