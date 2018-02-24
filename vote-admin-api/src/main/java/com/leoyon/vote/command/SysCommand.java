@@ -9,7 +9,7 @@ import wj.flydoc.ApiParam;
 
 public class SysCommand extends AbstractResource<SysCommand> {
 	
-	private long parentId;//	bigint	20	0	-1	0	0	0	0		0	上级命令id				0	0
+	private Long parentId;//	bigint	20	0	-1	0	0	0	0		0	上级命令id				0	0
 	private String name;//	varchar	255	0	0	0	0	0	0		0	名称	utf8mb4	utf8mb4_unicode_ci		0	0
 	private String url;//	varchar	255	0	-1	0	0	0	0		0		utf8mb4	utf8mb4_unicode_ci		0	0
 	private Integer icon;//	int	11	0	-1	0	0	0	0	1	0	图标编码：1，2，3，4，5				0	0
@@ -24,11 +24,11 @@ public class SysCommand extends AbstractResource<SysCommand> {
 		this.so = so;
 	}
 	
-	public long getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
 	@ApiParam(desc="上级菜单id")
-	public SysCommand setParentId(long parentId) {
+	public SysCommand setParentId(Long parentId) {
 		this.parentId = parentId;
 		return this;
 	}

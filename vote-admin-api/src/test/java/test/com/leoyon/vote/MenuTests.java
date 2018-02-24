@@ -19,10 +19,10 @@ public class MenuTests {
 		Assert.assertTrue(menus.isEmpty());
 		
 		List<SysCommand> commands = Arrays.asList(
-				new SysCommand().setId(1L),
-				new SysCommand().setId(2L),
-				new SysCommand().setId(3L),
-				new SysCommand().setId(4L)
+				new SysCommand().setId(1L).setParentId(0L),
+				new SysCommand().setId(2L).setParentId(0L),
+				new SysCommand().setId(3L).setParentId(0L),
+				new SysCommand().setId(4L).setParentId(0L)
 				);
 		
 		menus = Menu.build(commands);
@@ -30,10 +30,10 @@ public class MenuTests {
 		Assert.assertEquals(commands.size(), menus.size());
 		
 		commands = Arrays.asList(
-				new SysCommand().setId(1L),
+				new SysCommand().setId(1L).setParentId(0L),
 				new SysCommand().setId(2L).setParentId(1L),
 				new SysCommand().setId(3L).setParentId(1L),
-				new SysCommand().setId(4L)
+				new SysCommand().setId(4L).setParentId(0L)
 				);
 		menus = Menu.build(commands);
 		
