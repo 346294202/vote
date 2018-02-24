@@ -92,7 +92,7 @@ public class OrderControllerTests extends BaseWebTests {
 				.put("count", 3)
 				.put("price", 12.5)
 				.put("user_id", 1L)
-				.put("address", "address1")
+				.put("address", "地址")
 				.build()
 				);
 		

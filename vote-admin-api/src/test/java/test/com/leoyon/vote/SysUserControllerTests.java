@@ -62,7 +62,7 @@ public class SysUserControllerTests extends BaseWebTests {
 				.build(),
 				M.map()
 				.put("id", 2L)
-				.put("name", "Menu2")
+				.put("name", "角色1")
 				.build(),
 				M.map()
 				.put("id", 3L)

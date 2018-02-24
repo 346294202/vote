@@ -111,7 +111,7 @@ public class ProductControllerTests extends BaseWebTests {
 	public void update() throws Exception {
 		dbUtil.insert("basic_product", M.map()
 				.put("id", 1L)
-				.put("name", "P1")
+				.put("name", "产品1")
 				.put("type", 1)
 				.build());
 		
@@ -148,10 +148,9 @@ public class ProductControllerTests extends BaseWebTests {
 	}
 	
 	@Test
-	@Ignore("检查前端数据为什么异常")
 	public void add_debug() throws JsonParseException, IOException {
 		ObjectMapper om = new ObjectMapper();
-		JsonParser jp = om.getJsonFactory().createJsonParser("{\"name\":\"大肆发放\",\"desc\":\"111\",\"price_desc\":\"222\",\"so\":\"3\",\"remark\":\"\",\"specs\":[{\"name\":\"放大\",\"price\":\"44\",\"remark\":\"法大使馆\",\"so\":\"11\"}]}");
+		JsonParser jp = om.getJsonFactory().createJsonParser("{\"type\":1, \"name\":\"大肆发放\",\"desc\":\"111\",\"priceDesc\":\"222\",\"so\":\"3\",\"remark\":\"\",\"specs\":[{\"name\":\"放大\",\"price\":\"44\",\"remark\":\"法大使馆\",\"so\":\"11\"}]}");
 		
 		JsonResponse r = restTemplate.postForObject("/basic/product", 
 				jp.readValueAs(Product.class), 
