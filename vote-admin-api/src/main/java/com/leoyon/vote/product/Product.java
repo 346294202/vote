@@ -5,6 +5,8 @@ import java.util.Collection;
 import com.leoyon.vote.picture.Picture;
 
 public class Product extends BaseProduct {
+	
+	private Collection<Long> specsToDelete;
 
 	private Collection<Picture> pictures;
 	private Collection<ProductSpec> specs;
@@ -19,6 +21,12 @@ public class Product extends BaseProduct {
 	}
 	public void setSpecs(Collection<ProductSpec> specs) {
 		this.specs = specs;
+	}
+	public Collection<Long> getSpecsToDelete() {
+		return specsToDelete;
+	}
+	public void setSpecsToDelete(Collection<Long> specsToDelete) {
+		this.specsToDelete = specsToDelete;
 	}
 	
 }

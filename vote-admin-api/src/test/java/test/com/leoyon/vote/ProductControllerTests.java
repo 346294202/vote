@@ -1,9 +1,11 @@
 package test.com.leoyon.vote;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -190,5 +192,40 @@ public class ProductControllerTests extends BaseWebTests {
 				jp.readValueAs(Product.class), 
 				JsonResponse.class);
 		assertSucess(r);
+	}
+	
+	@Test
+	public void update_debug_delete_ProductSpec() throws Exception {
+		dbUtil.insert("basic_product", M.map()
+				.put("id", 1L)
+				.put("name", "P1")
+				.put("type", 1)
+				.build());
+		
+		dbUtil.insert("basic_product_picture", M.map()
+				.put("picture_id", 1L)
+				.put("product_id", 1L)
+				.build());
+		
+		dbUtil.insert("basic_product_spec", M.map()
+				.put("id", 1L)
+				.put("product_id", 1L)
+				.put("name", "PS1")
+				.put("price", 128.65)
+				.build());
+		
+		Product p = new Product();
+		p.setName("P1");
+		p.setType(1);
+		p.setPictures(Collections.emptyList());
+		p.setSpecsToDelete(Arrays.asList(1L));
+		
+		JsonResponse r = restTemplate.postForObject("/basic/product/1", p, JsonResponse.class);
+		assertSucess(r);
+		
+		List<Map<String, Object>> list = dbUtil.select("select * from basic_product_picture where product_id=1");
+		assertTrue(list.isEmpty());
+		list = dbUtil.select("select * from basic_product_spec where product_id=1");
+		assertTrue(list.isEmpty());
 	}
 }

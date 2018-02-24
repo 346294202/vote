@@ -121,4 +121,12 @@
 	<update id="delete" parameterType="com.leoyon.vote.product.Product">
 	update basic_product set `delete`=2,update_uid=#{updateUid} where id = #{id};
 	</update>
+	
+	<delete id="deleteSpecs" >
+	delete from basic_product_spec where id in 
+	<foreach item="id" index="index" collection="list"
+        open="(" separator="," close=")">
+          #{id}
+    </foreach>
+	</delete>
 </mapper>

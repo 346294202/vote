@@ -32,4 +32,6 @@ public interface ProductDao {
 
 	int count(FindProductRequest req);
 
+	void deleteSpecs(Collection<Long> ids);
+
 }
