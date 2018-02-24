@@ -15,7 +15,7 @@ import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.M;
 
 
-@RestController
+@RestController("系统菜单")
 @Scope("prototype")
 public class SysCommandController extends AuthenticationController {
 

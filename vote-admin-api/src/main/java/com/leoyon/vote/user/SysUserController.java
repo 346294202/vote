@@ -19,7 +19,7 @@ import com.leoyon.vote.util.Parses;
 
 import wj.flydoc.ApiParam;
 
-@RestController
+@RestController("系统用户")
 @Scope("prototype")
 public class SysUserController extends AuthenticationController {
 	

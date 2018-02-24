@@ -14,7 +14,7 @@ import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.util.M;
 
-@RestController
+@RestController("业主")
 @Scope("prototype")
 public class UserController extends AuthenticationController {
 	

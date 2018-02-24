@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ThymeleafObjectWriter implements StringObjectWriter {
+public class HtmlObjectWriter implements StringObjectWriter {
 
 	StringBuilder sb = new StringBuilder();
 	

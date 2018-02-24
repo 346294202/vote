@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ThymeleafJsonObjectWriter implements StringObjectWriter {
+public class HtmlJsonObjectWriter implements StringObjectWriter {
 	
 	public final static String TAB = "&nbsp;";
 	

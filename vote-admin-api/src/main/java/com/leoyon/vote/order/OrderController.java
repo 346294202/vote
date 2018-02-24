@@ -11,7 +11,7 @@ import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.util.M;
 
-@RestController
+@RestController("订单")
 @Scope("prototype")
 public class OrderController extends AuthenticationController {
 	

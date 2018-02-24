@@ -31,7 +31,7 @@ public class SpringMVCRequestBody extends SpringMVCParameter {
 
 	@Override
 	public String getType() {
-		StringObjectWriter writer = new ThymeleafJsonObjectWriter();
+		StringObjectWriter writer = new HtmlJsonObjectWriter();
 		ObjectWalker walker = new ObjectPropertiesWalker(rawParam.getType());
 		try {
 			walker.accept(0, writer);

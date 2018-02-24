@@ -16,7 +16,7 @@ import com.leoyon.vote.api.Token;
 
 import wj.flydoc.ApiParam;
 
-@RestController
+@RestController("登录")
 @Scope("prototype")
 public class LoginController extends GeneralController {
 	private Logger LOG = LoggerFactory.getLogger(getClass());

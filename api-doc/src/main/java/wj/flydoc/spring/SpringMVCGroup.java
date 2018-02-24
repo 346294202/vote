@@ -7,16 +7,22 @@ import wj.flydoc.ApiMethod;
 
 public class SpringMVCGroup implements ApiGroup {
 
+	private String name;
 	private List<ApiMethod> methods;
 	
-	public SpringMVCGroup(List<ApiMethod> methods) {
-
+	public SpringMVCGroup(String name, List<ApiMethod> methods) {
+		this.name = name;
 		this.methods = methods;
 	}
 
 	@Override
 	public Iterable<ApiMethod> getMethods() {
 		return methods;
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 
 }

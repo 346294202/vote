@@ -26,7 +26,7 @@ public class SpringMVCApiParamCtor extends SpringMVCParameter {
 
 	@Override
 	public String getType() {
-		StringObjectWriter writer = new ThymeleafObjectWriter();
+		StringObjectWriter writer = new HtmlObjectWriter();
 		ObjectWalker walker = new ObjectCtorWalker(ctor);
 		try {
 			walker.accept(0, writer);

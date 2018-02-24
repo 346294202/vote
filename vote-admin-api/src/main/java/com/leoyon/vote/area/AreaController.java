@@ -14,7 +14,7 @@ import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.M;
 
-@RestController
+@RestController("小区")
 @Scope("prototype")
 public class AreaController extends AuthenticationController {
 	

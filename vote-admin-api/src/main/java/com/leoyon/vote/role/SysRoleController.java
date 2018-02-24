@@ -18,7 +18,7 @@ import com.leoyon.vote.util.Parses;
 
 import wj.flydoc.ApiParam;
 
-@RestController
+@RestController("系统角色")
 @Scope("prototype")
 public class SysRoleController extends AuthenticationController {
 	

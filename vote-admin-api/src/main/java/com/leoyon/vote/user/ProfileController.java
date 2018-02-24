@@ -12,12 +12,11 @@ import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.command.Menu;
 import com.leoyon.vote.command.SysCommand;
-import com.leoyon.vote.command.SysCommandService;
 import com.leoyon.vote.role.SysRole;
 import com.leoyon.vote.role.SysRoleCommandService;
 import com.leoyon.vote.util.M;
 
-@RestController
+@RestController("登录用户配置")
 @Scope("prototype")
 public class ProfileController extends AuthenticationController {
 	

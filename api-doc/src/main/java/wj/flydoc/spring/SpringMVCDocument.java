@@ -5,12 +5,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import wj.flydoc.ApiDocument;
 import wj.flydoc.ApiGroup;
@@ -31,19 +34,23 @@ public class SpringMVCDocument implements ApiDocument {
 		Vector<ApiGroup> ret = new Vector<>();
 		
 		for(Object c:controllers) {
-			if(c.getClass().getAnnotation(ApiParamIgnore.class) != null)
+			Class<?> clazz = c.getClass();
+			if(clazz.getAnnotation(ApiParamIgnore.class) != null)
 				continue;
 			
+			String name = null;
 			String rootPath = "";
-			if(c.getClass().getAnnotation(RequestMapping.class) != null) {
-				RequestMapping requestMapping = c.getClass().getAnnotation(RequestMapping.class);
+			if(clazz.getAnnotation(RequestMapping.class) != null) {
+				RequestMapping requestMapping = clazz.getAnnotation(RequestMapping.class);
 				if(requestMapping.path().length > 0)
 					rootPath = requestMapping.path()[0];//TODO 目前只处理第一个路径
+				if(!StringUtils.isBlank(requestMapping.name()))
+						name = requestMapping.name();
 			}
 			
 			Vector<ApiMethod> methods = new Vector<>();
 			
-			for(Method m:c.getClass().getMethods()) {
+			for(Method m:clazz.getMethods()) {
 				if(m.getAnnotation(ApiParamIgnore.class) != null)
 					continue;
 				
@@ -54,8 +61,23 @@ public class SpringMVCDocument implements ApiDocument {
 				methods.add(am);				
 			}
 			
+			if(clazz.getAnnotation(RestController.class) != null) {
+				String value = clazz.getAnnotation(RestController.class).value();
+				if(!StringUtils.isBlank(value))
+					name = value;
+			}
+			
+			if(clazz.getAnnotation(Controller.class) != null) {
+				String value = clazz.getAnnotation(Controller.class).value();
+				if(!StringUtils.isBlank(value))
+					name = value;
+			}
+			
+			if(StringUtils.isBlank(name))
+				name = clazz.getSimpleName();
+			
 			if(!methods.isEmpty()) {
-				ret.add(new SpringMVCGroup(methods));
+				ret.add(new SpringMVCGroup(name, methods));
 			}
 		}
 		return ret;
