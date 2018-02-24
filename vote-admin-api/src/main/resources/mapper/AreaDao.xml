@@ -45,7 +45,7 @@
 			</if>	
 			and `delete`=1	
 		</where>
-		order by so
+		order by date_create desc
 		LIMIT #{page} , #{psize};
 	</select>
 	
