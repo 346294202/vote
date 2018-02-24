@@ -1,5 +1,5 @@
 package wj.flydoc;
 
-public interface ApiMethodParameter {
-
+public interface ApiMethodParameter extends ApiParameter {
+	
 }

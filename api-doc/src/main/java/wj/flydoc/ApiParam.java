@@ -15,7 +15,7 @@ public @interface ApiParam {
 
 	String desc() default "";
 
-	boolean required() default true;
+	boolean required() default false;
 
 	String defaultValue() default "";
 	

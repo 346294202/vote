@@ -22,8 +22,8 @@ public class DocController {
 	public String showDocs(Model model) throws IOException {
 		Map<String, Object> map = app.getBeansWithAnnotation(RestController.class);
 		
-//		model.addAttribute("methods", new SpringMVCDocument(new Vector<>(map.values())).methods());
-		model.addAttribute("methods", MethodItem.generate(map.values()));
+		model.addAttribute("methods", new SpringMVCDocument(new Vector<>(map.values())).methods());
+//		model.addAttribute("methods", MethodItem.generate(map.values()));
 		return "doc-main";
 	}
 
