@@ -1,12 +1,12 @@
 package com.leoyon.vote.command;
 
+import com.leoyon.vote.FindPagedRequest;
+
 import wj.flydoc.ApiParamCtor;
 
-public class FindSysCommandRequest {
+public class FindSysCommandRequest extends FindPagedRequest {
 	
 	private String q;
-	private Integer page;
-	private Integer psize;
 	private Integer active;
 	
 	@ApiParamCtor
@@ -30,25 +30,8 @@ public class FindSysCommandRequest {
 		return q;
 	}
 
-	public Integer getPage() {
-		return page;
-	}
-
-	public Integer getPsize() {
-		return psize;
-	}
-
 	public void setQ(String q) {
 		this.q = q;
 	}
-
-	public void setPage(Integer page) {
-		this.page = page;
-	}
-
-	public void setPsize(Integer psize) {
-		this.psize = psize;
-	}
-	
 	
 }

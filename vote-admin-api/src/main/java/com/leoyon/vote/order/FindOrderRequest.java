@@ -2,10 +2,12 @@ package com.leoyon.vote.order;
 
 import java.util.Date;
 
+import com.leoyon.vote.FindPagedRequest;
+
 import wj.flydoc.ApiParam;
 import wj.flydoc.ApiParamCtor;
 
-public class FindOrderRequest {
+public class FindOrderRequest extends FindPagedRequest {
 
 	private Integer type;
 	private Date createTimeStart;
@@ -17,8 +19,6 @@ public class FindOrderRequest {
 	private Integer houseBuilding;
 	private Integer houseUnit;
 	private Integer houseNumber;
-	private Integer page;
-	private Integer psize;
 	
 	@ApiParamCtor
 	public FindOrderRequest(
@@ -105,11 +105,4 @@ public class FindOrderRequest {
 	public Integer getType() {
 		return type;
 	}
-	public Integer getPage() {
-		return page;
-	}
-	public Integer getPsize() {
-		return psize;
-	}
-	
 }

@@ -1,14 +1,14 @@
 package com.leoyon.vote.product;
 
+import com.leoyon.vote.FindPagedRequest;
+
 import wj.flydoc.ApiParam;
 import wj.flydoc.ApiParamCtor;
 
-public class FindProductRequest {
+public class FindProductRequest extends FindPagedRequest {
 
 	private String q;
 	private Integer type;
-	private Integer page;
-	private Integer psize;
 	
 	@ApiParamCtor
 	public FindProductRequest(String q,
@@ -25,12 +25,6 @@ public class FindProductRequest {
 	}
 	public Integer getType() {
 		return type;
-	}
-	public Integer getPage() {
-		return page;
-	}
-	public Integer getPsize() {
-		return psize;
 	}
 	
 }

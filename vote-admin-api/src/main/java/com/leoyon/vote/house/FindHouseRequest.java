@@ -1,16 +1,16 @@
 package com.leoyon.vote.house;
 
+import com.leoyon.vote.FindPagedRequest;
+
 import wj.flydoc.ApiParam;
 import wj.flydoc.ApiParamCtor;
 
-public class FindHouseRequest {
+public class FindHouseRequest extends FindPagedRequest {
 		
 	private Long areaId;
 	private Integer building;
 	private Integer unit;
 	private Integer number;
-	private Integer page;
-	private Integer psize;
 	private Integer houseType;
 	private Integer houseStatus;
 	private String ownerName;
@@ -79,22 +79,6 @@ public class FindHouseRequest {
 
 	public void setHouseStatus(Integer houseStatus) {
 		this.houseStatus = houseStatus;
-	}
-
-	public Integer getPage() {
-		return page;
-	}
-
-	public Integer getPsize() {
-		return psize;
-	}
-
-	public void setPage(Integer page) {
-		this.page = page;
-	}
-
-	public void setPsize(Integer psize) {
-		this.psize = psize;
 	}
 
 	public Long getAreaId() {
