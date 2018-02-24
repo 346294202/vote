@@ -26,6 +26,12 @@ public class AreaControllerTests extends BaseWebTests {
 	}
 	
 	@Test
+	public void find() {
+		JsonResponse r = restTemplate.getForObject("/basic/area", JsonResponse.class);
+		assertSucess(r);
+	}
+	
+	@Test
 	public void add() throws Exception {
 		
 		Area entity = new Area();
