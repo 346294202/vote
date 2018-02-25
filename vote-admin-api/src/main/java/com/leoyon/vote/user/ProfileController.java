@@ -33,5 +33,16 @@ public class ProfileController extends AuthenticationController {
 		List<SysCommand> commands = sysRoleCommandService.collectCommands(roles);
 		return JsonResponse.sucess(M.map().put("items", Menu.build(commands)).build());
 	}
+	
+	@GetMapping(value="/profile/info", name="获得登录用户信息")
+	public JsonResponse getUserInfo() throws ResponseException {
+		SysUser user = getLogin(false);
+		return JsonResponse.sucess(M.map()
+				.put("username", user.getUsername())
+				.put("realName", user.getRealName())
+				.put("depart", user.getDepart())
+				.put("id", user.getId())
+				.build());
+	}
 
 }

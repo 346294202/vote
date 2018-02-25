@@ -65,4 +65,10 @@ public class ProfileControllerTests extends BaseWebTests {
 		List<Map<String,Object>> menus = (List<Map<String, Object>>) items.get(0).get("menus");
 		assertEquals(2, menus.size());
 	}
+	
+	@Test
+	public void getUserInfo() {
+		JsonResponse r = restTemplate.getForObject("/profile/info", JsonResponse.class);
+		assertSucess(r);
+	}
 }
