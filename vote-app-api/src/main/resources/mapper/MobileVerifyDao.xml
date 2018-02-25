@@ -5,4 +5,11 @@
 	<select id="countWithExpire" resultType="Integer">
 	select count(*) from mobile_verify_code where mobile=#{mobile} and `code`=#{code} and `expire`&gt;now();
 	</select>
+	
+	<insert id="add">
+	INSERT INTO 
+	mobile_verify_code(mobile, `code`, `expire`) 
+	values(#{mobile}, #{code}, #{expire})
+	ON DUPLICATE KEY UPDATE `code`=#{code}, `expire`=#{expire}
+	</insert>
 </mapper>

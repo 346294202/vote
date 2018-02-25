@@ -5,10 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -131,6 +134,28 @@ public class LoginRegisterControllerTests extends BaseWebTests {
 		
 		JsonResponse r = restTemplate.postForObject("/login", rqst, JsonResponse.class);
 		assertEquals(Error.USER_LOGIN_FAIL.getValue(), r.getCode());
+	}
+	
+	@Autowired
+	private com.leoyon.vote.user.dao.MobileVerifyDao mobileVerifyDao;
+	
+	@Test
+	public void addCode() throws Exception {
+		
+		String code = "12345678";
+		mobileVerifyDao.add(defMobile, code, new Date(System.currentTimeMillis() + 1000));
+		
+		List<Map<String, Object>> results = dbUtil.select("select * from mobile_verify_code where mobile='"+defMobile+"'");
+		
+		assertFalse(results.isEmpty());
+		assertEquals(code, results.get(0).get("code"));
+		
+		code = "87654321";
+		mobileVerifyDao.add(defMobile, code, new Date(System.currentTimeMillis() + 1000));
+		results = dbUtil.select("select * from mobile_verify_code where mobile='"+defMobile+"'");		
+		assertFalse(results.isEmpty());
+		assertEquals(code, results.get(0).get("code"));
+
 	}
 	
 }

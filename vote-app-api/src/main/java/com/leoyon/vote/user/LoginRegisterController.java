@@ -11,6 +11,7 @@ import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.api.Token;
 import com.leoyon.vote.api.VerifyException;
+import com.leoyon.vote.api.VoteException;
 
 @RestController("登录注册")
 @Scope("prototype")
@@ -21,6 +22,12 @@ public class LoginRegisterController {
 	
 	@Autowired
 	private MobileVerifyService mobileVerifyService;
+	
+	@PostMapping(value="/verify-code", name="发送短信验证码")
+	public JsonResponse sendVerifyCode(@RequestBody String mobile) throws VoteException {
+		mobileVerifyService.sendCode(mobile);
+		return JsonResponse.sucess();
+	}
 
 	@PostMapping(value="/register", name="注册")
 	public JsonResponse register(
