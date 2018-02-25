@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leoyon.vote.AuthenticationController;
+import com.leoyon.vote.Passwords;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.command.Menu;
@@ -43,6 +46,16 @@ public class ProfileController extends AuthenticationController {
 				.put("depart", user.getDepart())
 				.put("id", user.getId())
 				.build());
+	}
+	
+	@PostMapping(value="/profile/password", name="修改密码")
+	public JsonResponse changePassword(@RequestBody ChangePasswordRequest rqst) throws Exception {
+		SysUser user = getLogin(false);
+		rqst.setUserId(user.getId());
+		rqst.setOldPassword(Passwords.encode(rqst.getOldPassword(), user.getSalt()));
+		rqst.setNewPassword(Passwords.encode(rqst.getNewPassword(), user.getSalt()));
+		userService.changePassword(rqst);
+		return JsonResponse.sucess();
 	}
 
 }

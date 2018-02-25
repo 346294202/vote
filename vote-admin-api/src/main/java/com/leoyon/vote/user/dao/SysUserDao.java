@@ -2,6 +2,7 @@ package com.leoyon.vote.user.dao;
 
 import java.util.List;
 
+import com.leoyon.vote.user.ChangePasswordRequest;
 import com.leoyon.vote.user.FindSysUserRequest;
 import com.leoyon.vote.user.SysUser;
 
@@ -20,4 +21,6 @@ public interface SysUserDao {
 	void delete(SysUser entity);
 
 	int count(FindSysUserRequest req);
+
+	int changePassword(ChangePasswordRequest rqst);
 }
