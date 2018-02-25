@@ -60,8 +60,9 @@
 				<artifactId>wagon-maven-plugin</artifactId>
 				<version>1.0</version>
 				<configuration>
-					<!-- 暂时不发布 -->
+					<!-- 暂时不发布
 					<skip>true</skip>
+					 -->
 				</configuration>
 				<executions>
 					<execution>
