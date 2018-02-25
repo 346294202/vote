@@ -56,15 +56,15 @@ public class Menu {
 	}
 
 	private static List<Menu> build(List<SysCommand> commands, long parentId) {
-    	final Vector<Menu> ret = new Vector<>();
-    	
-    	commands.forEach(i -> {
-    		if(i.getParentId() == parentId) {
-    			List<Menu> menus = build(commands, i.getId());
-    			ret.add(new Menu().setName(i.getName()).setIcon(i.getIcon()).setUrl(i.getUrl()).setMenus(menus));
-    		}
-    	});
-    	
-    	return ret;
+	    	final Vector<Menu> ret = new Vector<>();
+	    	
+	    	commands.forEach(i -> {
+	    		if(i.getParentId() == parentId) {
+	    			List<Menu> menus = build(commands, i.getId());
+	    			ret.add(new Menu().setName(i.getName()).setIcon(i.getIcon()).setUrl(i.getUrl()).setMenus(menus));
+	    		}
+	    	});
+	    	
+	    	return ret;
     }
 }

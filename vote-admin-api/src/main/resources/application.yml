@@ -18,3 +18,9 @@ jsondoc:
     - com.example.model
   playgroundEnabled: true
   displayMethodAs: URI  
+  
+spring:
+  http:
+    multipart:
+      max-file-size: 512KB
+      max-request-size: 600KB
