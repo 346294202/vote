@@ -5,7 +5,7 @@
 	insert into upload_file(mimetype,size,folder,file) values(#{mimetype},#{size},#{folder},#{file});
 	</insert>
 	
-	<select id="get" parameterType="Long">
-	sekect * from upload_file where id=#{id};
+	<select id="get" parameterType="Long" resultType="com.leoyon.vote.file.UploadFile">
+	select * from upload_file where id=#{id};
 	</select>
 </mapper>
