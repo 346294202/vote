@@ -1,5 +1,6 @@
 package com.leoyon.vote.user;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,13 @@ public class ProfileController extends AuthenticationController {
 		SysUser user = getLogin(false);
 		List<SysRole> roles = sysUserRoleService.getUserRoles(user.getId());
 		List<SysCommand> commands = sysRoleCommandService.collectCommands(roles);
+		commands.sort(new Comparator<SysCommand>() {
+
+			@Override
+			public int compare(SysCommand o1, SysCommand o2) {
+				return o1.getSo().compareTo(o2.getSo());
+			}
+		});
 		return JsonResponse.sucess(M.map().put("items", Menu.build(commands)).build());
 	}
 	
