@@ -1,17 +1,21 @@
 package com.leoyon.vote.dictionary;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.product.Product;
 import com.leoyon.vote.util.M;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -26,9 +30,11 @@ public class SysDictionaryController extends AuthenticationController {
 
     @GetMapping(value="/sys/dictionary/find", name="查询数据字典")
     public JsonResponse find(FindSysDictionaryRequest req) {
-        List<FindSysDictionaryResponse> items = sysDictionaryService.find(req);
+        PageHelper.startPage(req.getPageNum(),req.getPageSize());
+        List<FindSysDictionaryResponse> list =sysDictionaryService.find(req);
+        PageInfo<FindSysDictionaryResponse> appsPageInfo = new PageInfo<>(list);
         return JsonResponse.sucess(new M<>()
-                .put("items", items)
+                .put("items", appsPageInfo)
                 .build());
     }
 

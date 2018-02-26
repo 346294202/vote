@@ -23,9 +23,6 @@ public class SysDictionaryServiceImpl implements SysDictionaryService {
 
     @Override
     public List<FindSysDictionaryResponse> find(FindSysDictionaryRequest rqst) {
-        if(rqst.getPsize() < 1)
-            rqst.setPsize(appConfig.getPageSize());
-        rqst.setPage(rqst.getPage()*rqst.getPsize());
         List<FindSysDictionaryResponse> ret = sysDictionaryDao.find(rqst);
         return ret;
     }
