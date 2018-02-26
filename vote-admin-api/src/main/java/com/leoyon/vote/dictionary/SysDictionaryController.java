@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Thinkpad on 2018/2/24.
  */
-@RestController
+@RestController("数据字典")
 @Scope("prototype")
 public class SysDictionaryController extends AuthenticationController {
 

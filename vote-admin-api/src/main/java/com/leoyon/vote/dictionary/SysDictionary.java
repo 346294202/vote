@@ -1,11 +1,12 @@
 package com.leoyon.vote.dictionary;
 
 import com.leoyon.vote.AbstractResource;
+import com.leoyon.vote.user.SysUser;
 
 /**
  * Created by Thinkpad on 2018/2/24.
  */
-public class SysDictionary extends  AbstractResource<SysDictionary> {
+public class SysDictionary extends AbstractResource<SysUser> {
 
     private Integer categoryName;
     private String dictionaryName;
@@ -15,9 +16,11 @@ public class SysDictionary extends  AbstractResource<SysDictionary> {
     public Integer getCategoryName() {
         return categoryName;
     }
+
     public void setCategoryName(Integer categoryName) {
         this.categoryName = categoryName;
     }
+
     public String getDictionaryName() {
         return dictionaryName;
     }
