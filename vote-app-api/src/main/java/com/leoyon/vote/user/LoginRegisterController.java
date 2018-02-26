@@ -2,8 +2,10 @@ package com.leoyon.vote.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leoyon.vote.api.Error;
@@ -23,8 +25,8 @@ public class LoginRegisterController {
 	@Autowired
 	private MobileVerifyService mobileVerifyService;
 	
-	@PostMapping(value="/verify-code", name="发送短信验证码")
-	public JsonResponse sendVerifyCode(@RequestBody String mobile) throws VoteException {
+	@PostMapping(value="/verify-code/{mobile}", name="发送短信验证码")
+	public JsonResponse sendVerifyCode(@PathVariable("mobile") String mobile) throws VoteException {
 		mobileVerifyService.sendCode(mobile);
 		return JsonResponse.sucess();
 	}

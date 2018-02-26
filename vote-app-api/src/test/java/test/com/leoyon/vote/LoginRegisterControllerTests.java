@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,13 @@ public class LoginRegisterControllerTests extends BaseWebTests {
 	public void setUp() throws Exception {
 		super.setUp();
 		dbUtil.clear(new String[] {"basic_user", "mobile_verify_code"});
+	}
+	
+	@Test
+	@Ignore("不作为自动测试")
+	public void sendVerifyCode() {
+		JsonResponse r = restTemplate.postForObject("/verify-code/15158087185", null, JsonResponse.class);
+		assertSucess(r);
 	}
 
 	@Test
