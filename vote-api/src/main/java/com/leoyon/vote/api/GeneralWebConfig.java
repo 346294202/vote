@@ -21,6 +21,7 @@ public class GeneralWebConfig extends WebMvcConfigurerAdapter {
 			.excludePathPatterns("/login")
 			.excludePathPatterns("/register")
 			.excludePathPatterns("/verify-code/**")
+			.excludePathPatterns("/file/**")
 			.excludePathPatterns("/doc/**")
 			;
 		super.addInterceptors(registry);

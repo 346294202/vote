@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.file.dao.UploadFileDao">
+	<insert id="add" parameterType="com.leoyon.vote.file.UploadFile" keyProperty="id" useGeneratedKeys="true">
+	insert into upload_file(mimetype,size,folder,file) values(#{mimetype},#{size},#{folder},#{file});
+	</insert>
+	
+	<select id="get" parameterType="Long">
+	sekect * from upload_file where id=#{id};
+	</select>
+</mapper>

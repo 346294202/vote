@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
                          prefix = "app")
 public class AppConfig {
 	
+	private String uploadFileFolder = "/tmp/vote/upload/";
+	
 	private Integer verifyCodeExpirSeconds = 300;
 	
 	private Integer tokenExpirSeconds = 10;//token的过期秒数
@@ -36,6 +38,14 @@ public class AppConfig {
 
 	public void setVerifyCodeExpirSeconds(Integer verifyCodeExpirSeconds) {
 		this.verifyCodeExpirSeconds = verifyCodeExpirSeconds;
+	}
+
+	public String getUploadFileFolder() {
+		return uploadFileFolder;
+	}
+
+	public void setUploadFileFolder(String uploadFileFolder) {
+		this.uploadFileFolder = uploadFileFolder;
 	}
 
 }
