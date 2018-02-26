@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.dictionary.dao.SysDictionaryDao">
+	
+
+	<insert id="add" parameterType="com.leoyon.vote.dictionary.SysDictionary" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_dictionary (`category_name`,`dictionary_name`,`so`,`remark`,`date_create`,`update_uid`) values(
+			#{categoryName},#{dictionaryName},#{so},#{remark},#{dateCreate},#{updateUid}
+		);
+	</insert>
+	
+	<update id="update" parameterType="com.leoyon.vote.dictionary.SysDictionary">
+	update sys_dictionary
+	<set>
+		<if test="categoryName != null ">
+			category_name = #{categoryName},
+		</if>
+		<if test="dictionaryName != null and dictionaryName != ''">
+			dictionary_name = #{dictionaryName},
+		</if>	
+		<if test="so != null">
+			so = #{so},
+		</if>		
+		<if test="remark != null and remark != ''">
+			remark = #{remark},
+		</if>
+		update_time=#{updateTime}
+	</set>
+	where id = #{id}
+	</update>
+	
+	<update id="delete" parameterType="com.leoyon.vote.dictionary.SysDictionary">
+	update sys_dictionary set `delete`=2,update_uid=#{updateUid} where id = #{id};
+	</update>
+	
+
+	<select id="find" parameterType="com.leoyon.vote.dictionary.FindSysDictionaryRequest" resultType="com.leoyon.vote.dictionary.FindSysDictionaryResponse">
+		select
+		 id as id,
+		 category_name as categoryName,
+		 dictionary_name as dictionaryName,
+	  	 so as so,
+		 remark as remark
+		from sys_dictionary
+		<where>
+			1=1
+			<if test="q != null and q !=''">
+				and dictionary_name like '%${q}%'
+			</if>
+			<if test="categoryName != null">
+				and category_name=#{categoryName}
+			</if>			
+		</where>
+		and `delete`=1
+		order by date_create desc
+		LIMIT #{page} , #{psize};
+	</select>
+	
+</mapper>
