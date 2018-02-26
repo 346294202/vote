@@ -132,4 +132,14 @@
 	<update id="delete" parameterType="com.leoyon.vote.house.House">
 	update basic_house set `delete`=2,update_uid=#{updateUid} where id = #{id};
 	</update>
+	
+	<select id="checkAdd" parameterType="com.leoyon.vote.house.House" resultType="Integer">
+	select count(*) from basic_house where area_id=#{areaId} and building = #{building} and unit = #{unit} and number = #{number} and `delete`=1;
+	</select>
+		
+	<select id="checkUpdate" parameterType="com.leoyon.vote.house.House" resultType="Integer">
+	select count(*) from basic_house where id!=#{id} and area_id=#{areaId} and building = #{building} and unit = #{unit} and number = #{number} and `delete`=1;
+	</select>
+	
 </mapper>
+

@@ -17,4 +17,8 @@ public interface HouseDao {
 
 	int count(FindHouseRequest reqst);
 
+	int checkAdd(House house);
+
+	int checkUpdate(House house);
+
 }
