@@ -20,12 +20,13 @@ public class FindSysDictionaryRequestArgumentResolver implements HandlerMethodAr
 	@Override
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-		
+		System.out.println(webRequest.getParameter("pageNum"));
+		System.out.println(webRequest.getParameter("pageSize"));
 		return new FindSysDictionaryRequest(
 				webRequest.getParameter("q"),
 				Parses.parse(webRequest.getParameter("categoryName"), Integer.class,1),
-				Parses.parse(webRequest.getParameter("page"), Integer.class, 0),
-				Parses.parse(webRequest.getParameter("psize"), Integer.class, 20)
+				Parses.parse(webRequest.getParameter("pageNum"), Integer.class, 0),
+				Parses.parse(webRequest.getParameter("pageSize"), Integer.class, 20)
 				);
 	}
 	

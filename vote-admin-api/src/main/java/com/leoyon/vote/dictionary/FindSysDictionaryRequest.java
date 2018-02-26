@@ -1,7 +1,7 @@
 package com.leoyon.vote.dictionary;
 
-import com.leoyon.doc.ApiParam;
-import com.leoyon.doc.ApiParamCtor;
+import wj.flydoc.ApiParam;
+import wj.flydoc.ApiParamCtor;
 
 /**
  * Created by Thinkpad on 2018/2/24.
@@ -10,8 +10,8 @@ public class FindSysDictionaryRequest {
 
     private String q;
     private Integer categoryName;
-    private Integer page;
-    private Integer psize;
+    private Integer pageNum;
+    private Integer pageSize;
 
 
 
@@ -22,15 +22,15 @@ public class FindSysDictionaryRequest {
             @ApiParam(desc="字典类目")
                     Integer categoryName,
             @ApiParam(desc="页码")
-                    Integer page,
+                    Integer pageNum,
             @ApiParam(desc="页大小")
-                    Integer psize
+                    Integer pageSize
           ) {
         super();
         this.q = q;
         this.categoryName = categoryName;
-        this.page = page;
-        this.psize = psize;
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
     }
 
     public String getQ() {
@@ -50,19 +50,19 @@ public class FindSysDictionaryRequest {
     }
 
 
-    public Integer getPage() {
-        return page;
+    public Integer getPageNum() {
+        return pageNum;
     }
 
-    public void setPage(Integer page) {
-        this.page = page;
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
     }
 
-    public Integer getPsize() {
-        return psize;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
-    public void setPsize(Integer psize) {
-        this.psize = psize;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }
