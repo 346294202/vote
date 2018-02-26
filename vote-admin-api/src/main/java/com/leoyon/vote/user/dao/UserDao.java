@@ -18,4 +18,6 @@ public interface UserDao {
 
 	void updateHouse(UserHouse entity);
 
+	int countHouse(FindUserHouseRequest req);
+
 }

@@ -18,4 +18,6 @@ public interface SysUserDao {
 	void updateUser(SysUser user);
 
 	void delete(SysUser entity);
+
+	int count(FindSysUserRequest req);
 }

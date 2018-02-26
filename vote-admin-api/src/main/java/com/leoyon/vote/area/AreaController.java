@@ -14,7 +14,7 @@ import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.M;
 
-@RestController
+@RestController("小区")
 @Scope("prototype")
 public class AreaController extends AuthenticationController {
 	
@@ -31,6 +31,7 @@ public class AreaController extends AuthenticationController {
 	@GetMapping(value="/basic/area", name="查询小区")
 	public JsonResponse find(FindAreaRequest rqst) {
 		return JsonResponse.sucess(new M<>()
+				.put("count", areaService.count(rqst))
 				.put("items", areaService.find(rqst))
 				.build());		
 	}

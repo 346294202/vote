@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.GeneralController;
 import com.leoyon.vote.api.Error;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.api.Token;
 
-@RestController
+import wj.flydoc.ApiParam;
+
+@RestController("登录")
 @Scope("prototype")
 public class LoginController extends GeneralController {
 	private Logger LOG = LoggerFactory.getLogger(getClass());

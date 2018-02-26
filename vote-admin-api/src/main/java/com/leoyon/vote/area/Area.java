@@ -1,7 +1,8 @@
 package com.leoyon.vote.area;
 
-import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.AbstractResource;
+
+import wj.flydoc.ApiParam;
 
 public class Area extends AbstractResource<Area> {
 	private String name;//	varchar	255	0	0	0	0	0	0		0		utf8mb4	utf8mb4_unicode_ci		0	0

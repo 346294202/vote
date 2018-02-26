@@ -2,7 +2,7 @@ package com.leoyon.vote;
 
 import java.util.Date;
 
-import com.leoyon.doc.ApiParamIgnore;
+import wj.flydoc.ApiParamIgnore;
 
 /**
  * 基础管理对象

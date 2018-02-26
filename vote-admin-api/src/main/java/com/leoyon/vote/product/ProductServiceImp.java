@@ -53,8 +53,16 @@ public class ProductServiceImp implements ProductService {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
 	public void update(Product entity) {
 		dao.update(entity);
-		dao.clearPictures(entity.getId());
-		addPictures(entity);
+		
+		if(entity.getPictures() != null) {
+			dao.clearPictures(entity.getId());
+			addPictures(entity);
+		}
+		
+		if(entity.getSpecsToDelete() != null) {
+			dao.deleteSpecs(entity.getSpecsToDelete());
+		}
+		
 		if(entity.getSpecs() != null) {
 			entity.getSpecs().forEach(i -> {
 				if(i.getId() == null) {
@@ -70,6 +78,11 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public void delete(Product entity) {
 		dao.delete(entity);
+	}
+
+	@Override
+	public int count(FindProductRequest req) {
+		return dao.count(req);
 	}
 
 }

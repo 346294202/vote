@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
-import com.leoyon.vote.role.SysRole;
 import com.leoyon.vote.util.M;
 import com.leoyon.vote.util.Parses;
 
-@RestController
+import wj.flydoc.ApiParam;
+
+@RestController("系统用户")
 @Scope("prototype")
 public class SysUserController extends AuthenticationController {
 	
@@ -31,6 +31,7 @@ public class SysUserController extends AuthenticationController {
 			FindSysUserRequest req
 			) {	
 		return JsonResponse.sucess(new M<>()
+				.put("count", userService.count(req))
 				.put("items", userService.find(req))
 				.build());		
 	}

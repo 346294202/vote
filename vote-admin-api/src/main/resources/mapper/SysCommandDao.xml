@@ -10,12 +10,12 @@
 	</select>	
 	
 	<select id="all" resultType="com.leoyon.vote.command.SysCommand">
-		select * from sys_command where `delete`=1;
+		select * from sys_command where `delete`=1 order by so;
 	</select>
 
 	<insert id="add" parameterType="com.leoyon.vote.command.SysCommand" useGeneratedKeys="true" keyProperty="id">
-		insert into sys_command (parent_id,name,url,icon,so) values(
-			#{parentId},#{name},#{url},#{icon},#{so}
+		insert into sys_command (parent_id,name,url,icon,so,`update_uid`,level) values(
+			#{parentId},#{name},#{url},#{icon},#{so},#{updateUid},#{level}
 		);
 	</insert>
 	
@@ -25,15 +25,21 @@
 		<if test="parentId != null">
 				parent_id = #{parentId},
 		</if>	
-		<if test="name != null and name != ''">
+		<if test="name != null">
 				name = #{name},
 		</if>
-		<if test="url != null and url != ''">
+		<if test="url != null">
 				url = #{url},
 		</if>	
 		<if test="so != null">
 				so = #{so},
+		</if>
+		<if test="icon != null">
+				icon = #{icon},
 		</if>		
+		<if test="level != null">
+				level = #{level},
+		</if>	
 		<if test="updateUid != null">
 				update_uid=#{updateUid},
 		</if>				
@@ -55,6 +61,16 @@
 		</where>
 		order by so
 		LIMIT #{page} , #{psize};
+	</select>	
+	
+	<select id="count" parameterType="com.leoyon.vote.command.FindSysCommandRequest" resultType="Integer">
+		select count(*) from sys_command 
+		<where>
+			<if test="q != null and q !=''">
+				and name like '%${q}%'
+			</if>		
+			and `delete`=1
+		</where>
 	</select>	
 	
 	<select id="existed" parameterType="Long" resultType="Long">

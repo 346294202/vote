@@ -5,9 +5,7 @@ import java.util.List;
 import com.leoyon.vote.user.SysUser;
 
 public interface SysCommandService {
-
-	List<SysCommand> listByUser(SysUser user);
-
+	
 	void update(SysCommand command);
 
 	void add(SysCommand command);
@@ -19,5 +17,7 @@ public interface SysCommandService {
 	boolean existed(Long id);
 
 	void delete(SysCommand entity);
+
+	int count(FindSysCommandRequest rqst);
 
 }

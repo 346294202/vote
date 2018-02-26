@@ -1,13 +1,22 @@
 package test.com.leoyon.vote;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import com.fasterxml.jackson.databind.deser.std.JsonNodeDeserializer;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.picture.Picture;
 import com.leoyon.vote.product.Product;
@@ -74,6 +84,11 @@ public class ProductControllerTests extends BaseWebTests {
 		List<Map<String, Object>> specs = (List<Map<String, Object>>) items.get(0).get("specs");
 		assertEquals(1, specs.size());
 		assertEquals("PS1", specs.get(0).get("name"));
+		
+		r = restTemplate.getForObject("/basic/product?type=2", JsonResponse.class);
+		assertSucess(r);
+		items = (List<Map<String, Object>>) r.getItem("items");
+		assertEquals(0, items.size());
 	}
 	
 	@Test
@@ -103,7 +118,7 @@ public class ProductControllerTests extends BaseWebTests {
 	public void update() throws Exception {
 		dbUtil.insert("basic_product", M.map()
 				.put("id", 1L)
-				.put("name", "P1")
+				.put("name", "产品1")
 				.put("type", 1)
 				.build());
 		
@@ -139,4 +154,78 @@ public class ProductControllerTests extends BaseWebTests {
 		assertSucess(r);
 	}
 	
+	@Test
+	public void add_debug() throws JsonParseException, IOException {
+		ObjectMapper om = new ObjectMapper();
+		JsonParser jp = om.getJsonFactory().createJsonParser("{\"type\":1, \"name\":\"大肆发放\",\"desc\":\"111\",\"priceDesc\":\"222\",\"so\":\"3\",\"remark\":\"\",\"specs\":[{\"name\":\"放大\",\"price\":\"44\",\"remark\":\"法大使馆\",\"so\":\"11\"}]}");
+		
+		JsonResponse r = restTemplate.postForObject("/basic/product", 
+				jp.readValueAs(Product.class), 
+				JsonResponse.class);
+		assertSucess(r);
+	}
+	
+	@Test
+	public void update_debug() throws Exception {
+		dbUtil.insert("basic_product", M.map()
+				.put("id", 1L)
+				.put("name", "P1")
+				.put("type", 1)
+				.build());
+		
+		dbUtil.insert("basic_product_picture", M.map()
+				.put("picture_id", 1L)
+				.put("product_id", 1L)
+				.build());
+		
+		dbUtil.insert("basic_product_spec", M.map()
+				.put("id", 1L)
+				.put("product_id", 1L)
+				.put("name", "PS1")
+				.put("price", 128.65)
+				.build());
+		
+		ObjectMapper om = new ObjectMapper();
+		JsonParser jp = om.getJsonFactory().createJsonParser("{\"type\":1,\"name\":\"fdsaf111111\",\"desc\":\"fdsaf\",\"priceDesc\":\"fsaf\",\"so\":\"12\",\"remark\":\"fdsa\",\"specs\":[{\"id\":3,\"productId\":3,\"name\":\"123fds\",\"price\":31,\"remark\":\"fds\",\"so\":123},{\"id\":4,\"productId\":3,\"name\":\"dsaf\",\"price\":1233,\"remark\":\"ddsfd\",\"so\":3214}],\"pictures\":[]}");
+		
+		JsonResponse r = restTemplate.postForObject("/basic/product/1", 
+				jp.readValueAs(Product.class), 
+				JsonResponse.class);
+		assertSucess(r);
+	}
+	
+	@Test
+	public void update_debug_delete_ProductSpec() throws Exception {
+		dbUtil.insert("basic_product", M.map()
+				.put("id", 1L)
+				.put("name", "P1")
+				.put("type", 1)
+				.build());
+		
+		dbUtil.insert("basic_product_picture", M.map()
+				.put("picture_id", 1L)
+				.put("product_id", 1L)
+				.build());
+		
+		dbUtil.insert("basic_product_spec", M.map()
+				.put("id", 1L)
+				.put("product_id", 1L)
+				.put("name", "PS1")
+				.put("price", 128.65)
+				.build());
+		
+		Product p = new Product();
+		p.setName("P1");
+		p.setType(1);
+		p.setPictures(Collections.emptyList());
+		p.setSpecsToDelete(Arrays.asList(1L));
+		
+		JsonResponse r = restTemplate.postForObject("/basic/product/1", p, JsonResponse.class);
+		assertSucess(r);
+		
+		List<Map<String, Object>> list = dbUtil.select("select * from basic_product_picture where product_id=1");
+		assertTrue(list.isEmpty());
+		list = dbUtil.select("select * from basic_product_spec where product_id=1");
+		assertTrue(list.isEmpty());
+	}
 }

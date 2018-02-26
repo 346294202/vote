@@ -15,7 +15,7 @@ import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.M;
 
 
-@RestController
+@RestController("系统菜单")
 @Scope("prototype")
 public class SysCommandController extends AuthenticationController {
 
@@ -32,6 +32,7 @@ public class SysCommandController extends AuthenticationController {
 	@GetMapping(value="/sys/command", name="查询系统菜单")
 	public JsonResponse find(FindSysCommandRequest rqst) {
 		return JsonResponse.sucess(new M<>()
+				.put("count", service.count(rqst))
 				.put("items", service.find(rqst))
 				.build());		
 	}

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.util.M;
 
-@RestController
+@RestController("图形验证码")
 public class VerifyImageController {
 	
 	@Autowired

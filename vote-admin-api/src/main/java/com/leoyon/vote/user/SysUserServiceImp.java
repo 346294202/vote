@@ -38,10 +38,6 @@ public class SysUserServiceImp implements SysUserService, SysUserRoleService {
 
 	@Override
 	public List<com.leoyon.vote.user.FindSysUserResponse> find(FindSysUserRequest req) {
-		if(req.getPsize() < 1)
-			req.setPsize(appConfig.getPageSize());
-		req.setPage(req.getPage()*req.getPsize());
-		
 		List<FindSysUserResponse> ret = userDao.findUser(req);
 		for(FindSysUserResponse i:ret) {
 			i.setRoles(sysUserRoleDao.getUserRoles(i.getId()));
@@ -90,5 +86,10 @@ public class SysUserServiceImp implements SysUserService, SysUserRoleService {
 	@Override
 	public void delete(SysUser entity) {
 		userDao.delete(entity);	
+	}
+
+	@Override
+	public int count(FindSysUserRequest req) {
+		return userDao.count(req);
 	}
 }

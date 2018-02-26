@@ -1,4 +1,4 @@
-package com.leoyon.doc;
+package wj.flydoc;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -15,7 +15,7 @@ public @interface ApiParam {
 
 	String desc() default "";
 
-	boolean required() default true;
+	boolean required() default false;
 
 	String defaultValue() default "";
 	

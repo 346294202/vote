@@ -15,4 +15,6 @@ public interface SysRoleService {
 	boolean existed(Long id);
 
 	void delete(SysRole entity);
+
+	int count(FindSysRoleRequest rqst);
 }

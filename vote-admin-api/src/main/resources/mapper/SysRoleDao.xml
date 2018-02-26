@@ -3,18 +3,18 @@
 <mapper namespace="com.leoyon.vote.role.dao.SysRoleDao">
 
 	<insert id="add" parameterType="com.leoyon.vote.role.SysRole" useGeneratedKeys="true" keyProperty="id">
-		insert into sys_role (name,so,remark) values(
-			#{name},#{so},#{remark}
+		insert into sys_role (name,so,remark,`update_uid`) values(
+			#{name},#{so},#{remark},#{updateUid}
 		);
 	</insert>
 	
 	<update id="update" parameterType="com.leoyon.vote.role.SysRole">
 	update sys_role
 	<set>
-		<if test="name != null and name != ''">
+		<if test="name != null">
 				name = #{name},
 		</if>
-		<if test="remark != null and remark != ''">
+		<if test="remark != null">
 				remark = #{remark},
 		</if>	
 		<if test="so != null">
@@ -35,13 +35,22 @@
 			</if>		
 			and `delete`=1
 		</where>
-		
 		order by so
 		LIMIT #{page} , #{psize};
 	</select>
 	
+	<select id="count" parameterType="com.leoyon.vote.role.FindSysRoleRequest" resultType="Integer">
+			select count(*) from sys_role 
+		<where>
+			<if test="q != null and q !=''">
+				and name like '%${q}%'
+			</if>		
+			and `delete`=1
+		</where>
+	</select>
+	
 	<select id="all" resultType="com.leoyon.vote.role.SysRole">
-		select * from sys_role where `delete`=1
+		select * from sys_role where `delete`=1 order by so
 	</select>
 	
 	<select id="existed" parameterType="Long" resultType="Long">

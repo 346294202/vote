@@ -23,7 +23,7 @@ public class FindProductRequestArgumentResolver implements HandlerMethodArgument
 		
 		return new FindProductRequest(
 				webRequest.getParameter("q"),
-				Parses.parse(webRequest.getParameter("type"), Integer.class, 0),
+				Parses.parse(webRequest.getParameter("type"), Integer.class, null),
 				Parses.parse(webRequest.getParameter("page"), Integer.class, 0),
 				Parses.parse(webRequest.getParameter("psize"), Integer.class, 20)
 				);

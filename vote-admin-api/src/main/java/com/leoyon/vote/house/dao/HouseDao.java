@@ -15,4 +15,6 @@ public interface HouseDao {
 
 	void delete(House entity);
 
+	int count(FindHouseRequest reqst);
+
 }

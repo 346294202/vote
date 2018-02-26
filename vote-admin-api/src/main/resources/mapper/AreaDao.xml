@@ -3,27 +3,27 @@
 <mapper namespace="com.leoyon.vote.area.dao.AreaDao">
 
 	<insert id="add" parameterType="com.leoyon.vote.area.Area" useGeneratedKeys="true" keyProperty="id">
-		insert into basic_area (name,address,developer,service,remark) values(
-			#{name},#{address},#{developer},#{service},#{remark}
+		insert into basic_area (name,address,developer,service,remark,`update_uid`) values(
+			#{name},#{address},#{developer},#{service},#{remark},#{updateUid}
 		);
 	</insert>
 	
 	<update id="update" parameterType="com.leoyon.vote.area.Area">
 	update basic_area
 	<set>
-		<if test="name != null and name != ''">
+		<if test="name != null">
 				name = #{name},
 		</if>
-		<if test="address != null and address != ''">
+		<if test="address != null">
 				address = #{address},
 		</if>		
-		<if test="developer != null and developer != ''">
+		<if test="developer != null">
 				developer = #{developer},
 		</if>				
-		<if test="service != null and service != ''">
+		<if test="service != null">
 				service = #{service},
 		</if>					
-		<if test="remark != null and remark != ''">
+		<if test="remark != null">
 				remark = #{remark},
 		</if>
 		<if test="updateUid != null">
@@ -45,9 +45,20 @@
 			</if>	
 			and `delete`=1	
 		</where>
-		order by so
+		order by date_create desc
 		LIMIT #{page} , #{psize};
-	</select>	
+	</select>
+	
+	<select id="count" parameterType="com.leoyon.vote.area.FindAreaRequest" resultType="Integer">
+		select count(*) from basic_area 
+		<where>
+			<if test="q != null and q !=''">
+				and name like '%${q}%'
+			</if>	
+			and `delete`=1	
+		</where>
+	</select>
+	
 	
 	<select id="all" resultType="com.leoyon.vote.area.Area">
 		select * from basic_area where `delete`=1;

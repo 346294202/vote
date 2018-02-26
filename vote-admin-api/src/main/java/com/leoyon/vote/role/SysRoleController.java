@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.M;
 import com.leoyon.vote.util.Parses;
 
-@RestController
+import wj.flydoc.ApiParam;
+
+@RestController("系统角色")
 @Scope("prototype")
 public class SysRoleController extends AuthenticationController {
 	
@@ -34,6 +35,7 @@ public class SysRoleController extends AuthenticationController {
 	@GetMapping(value="/sys/role", name="查询系统角色")
 	public JsonResponse find(FindSysRoleRequest rqst) {
 		return JsonResponse.sucess(new M<>()
+				.put("count", sysRoleService.count(rqst))
 				.put("items", sysRoleService.find(rqst))
 				.build());		
 	}

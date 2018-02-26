@@ -41,7 +41,7 @@ public class UserControllerTests extends BaseWebTests {
 				.put("mobile", "15158087185")
 				.put("password", "111")
 				.put("salt", "111")
-				.put("real_name", "wj112")
+				.put("real_name", "王大毛")
 				.build(),
 				M.map()
 				.put("id", u2id)

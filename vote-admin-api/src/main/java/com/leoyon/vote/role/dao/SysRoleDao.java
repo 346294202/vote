@@ -19,4 +19,6 @@ public interface SysRoleDao {
 
 	void delete(SysRole entity);
 
+	int count(FindSysRoleRequest rqst);
+
 }

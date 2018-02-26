@@ -1,6 +1,9 @@
 package com.leoyon.vote.role;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Vector;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -74,6 +77,51 @@ public class SysRoleServiceImp implements SysRoleService, SysRoleCommandService 
 	@Override
 	public void delete(SysRole entity) {
 		dao.delete(entity);
+	}
+
+	@Override
+	public List<SysCommand> collectCommands(List<SysRole> roles) {
+		List<SysCommand> all = sysCommandService.all();
+		LinkedHashSet<SysCommand> byRoles = new LinkedHashSet<>();
+		roles.forEach(i -> {
+			byRoles.addAll(sysRoleCommandDao.getRoleCommands(i.getId()));
+		});
+		
+		Vector<SysCommand> ret = new Vector<>(byRoles);
+		for(SysCommand c:byRoles) {
+			collectParents(c, all, ret);
+			collectChilds(c, all, ret);
+		}
+		return ret;
+	}
+
+	private void collectChilds(SysCommand parent, List<SysCommand> all, Vector<SysCommand> ret) {
+		for(SysCommand c:all) {
+			if(ret.contains(c))
+				continue;
+			if(c.getParentId() == parent.getId()) {
+				ret.add(c);
+				collectChilds(c, all, ret);
+			}
+		}
+	}
+
+	private void collectParents(SysCommand child, List<SysCommand> all, List<SysCommand> ret) {
+		for(SysCommand c:all) {
+			if(ret.contains(c))
+				continue;
+			if(c.getId() == child.getParentId()) {
+				ret.add(c);
+				if(c.getParentId() > 0) {
+					collectParents(c, all, ret);
+				}
+			}
+		}
+	}
+
+	@Override
+	public int count(FindSysRoleRequest rqst) {
+		return dao.count(rqst);
 	}
 
 }

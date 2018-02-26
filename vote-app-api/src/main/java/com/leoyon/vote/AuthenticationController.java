@@ -23,15 +23,15 @@ public abstract class AuthenticationController {
 	}
 
 	public User getLogin(boolean silence) throws ResponseException {
-		Token token = new Token((String) request.getAttribute(Token.TOKEN_NAME), 0);
+		Token token = (Token) request.getAttribute(Token.TOKEN_NAME);
 		
-		if(token.isExpired()) {
-			if(silence)
-				return null;
+		String value = token.getValue();
+		
+		if(value == null) {
 			throw new ResponseException(Error.TOKEN_EXCEPT);
 		}
 		
-		Long id = Long.parseLong(token.getValue());
+		Long id = Long.parseLong(value);
 		
 		User user = userService.get(id);
 		

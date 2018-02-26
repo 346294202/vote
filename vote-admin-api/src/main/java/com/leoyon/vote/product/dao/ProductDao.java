@@ -30,4 +30,8 @@ public interface ProductDao {
 
 	void delete(Product entity);
 
+	int count(FindProductRequest req);
+
+	void deleteSpecs(Collection<Long> ids);
+
 }

@@ -28,4 +28,9 @@ public class UserServiceImp implements UserService {
 		userDao.updateHouse(entity);
 	}
 
+	@Override
+	public int countHouse(FindUserHouseRequest req) {
+		return userDao.countHouse(req);
+	}
+
 }

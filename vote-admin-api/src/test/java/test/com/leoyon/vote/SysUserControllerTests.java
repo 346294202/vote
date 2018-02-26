@@ -1,5 +1,7 @@
 package test.com.leoyon.vote;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +62,7 @@ public class SysUserControllerTests extends BaseWebTests {
 				.build(),
 				M.map()
 				.put("id", 2L)
-				.put("name", "Menu2")
+				.put("name", "角色1")
 				.build(),
 				M.map()
 				.put("id", 3L)
@@ -169,6 +171,48 @@ public class SysUserControllerTests extends BaseWebTests {
 		JsonResponse r = restTemplate.postForObject("/sys/user/1/role",
 				data, JsonResponse.class);
 		assertSucess(r);		
+	}
+	
+	@Test
+	public void queryDelete() throws Exception {
+		List<Map<String, Object>> list = Arrays.asList(
+				M.map()
+				.put("username", "wj")
+				.put("password", "111")
+				.put("salt", "asas")
+				.put("active", 1)
+				.put("delete", 1)
+				.build(),
+				M.map()
+				.put("username", "w10j")
+				.put("password", "111")
+				.put("salt", "asas")
+				.put("active", 0)
+				.put("delete", 1)
+				.build(),
+				M.map()
+				.put("username", "wj10")
+				.put("password", "111")
+				.put("salt", "asas")
+				.put("active", 1)
+				.put("delete", 2)
+				.build(),
+				M.map()
+				.put("username", "10wj")
+				.put("password", "111")
+				.put("salt", "asas")
+				.put("active", 0)
+				.put("delete", 2)
+				.build()
+				);
+		
+		dbUtil.insert("sys_user", list);
+		
+		JsonResponse r = restTemplate.getForObject("/sys/user", JsonResponse.class);
+		assertSucess(r);
+		List<Map<String, Object>> users = (List<Map<String, Object>>) ((Map<String, Object>) r.getData()).get("items");		
+		Assert.assertEquals(list.size()+1-2, users.size());
+
 	}
 	
 }

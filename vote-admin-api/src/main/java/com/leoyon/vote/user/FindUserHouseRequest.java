@@ -2,18 +2,18 @@ package com.leoyon.vote.user;
 
 import java.util.Date;
 
-import com.leoyon.doc.ApiParam;
-import com.leoyon.doc.ApiParamCtor;
+import com.leoyon.vote.FindPagedRequest;
 
-public class FindUserHouseRequest {
+import wj.flydoc.ApiParam;
+import wj.flydoc.ApiParamCtor;
+
+public class FindUserHouseRequest extends FindPagedRequest {
 	
 	private String realName;
 	private String mobile;
 	private Date dateCreateStart;
 	private Date dateCreateEnd;
 	private Integer ownerStatus;
-	private Integer page;
-	private Integer psize;
 	
 	@ApiParamCtor
 	public FindUserHouseRequest(
@@ -52,12 +52,6 @@ public class FindUserHouseRequest {
 	}
 	public Integer getOwnerStatus() {
 		return ownerStatus;
-	}
-	public Integer getPage() {
-		return page;
-	}
-	public Integer getPsize() {
-		return psize;
 	}
 	
 }

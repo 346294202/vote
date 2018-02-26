@@ -7,30 +7,30 @@
 	</sql>
 	
 	<insert id="addUser" parameterType="com.leoyon.vote.user.SysUser" useGeneratedKeys="true" keyProperty="id">
-		insert into sys_user (username,password,salt,active,real_name,depart,phone) values(
-			#{username},#{password},#{salt},#{active},#{realName},#{depart},#{phone}
+		insert into sys_user (username,password,salt,active,real_name,depart,phone,`update_uid`) values(
+			#{username},#{password},#{salt},#{active},#{realName},#{depart},#{phone},#{updateUid}
 		);
 	</insert>
 	
 	<update id="updateUser" parameterType="com.leoyon.vote.user.SysUser">
 	update sys_user
 	<set>
-		<if test="username != null and username != ''">
+		<if test="username != null">
 				username = #{username},
 		</if>
-		<if test="password != null and password != ''">
+		<if test="password != null">
 				password = #{password},
 		</if>	
 		<if test="active != null">
 				active = #{active},
 		</if>		
-		<if test="realName != null and realName != ''">
+		<if test="realName != null">
 				real_name = #{realName},
 		</if>			
-		<if test="depart != null and depart != ''">
+		<if test="depart != null">
 				depart = #{depart},
 		</if>					
-		<if test="phone != null and phone != ''">
+		<if test="phone != null">
 				phone = #{phone},
 		</if>		
 		<if test="updateUid != null">
@@ -60,10 +60,24 @@
 			</if>
 			<if test="active != null">
 				and active=#{active}
-			</if>			
+			</if>		
+			and `delete`=1	
 		</where>
 		order by date_create desc
 		LIMIT #{page} , #{psize};
+	</select>
+
+	<select id="count" parameterType="com.leoyon.vote.user.FindSysUserRequest" resultType="Integer">
+		select count(*) from sys_user 
+		<where>
+			<if test="q != null and q !=''">
+				and (username like '%${q}%' or real_name like '%${q}%') 
+			</if>
+			<if test="active != null">
+				and active=#{active}
+			</if>		
+			and `delete`=1	
+		</where>
 	</select>
 	
 </mapper>

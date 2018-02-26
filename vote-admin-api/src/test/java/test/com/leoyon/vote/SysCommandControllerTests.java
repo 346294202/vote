@@ -97,4 +97,52 @@ public class SysCommandControllerTests extends BaseWebTests {
 		Assert.assertEquals("二级主管", list.get(0).get("name"));
 	}
 	
+	@Test
+	public void bug_clear_parentId_unexpected() throws Exception {
+		List<Map<String, Object>> list = Arrays.asList(
+				M.map()
+				.put("id", 1L)
+				.put("parent_id", 0L)
+				.put("name", "一级1")
+				.put("so", 1)
+				.put("url", null)
+				.build(),
+				M.map()
+				.put("id", 2L)
+				.put("parent_id", 0L)
+				.put("name", "一级2")
+				.put("so", 1)
+				.put("url", null)
+				.build(),
+				M.map()
+				.put("id", 3L)
+				.put("parent_id", 1L)
+				.put("name", "二级1")
+				.put("so", 1)
+				.put("url", "/sys/level1.html")
+				.build(),
+				M.map()
+				.put("id", 4L)
+				.put("parent_id", 2L)
+				.put("name", "二级2")
+				.put("so", 1)
+				.put("url", "/sys/level1.html")
+				.build()
+				);
+		
+		dbUtil.insert("sys_command", list);
+
+		
+		List<Map<String,Object>> results = dbUtil.select("select * from sys_command where id=3 and parent_id=1;");		
+		Assert.assertEquals(1, results.size());
+		
+		
+		SysCommand role = new SysCommand();
+		role.setName("二级主管");
+		
+		JsonResponse r = restTemplate.postForObject("/sys/command/3", role, JsonResponse.class);
+		results = dbUtil.select("select * from sys_command where id=3 and parent_id=1;");		
+		Assert.assertEquals(1, results.size());
+	}
+	
 }

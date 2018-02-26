@@ -8,10 +8,26 @@
 			<if test="q != null and q !=''">
 				name like '%${q}%'
 			</if>
+			<if test="type != null">
+				`type`=#{type}
+			</if>
 			and `delete`=1
 	</where>
 			order by so
 		LIMIT #{page} , #{psize};
+	</select>
+
+	<select id="count" parameterType="com.leoyon.vote.product.FindProductRequest" resultType="Integer">
+	select count(*) from basic_product
+	<where>
+			<if test="q != null and q !=''">
+				name like '%${q}%'
+			</if>
+			<if test="type != null">
+				`type`=#{type}
+			</if>			
+			and `delete`=1
+	</where>
 	</select>
 	
 	<select id="getPictures" parameterType="Long" resultType="com.leoyon.vote.picture.Picture">
@@ -48,29 +64,32 @@
 	<update id="update" parameterType="com.leoyon.vote.product.Product" >
 	update basic_product
 	<set>
-		<if test="desc != null and desc != ''">
-				desc = #{desc},
+		<if test="desc != null">
+				`desc`=#{desc},
 		</if>
-		<if test="priceDesc != null and priceDesc != ''">
-				price_desc = #{priceDesc},
+		<if test="priceDesc != null">
+				price_desc=#{priceDesc},
 		</if>	
 		<if test="so != null">
-				so = #{so},
+				so=#{so},
 		</if>		
-		<if test="remark != null and remark != ''">
-				remark = #{remark},
+		<if test="remark != null">
+				`remark`=#{remark},
 		</if>			
 		<if test="type != null">
-				type=#{type},
+				`type`=#{type},
 		</if>
-		<if test="name != null and name != ''">
-				name = #{name},
+		<if test="name != null">
+				name=#{name},
 		</if>	
 		<if test="subType != null">
 				sub_type=#{subType},
 		</if>	
 		<if test="updateUid != null">
 				update_uid=#{updateUid},
+		</if>	
+		<if test="active != null">
+				active=#{active},
 		</if>							
 	</set>
 	where id = #{id}
@@ -86,11 +105,14 @@
 		<if test="so != null">
 				so = #{so},
 		</if>
-		<if test="name != null and name != ''">
+		<if test="name != null">
 				name = #{name},
 		</if>
 		<if test="price != null">
 				price=#{price},
+		</if>	
+		<if test="remark != null">
+				`remark`=#{remark},
 		</if>							
 	</set>
 	where id = #{id}
@@ -99,4 +121,12 @@
 	<update id="delete" parameterType="com.leoyon.vote.product.Product">
 	update basic_product set `delete`=2,update_uid=#{updateUid} where id = #{id};
 	</update>
+	
+	<delete id="deleteSpecs" >
+	delete from basic_product_spec where id in 
+	<foreach item="id" index="index" collection="list"
+        open="(" separator="," close=")">
+          #{id}
+    </foreach>
+	</delete>
 </mapper>

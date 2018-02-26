@@ -1,7 +1,8 @@
 package com.leoyon.vote.role;
 
-import com.leoyon.doc.ApiParam;
 import com.leoyon.vote.AbstractResource;
+
+import wj.flydoc.ApiParam;
 
 public class SysRole extends AbstractResource<SysRole> {
 	

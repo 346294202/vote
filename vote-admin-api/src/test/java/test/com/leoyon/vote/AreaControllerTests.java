@@ -26,10 +26,20 @@ public class AreaControllerTests extends BaseWebTests {
 	}
 	
 	@Test
+	public void find() {
+		JsonResponse r = restTemplate.getForObject("/basic/area", JsonResponse.class);
+		assertSucess(r);
+	}
+	
+	@Test
 	public void add() throws Exception {
 		
 		Area entity = new Area();
 		entity.setName("金蓝半岛");
+		entity.setAddress("东坡路");
+		entity.setDeveloper("frftgrejgbjd");
+		entity.setService("frftgrejgbjd");
+		entity.setRemark("frftgrejgbjd");
 		
 		JsonResponse r = restTemplate.postForObject("/basic/area", entity, JsonResponse.class);
 		assertSucess(r);

@@ -17,7 +17,7 @@ import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.M;
 
-@RestController
+@RestController("产品")
 @Scope("prototype")
 public class ProductController extends AuthenticationController {
 	
@@ -28,6 +28,7 @@ public class ProductController extends AuthenticationController {
 	public JsonResponse find(FindProductRequest req) {
 		List<Product> items = productService.find(req);
 		return JsonResponse.sucess(new M<>()
+				.put("count", productService.count(req))
 				.put("items", items)
 				.build());	
 	}
