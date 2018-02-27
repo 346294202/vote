@@ -48,8 +48,10 @@ public class SysDictionaryController extends AuthenticationController {
 
     @PostMapping(value="/sys/dictionary/update/{id}", name="修改数据字典")
     public JsonResponse update(
+            @PathVariable(value="id") Long id,
             @RequestBody SysDictionary entity
     ) throws Exception {
+        entity.setId(id);
         entity.setUpdateUid(getLogin(false).getId());
         entity.setUpdateTime(new Date());
         sysDictionaryService.update(entity);
