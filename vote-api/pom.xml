@@ -37,7 +37,6 @@
     	<artifactId>vote-common</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
-    </dependency>
       <dependency>
         <groupId>com.github.pagehelper</groupId>
         <artifactId>pagehelper</artifactId>
