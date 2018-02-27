@@ -1,5 +1,7 @@
 package test.com.leoyon.vote;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.leoyon.vote.api.Error;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.house.House;
 import com.leoyon.vote.util.M;
@@ -155,5 +158,80 @@ public class HouseControllerTests extends BaseWebTests {
 		
 		list = dbUtil.select("select * from basic_house");
 		Assert.assertEquals("修改", list.get(0).get("remark"));
+	}
+	
+	@Test
+	public void addCheck() throws Exception {
+
+		List<Map<String, Object>> list = Arrays.asList(
+				M.map()
+				.put("id", 1L)
+				.put("area_id", 1L)
+				.put("building", 1)
+				.put("unit", 1)
+				.put("number", 1001)
+				.put("house_type", 1)
+				.put("house_status", 1)
+				.put("remark", "待出租")
+				.build()
+				);
+		
+		dbUtil.insert("basic_house", list);
+		
+		House house = new House();
+		house.setAreaId(1L);
+		house.setBuilding(1);
+		house.setUnit(1);
+		house.setNumber(1001);
+		house.setHouseType(1);
+		house.setHouseStatus(1);
+		house.setRemark("新增");
+		
+		JsonResponse r = restTemplate.postForObject("/basic/house", house, JsonResponse.class);
+		assertEquals(Error.UNKNOWN_EXCEPT.getValue(), r.getCode());
+
+		
+	}
+	
+	@Test
+	public void checkUpfate() throws Exception {
+
+		List<Map<String, Object>> list = Arrays.asList(
+				M.map()
+				.put("id", 1L)
+				.put("area_id", 1L)
+				.put("building", 1)
+				.put("unit", 1)
+				.put("number", 1001)
+				.put("house_type", 1)
+				.put("house_status", 1)
+				.put("remark", "待出租")
+				.build(),
+				M.map()
+				.put("id", 2L)
+				.put("area_id", 1L)
+				.put("building", 1)
+				.put("unit", 2)
+				.put("number", 1001)
+				.put("house_type", 1)
+				.put("house_status", 1)
+				.put("remark", "待出租")
+				.build()
+				);
+		
+		dbUtil.insert("basic_house", list);
+		
+		
+		House house = new House();
+		house.setAreaId(1L);
+		house.setBuilding(1);
+		house.setUnit(1);
+		house.setNumber(1001);
+		house.setHouseType(1);
+		house.setHouseStatus(1);
+		house.setRemark("新增");
+		
+		JsonResponse r = restTemplate.postForObject("/basic/house/2", house, JsonResponse.class);
+		assertEquals(Error.UNKNOWN_EXCEPT.getValue(), r.getCode());
 	}
 }

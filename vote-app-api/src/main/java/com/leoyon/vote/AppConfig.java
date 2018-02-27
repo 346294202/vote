@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(ignoreUnknownFields = false, 
                          prefix = "app")
 public class AppConfig {
+	
+	private Integer verifyCodeExpirSeconds = 300;
 
 	private Integer tokenExpirSeconds = 10;//token的过期秒数
 
@@ -16,6 +18,14 @@ public class AppConfig {
 
 	public void setTokenExpirSeconds(Integer tokenExpirSeconds) {
 		this.tokenExpirSeconds = tokenExpirSeconds;
+	}
+
+	public Integer getVerifyCodeExpirSeconds() {
+		return verifyCodeExpirSeconds;
+	}
+
+	public void setVerifyCodeExpirSeconds(Integer verifyCodeExpirSeconds) {
+		this.verifyCodeExpirSeconds = verifyCodeExpirSeconds;
 	}
 	
 }

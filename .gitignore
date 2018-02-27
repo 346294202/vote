@@ -25,6 +25,7 @@ hs_err_pid*
 .settings
 .classpath
 target
+.DS_Store
 *.iml
 .idea
-
+application.yml

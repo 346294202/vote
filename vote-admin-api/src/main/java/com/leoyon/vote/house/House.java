@@ -17,6 +17,7 @@ public class House extends AbstractResource<House> {
 	private Float netArea;
 	private String ownerName;
 	private String ownerPhone;
+	private String houseStructure;
 	
 	@ApiParam(desc="户主")
 	public String getOwnerName() {
@@ -95,6 +96,14 @@ public class House extends AbstractResource<House> {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	
+	@ApiParam(desc="户型结构")
+	public String getHouseStructure() {
+		return houseStructure;
+	}
+	public void setHouseStructure(String houseStructure) {
+		this.houseStructure = houseStructure;
 	}
 
 }

@@ -31,6 +31,13 @@ public class ControllerExceptionHandler {
 		LOG.error(e.getMessage(), e);
         return JsonResponse.fail(e.getCode());
     }
+	
+	@ExceptionHandler(VoteException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public JsonResponse handleVoteException(VoteException e) {
+		LOG.error(e.getMessage(), e);
+        return JsonResponse.fail(Error.UNKNOWN_EXCEPT.getValue(), e.getMessage());
+	}
 
 	@ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.OK)

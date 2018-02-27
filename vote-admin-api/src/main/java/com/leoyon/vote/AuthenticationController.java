@@ -11,7 +11,7 @@ import com.leoyon.vote.user.SysUser;
 public abstract class AuthenticationController extends GeneralController {
 
 	@Autowired
-	private SysUserService userService;
+	protected SysUserService userService;
 
 	public AuthenticationController() {
 		super();

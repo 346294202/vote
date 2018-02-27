@@ -31,7 +31,8 @@ public class ObjectPropertiesWalker extends ObjectWalker {
 				continue;
 			
 			Class<?> clazz = p.getPropertyType();
-			if(clazz.getAnnotation(ApiParamIgnore.class) != null)
+			if(p.getReadMethod().getAnnotation(ApiParamIgnore.class) != null
+					|| p.getWriteMethod().getAnnotation(ApiParamIgnore.class) != null)
 				continue;
 			
 			Class<?> elementClazz = null;
