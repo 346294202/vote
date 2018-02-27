@@ -31,13 +31,15 @@ public class UserController extends AuthenticationController {
 				.build());		
 	}
 	
-	@PostMapping(value="/basic/user/{id}/house", name="提交业主认证结果")
+	@PostMapping(value="/basic/user/{userId}/house/{houseId}", name="提交业主认证结果")
 	public JsonResponse update(
-			@PathVariable(value="id") Long id,
+			@PathVariable(value="userId") Long userId,
+			@PathVariable(value="userId") Long houseId,
 			@RequestBody UserHouse entity
 			) throws Exception {
 		entity.setOwnerUpdateUid(getLogin(false).getId());
 		entity.setOwnerUpdateTime(new Date());
+		entity.setUserId(userId);entity.setHouseId(houseId);
 		userService.updateHouse(entity);
 		return JsonResponse.sucess();
 	}

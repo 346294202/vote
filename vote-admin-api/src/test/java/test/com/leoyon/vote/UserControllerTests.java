@@ -1,8 +1,8 @@
 package test.com.leoyon.vote;
 
-import java.text.DateFormat;
+import static org.junit.Assert.assertFalse;
+
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,14 +14,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.leoyon.vote.api.JsonResponse;
+import com.leoyon.vote.user.UserHouse;
 import com.leoyon.vote.util.M;
-import com.leoyon.vote.util.Parses;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {Application4Test.class},webEnvironment = SpringBootTest.WebEnvironment
         .RANDOM_PORT)
 public class UserControllerTests extends BaseWebTests {
-		
+	
+	Long u1id = 1L;
+	Long u2id = 2L;
+	
 	@Before
 	@Override
 	public void setUp() throws Exception {
@@ -30,34 +33,40 @@ public class UserControllerTests extends BaseWebTests {
 		dbUtil.clear(new String[] {"basic_user", "basic_user_house", "basic_house", "basic_area"});
 	}
 
-	@Test
-	public void findOwner() throws Exception {
-		Long u1id = 1L;
-		Long u2id = 2L;
-		
-		List<Map<String, Object>> users = Arrays.asList(
+	public void addUserHouses() throws Exception {
+		List<Map<String, Object>> userhouses = Arrays.asList(
 				M.map()
-				.put("id", u1id)
-				.put("mobile", "15158087185")
-				.put("password", "111")
-				.put("salt", "111")
-				.put("real_name", "王大毛")
+				.put("user_id", u1id)
+				.put("house_id", 1L)
+				.put("owner_status", 1)
+				.put("owner_type", 1)
+				.put("owner_reason", "")
+				.put("owner_update_uid", null)
+				.put("owner_update_time", null)
 				.build(),
 				M.map()
-				.put("id", u2id)
-				.put("mobile", "17381971975")
-				.put("password", "111")
-				.put("salt", "111")
-				.put("real_name", "wj221")
+				.put("user_id", u1id)
+				.put("house_id", 3L)
+				.put("owner_status", 3)
+				.put("owner_type", 1)
+				.put("owner_reason", "owner_reason")
+				.put("owner_update_uid", defUID)
+				.put("owner_update_time", "2018-01-02")
+				.build(),
+				M.map()
+				.put("user_id", u2id)
+				.put("house_id", 2L)
+				.put("owner_status", 2)
+				.put("owner_type", 1)
+				.put("owner_reason", "")
+				.put("owner_update_uid", defUID)
+				.put("owner_update_time", "2018-01-01")
 				.build()
 				);
-		dbUtil.insert("basic_user", users);
-		
-		JsonResponse r = restTemplate.getForObject("/basic/user/house", JsonResponse.class);
-		assertSucess(r);
-		List<Map<String, Object>> list = (List<Map<String, Object>>) r.getItem("items");
-		Assert.assertTrue(list.isEmpty());
-		
+		dbUtil.insert("basic_user_house", userhouses);
+	}
+
+	public void addHouses() throws Exception {
 		dbUtil.insert("basic_area", M.map()
 				.put("id", 1L)
 				.put("name", "area1")
@@ -102,38 +111,56 @@ public class UserControllerTests extends BaseWebTests {
 				.build()
 				);
 		dbUtil.insert("basic_house", houses);
-		
-		List<Map<String, Object>> userhouses = Arrays.asList(
+	}
+
+	public void addUsers() throws Exception {
+		List<Map<String, Object>> users = Arrays.asList(
 				M.map()
-				.put("user_id", u1id)
-				.put("house_id", 1L)
-				.put("owner_status", 1)
-				.put("owner_type", 1)
-				.put("owner_reason", "")
-				.put("owner_update_uid", null)
-				.put("owner_update_time", null)
+				.put("id", u1id)
+				.put("mobile", "15158087185")
+				.put("password", "111")
+				.put("salt", "111")
+				.put("real_name", "王大毛")
 				.build(),
 				M.map()
-				.put("user_id", u1id)
-				.put("house_id", 3L)
-				.put("owner_status", 3)
-				.put("owner_type", 1)
-				.put("owner_reason", "owner_reason")
-				.put("owner_update_uid", defUID)
-				.put("owner_update_time", "2018-01-02")
-				.build(),
-				M.map()
-				.put("user_id", u2id)
-				.put("house_id", 2L)
-				.put("owner_status", 2)
-				.put("owner_type", 1)
-				.put("owner_reason", "")
-				.put("owner_update_uid", defUID)
-				.put("owner_update_time", "2018-01-01")
+				.put("id", u2id)
+				.put("mobile", "17381971975")
+				.put("password", "111")
+				.put("salt", "111")
+				.put("real_name", "wj221")
 				.build()
 				);
-		dbUtil.insert("basic_user_house", userhouses);
+		dbUtil.insert("basic_user", users);
+	}
+	
+	@Test
+	public void updateHouse() throws Exception {
+		addUsers();
+		addHouses();
+		addUserHouses();
+		
+		UserHouse uh = new UserHouse();
+		uh.setOwnerStatus(3);
+		uh.setOwnerReason("照片模糊");
+		
+		JsonResponse r = restTemplate.postForObject("/basic/user/1/house/1", uh, JsonResponse.class);
+		assertSucess(r);
+		
+		assertFalse(dbUtil.select("select * from basic_user_house where user_id=1 and house_id=1 and owner_status=3 and owner_reason='照片模糊'").isEmpty());
+	}
 
+	@Test
+	public void findOwner() throws Exception {
+		addUsers();
+
+		JsonResponse r = restTemplate.getForObject("/basic/user/house", JsonResponse.class);
+		assertSucess(r);
+		List<Map<String, Object>> list = (List<Map<String, Object>>) r.getItem("items");
+		Assert.assertTrue(list.isEmpty());		
+
+		addHouses();
+		addUserHouses();
+		
 		r = restTemplate.getForObject("/basic/user/house", JsonResponse.class);
 		assertSucess(r);
 		list = (List<Map<String, Object>>) r.getItem("items");
