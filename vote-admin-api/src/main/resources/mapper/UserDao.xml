@@ -52,19 +52,19 @@
 		
 		<where>
 			<if test="realName != null and realName != ''">
-				u.rea_name=#{realName}
+				and u.rea_name=#{realName}
 			</if>
 			<if test="mobile != null and mobile != ''">
-				u.mobile=#{mobile}
+				and u.mobile=#{mobile}
 			</if>
 			<if test="dateCreateStart != null">
-				u.date_create&gt;#{dateCreateStart}
+				and u.date_create&gt;#{dateCreateStart}
 			</if>
 			<if test="dateCreateEnd != null">
-				u.date_create&lt;#{dateCreateEnd}
+				and u.date_create&lt;#{dateCreateEnd}
 			</if>
 			<if test="ownerStatus != null">
-				uh.owner_status=#{ownerStatus}
+				and uh.owner_status=#{ownerStatus}
 			</if>
 		</where>
 		order by uh.owner_update_time desc
@@ -80,19 +80,19 @@
 		left join sys_user su on su.id=uh.owner_update_uid
 		<where>
 			<if test="realName != null and realName != ''">
-				u.rea_name=#{realName}
+				and u.rea_name=#{realName}
 			</if>
 			<if test="mobile != null and mobile != ''">
-				u.mobile=#{mobile}
+				and u.mobile=#{mobile}
 			</if>
 			<if test="dateCreateStart != null">
-				u.date_create&gt;#{dateCreateStart}
+				and u.date_create&gt;#{dateCreateStart}
 			</if>
 			<if test="dateCreateEnd != null">
-				u.date_create&lt;#{dateCreateEnd}
+				and u.date_create&lt;#{dateCreateEnd}
 			</if>
 			<if test="ownerStatus != null">
-				uh.owner_status=#{ownerStatus}
+				and uh.owner_status=#{ownerStatus}
 			</if>
 		</where>
 	</select>

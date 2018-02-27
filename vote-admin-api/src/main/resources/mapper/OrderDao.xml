@@ -11,34 +11,34 @@
 	join basic_product product on product.id=o.product_id
 	<where>
 			<if test="type != null">
-				product.type=#{type}
+				and product.type=#{type}
 			</if>
 			<if test="createTimeStart != null">
-				o.date_create&gt;#{createTimeStart}
+				and o.date_create&gt;#{createTimeStart}
 			</if>
 			<if test="createTimeEnd != null">
-				o.date_create&lt;#{createTimeEnd}
+				and o.date_create&lt;#{createTimeEnd}
 			</if>
 			<if test="orderStatus != null">
-				o.order_status=#{orderStatus}
+				and o.order_status=#{orderStatus}
 			</if>
 			<if test="userRealName != null">
-				u.real_name=#{userRealName}
+				and u.real_name=#{userRealName}
 			</if>
 			<if test="userMobile != null">
-				u.mobile=#{userMobile}
+				and u.mobile=#{userMobile}
 			</if>
 			<if test="areaId != null">
-				house.area_id=#{areaId}
+				and house.area_id=#{areaId}
 			</if>
 			<if test="houseBuilding != null">
-				house.building=#{houseBuilding}
+				and house.building=#{houseBuilding}
 			</if>
 			<if test="houseUnit != null">
-				house.unit=#{houseUnit}
+				and house.unit=#{houseUnit}
 			</if>
 			<if test="houseNumber != null">
-				house.number=#{houseNumber}
+				and house.number=#{houseNumber}
 			</if>
 	</where>
 		order by o.date_create desc
@@ -54,34 +54,34 @@
 	join basic_product product on product.id=o.product_id
 	<where>
 			<if test="type != null">
-				product.type=#{type}
+				and product.type=#{type}
 			</if>
 			<if test="createTimeStart != null">
-				o.date_create&gt;#{createTimeStart}
+				and o.date_create&gt;#{createTimeStart}
 			</if>
 			<if test="createTimeEnd != null">
-				o.date_create&lt;#{createTimeEnd}
+				and o.date_create&lt;#{createTimeEnd}
 			</if>
 			<if test="orderStatus != null">
-				o.order_status=#{orderStatus}
+				and o.order_status=#{orderStatus}
 			</if>
 			<if test="userRealName != null">
-				u.real_name=#{userRealName}
+				and u.real_name=#{userRealName}
 			</if>
 			<if test="userMobile != null">
-				u.mobile=#{userMobile}
+				and u.mobile=#{userMobile}
 			</if>
 			<if test="areaId != null">
-				house.area_id=#{areaId}
+				and house.area_id=#{areaId}
 			</if>
 			<if test="houseBuilding != null">
-				house.building=#{houseBuilding}
+				and house.building=#{houseBuilding}
 			</if>
 			<if test="houseUnit != null">
-				house.unit=#{houseUnit}
+				and house.unit=#{houseUnit}
 			</if>
 			<if test="houseNumber != null">
-				house.number=#{houseNumber}
+				and house.number=#{houseNumber}
 			</if>
 	</where>
 	</select>

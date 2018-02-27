@@ -6,10 +6,10 @@
 	select * from basic_product
 	<where>
 			<if test="q != null and q !=''">
-				name like '%${q}%'
+				and `name` like '%${q}%'
 			</if>
 			<if test="type != null">
-				`type`=#{type}
+				and `type`=#{type}
 			</if>
 			and `delete`=1
 	</where>
@@ -21,10 +21,10 @@
 	select count(*) from basic_product
 	<where>
 			<if test="q != null and q !=''">
-				name like '%${q}%'
+				and `name` like '%${q}%'
 			</if>
 			<if test="type != null">
-				`type`=#{type}
+				and `type`=#{type}
 			</if>			
 			and `delete`=1
 	</where>

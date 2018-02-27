@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leoyon.vote.AuthenticationController;
+import com.leoyon.vote.api.AbstractResponse;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.M;
@@ -37,7 +38,7 @@ public class SysUserController extends AuthenticationController {
 	}
 	
 	@PostMapping(value="/sys/user", name="新增系统用户")
-	public JsonResponse add(
+	public AbstractResponse.NoData add(
 			@RequestBody SysUser entity
 			) throws Exception {
 		entity.setUpdateUid(getLogin(false).getId());
@@ -45,7 +46,7 @@ public class SysUserController extends AuthenticationController {
 		entity.setSalt(RandomStringUtils.randomAlphabetic(16));
 		entity.setPassword(pswd);
 		userService.add(entity);
-		return JsonResponse.sucess();
+		return AbstractResponse.sucess();
 	}
 	
 	@PostMapping(value="/sys/user/{id}", name="修改系统用户")

@@ -29,7 +29,7 @@ public class UserControllerTests extends BaseWebTests {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();		
-		setToken(defUID);
+		setToken(defUID, 1000000);
 		dbUtil.clear(new String[] {"basic_user", "basic_user_house", "basic_house", "basic_area"});
 	}
 
@@ -147,6 +147,16 @@ public class UserControllerTests extends BaseWebTests {
 		assertSucess(r);
 		
 		assertFalse(dbUtil.select("select * from basic_user_house where user_id=1 and house_id=1 and owner_status=3 and owner_reason='照片模糊'").isEmpty());
+	}
+	
+	@Test
+	public void bug_findHouseWithDate() throws Exception {
+		addUsers();
+		addHouses();
+		addUserHouses();
+		
+		JsonResponse r = restTemplate.getForObject("/basic/user/house?realName=&mobile=&dateCreateStart=2018-02-01+17%3A27%3A56&dateCreateEnd=2018-02-27+17%3A27%3A58&ownerStatus=&page=0&psize=10", JsonResponse.class);
+		assertSucess(r);
 	}
 
 	@Test
