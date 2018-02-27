@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.dynamics.dao.ReleaseDao">
+	
+
+	<insert id="add" parameterType="com.leoyon.vote.dynamics.Release" useGeneratedKeys="true" keyProperty="id">
+		insert into dynamics_release (`release_title`,`url`,`content`,`state`,`create_person`,`date_create`,`update_uid`) values(
+			#{releaseTitle},#{url},#{content},#{state},#{createPerson},#{dateCreate},#{updateUid}
+		);
+	</insert>
+	
+	<update id="update" parameterType="com.leoyon.vote.dynamics.Release">
+	update dynamics_release
+	<set>
+		<if test="releaseTitle != null and releaseTitle != '' ">
+			release_title = #{releaseTitle},
+		</if>
+		<if test="url != null and url != ''">
+			url = #{url},
+		</if>	
+		<if test="content != null and content != ''">
+			content = #{content},
+		</if>		
+		<if test="state != null">
+			state = #{state},
+		</if>
+		    update_time=#{updateTime}
+	</set>
+	where id = #{id}
+	</update>
+	
+
+	<update id="delete" parameterType="com.leoyon.vote.dynamics.Release">
+		UPDATE dynamics_release  set `delete`=2,update_uid=#{updateUid}
+		where id = #{id};
+	</update>
+	
+
+	<select id="find" parameterType="com.leoyon.vote.dynamics.FindReleaseRequest" resultType="com.leoyon.vote.dynamics.FindReleaseResponse">
+		select
+		 d.id as id,
+		 d.date_create as dateCreate,
+		 d.release_title as releaseTitle,
+		 d.url as url,
+		(select u.real_name from sys_user as u where u.id=d.create_person and u.`delete`=1 ) as createPerson,
+		d.state as state
+		from dynamics_release as d
+		<where>
+			1=1
+			<if test="startTime != null and startTime !=''">
+				<![CDATA[ AND d.date_create >= CONCAT(#{startTime},' 00:00:00') ]]>
+			</if>
+			<if test="endTime != null and endTime!=''" >
+				<![CDATA[ AND d.date_create <= CONCAT(#{endTime} ,' 23:59:59')]]>
+			</if>			
+		</where>
+		and d.`delete`=1
+		order by d.date_create desc
+	</select>
+	
+</mapper>
