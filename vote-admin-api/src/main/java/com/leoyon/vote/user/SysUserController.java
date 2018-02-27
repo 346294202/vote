@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leoyon.vote.AuthenticationController;
-import com.leoyon.vote.api.AbstractResponse;
+import com.leoyon.vote.api.DataResponse;
+import com.leoyon.vote.api.DefauleResponse;
 import com.leoyon.vote.api.JsonResponse;
+import com.leoyon.vote.api.ListResponse;
 import com.leoyon.vote.api.ResponseException;
+import com.leoyon.vote.role.SysRole;
 import com.leoyon.vote.util.M;
 import com.leoyon.vote.util.Parses;
 
@@ -28,17 +31,17 @@ public class SysUserController extends AuthenticationController {
 	private SysUserService userService;
 	
 	@GetMapping(value="/sys/user", name="查询系统用户")
-	public JsonResponse find(
+	public DataResponse<FindSysUserResult> find(
 			FindSysUserRequest req
 			) {	
-		return JsonResponse.sucess(new M<>()
-				.put("count", userService.count(req))
-				.put("items", userService.find(req))
-				.build());		
+		return DataResponse.sucess(new FindSysUserResult(
+				userService.count(req),
+				userService.find(req)
+				));
 	}
 	
 	@PostMapping(value="/sys/user", name="新增系统用户")
-	public AbstractResponse.NoData add(
+	public DefauleResponse add(
 			@RequestBody SysUser entity
 			) throws Exception {
 		entity.setUpdateUid(getLogin(false).getId());
@@ -46,11 +49,11 @@ public class SysUserController extends AuthenticationController {
 		entity.setSalt(RandomStringUtils.randomAlphabetic(16));
 		entity.setPassword(pswd);
 		userService.add(entity);
-		return AbstractResponse.sucess();
+		return DefauleResponse.sucess();
 	}
 	
 	@PostMapping(value="/sys/user/{id}", name="修改系统用户")
-	public JsonResponse update(
+	public DefauleResponse update(
 			@PathVariable(value="id") Long id,
 			@RequestBody SysUser entity
 			) throws Exception {
@@ -58,35 +61,33 @@ public class SysUserController extends AuthenticationController {
 		entity.setId(id);		
 		userService.update(entity);
 		
-		return JsonResponse.sucess();
+		return DefauleResponse.sucess();
 	}
 	
 	@Autowired
 	private SysUserRoleService sysUserRoleService; 
 	
 	@GetMapping(value="/sys/user/{id}/role", name="获得用户角色")
-	public JsonResponse getUserRoles(@PathVariable(value="id") Long id) {
-		return JsonResponse.sucess(new M<>()
-				.put("items", sysUserRoleService.getUserRoles(id))
-				.build());	
+	public ListResponse<SysRole> getUserRoles(@PathVariable(value="id") Long id) {
+		return ListResponse.success(sysUserRoleService.getUserRoles(id));
 	}
 	
 	@PostMapping(value="/sys/user/{id}/role", name="修改用户角色")
-	public JsonResponse setUserRoles(
+	public DefauleResponse setUserRoles(
 			@PathVariable(value="id") Long id,
 			@ApiParam(desc="格式'id,id,...'")
 			@RequestParam("ids") String ids) throws Exception {
 		sysUserRoleService.setUserRoles(id, Parses.parseList(ids, Long.class, ","));
-		return JsonResponse.sucess();
+		return DefauleResponse.sucess();
 	}
 	
 	@DeleteMapping(value="/sys/user/{id}", name="删除系统用户")
-	public JsonResponse delete(
+	public DefauleResponse delete(
 			@PathVariable(value="id") Long id) throws ResponseException {
 		SysUser entity = new SysUser();
 		entity.setUpdateUid(getLogin(false).getId());
 		entity.setId(id);
 		userService.delete(entity);
-		return JsonResponse.sucess();
+		return DefauleResponse.sucess();
 	}
 }
