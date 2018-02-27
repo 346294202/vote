@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.api.ResponseException;
-import com.leoyon.vote.api.VoteException;
 import com.leoyon.vote.util.M;
 
 @RestController("房屋")
@@ -31,7 +30,7 @@ public class HouseController extends AuthenticationController {
 	}
 	
 	@PostMapping(value="/basic/house", name="新增房屋")
-	public JsonResponse add(@RequestBody House entity) throws ResponseException, VoteException {
+	public JsonResponse add(@RequestBody House entity) throws ResponseException {
 		entity.setUpdateUid(getLogin(false).getId());
 		houseService.add(entity);
 		return JsonResponse.sucess();
@@ -41,7 +40,7 @@ public class HouseController extends AuthenticationController {
 	public JsonResponse update(
 			@PathVariable(value="id") Long id,
 			@RequestBody House entity
-			) throws ResponseException, VoteException {
+			) throws ResponseException {
 		entity.setUpdateUid(getLogin(false).getId());
 		entity.setId(id);
 		houseService.update(entity);

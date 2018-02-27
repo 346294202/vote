@@ -2,15 +2,15 @@ package com.leoyon.vote.house;
 
 import java.util.List;
 
-import com.leoyon.vote.api.VoteException;
+import com.leoyon.vote.api.ResponseException;
 
 public interface HouseService {
 
 	List<House> find(FindHouseRequest reqst);
 
-	void add(House house) throws VoteException;
+	void add(House house) throws ResponseException;
 
-	void update(House house) throws VoteException;
+	void update(House house) throws ResponseException;
 
 	void delete(House entity);
 

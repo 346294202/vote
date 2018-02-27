@@ -2,8 +2,8 @@ package com.leoyon.vote.user;
 
 import java.util.List;
 
+import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.api.Token;
-import com.leoyon.vote.api.VoteException;
 
 public interface SysUserService {
 
@@ -25,6 +25,6 @@ public interface SysUserService {
 
 	int count(FindSysUserRequest req);
 
-	void changePassword(ChangePasswordRequest rqst) throws VoteException;
+	void changePassword(ChangePasswordRequest rqst) throws ResponseException;
 
 }

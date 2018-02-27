@@ -22,7 +22,7 @@ import com.google.common.io.Files;
 import com.leoyon.vote.AppConfig;
 import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.vote.api.VoteException;
+import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.file.dao.UploadFileDao;
 
 @RestController("文件")
@@ -36,10 +36,10 @@ public class FileController extends AuthenticationController {
 	private UploadFileDao dao;
 	
 	@GetMapping(value="/file/{id}", name="下载文件,no token")
-	public void downloadFile(@PathVariable long id, HttpServletResponse resp) throws VoteException, FileNotFoundException, IOException {
+	public void downloadFile(@PathVariable long id, HttpServletResponse resp) throws ResponseException, FileNotFoundException, IOException {
 		UploadFile file = dao.get(id);
 		if(file == null)
-			throw new VoteException("错误的id");
+			throw new ResponseException("错误的id");
 		resp.setContentType(file.getMimetype());
 		IOUtils.copy(new FileInputStream(new File(file.getFolder(), file.getFile())), resp.getOutputStream());
 	}

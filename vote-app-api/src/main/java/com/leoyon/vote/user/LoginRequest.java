@@ -1,8 +1,16 @@
 package com.leoyon.vote.user;
 
+import javax.validation.constraints.NotNull;
+
+import com.leoyon.vote.validation.MobileNumber;
+
 public class LoginRequest {
 
+	
+	@MobileNumber(message="错误的手机号")	
 	private String mobile;
+	
+	@NotNull(message="密码不能为空")
 	private String password;
 
 	public LoginRequest() {

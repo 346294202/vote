@@ -1,5 +1,6 @@
 package com.leoyon.vote.api;
 
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,20 +30,25 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public JsonResponse handleException(ResponseException e) {
 		LOG.error(e.getMessage(), e);
-        return JsonResponse.fail(e.getCode());
+        return JsonResponse.fail(e.getCode(), e.getError());
     }
 	
-	@ExceptionHandler(VoteException.class)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.OK)
-    public JsonResponse handleVoteException(VoteException e) {
-		LOG.error(e.getMessage(), e);
-        return JsonResponse.fail(Error.UNKNOWN_EXCEPT.getValue(), e.getMessage());
-	}
-
+    public JsonResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+		LOG.error("参数验证失败", e);
+		StringBuilder sb = new StringBuilder();
+		e.getBindingResult().getAllErrors().forEach( i -> {
+			sb.append(i.getDefaultMessage());
+			sb.append(';');
+		});
+        return JsonResponse.fail(Error.VALID_EXCEPT.getValue(), sb.toString());
+    }
+	
 	@ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.OK)
     public JsonResponse handleException(Throwable e) {
-		LOG.error("未知异常,", e);
+		LOG.error("未知异常", e);
         return JsonResponse.fail(Error.UNKNOWN_EXCEPT);
     }
 

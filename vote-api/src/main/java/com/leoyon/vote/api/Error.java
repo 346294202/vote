@@ -10,6 +10,7 @@ import java.util.Optional;
  */
 public enum Error {
 	UNKNOWN_EXCEPT(10000, "未知异常，请联系平台"),
+	VALID_EXCEPT(100000, "数据验证失败"),
 	TOKEN_EXCEPT(1000, "无效的Token"),
 	INVALID_PARAM(10001, "错误的参数"),
 	MISSING_PARAM(10002, "没有提供参数"),

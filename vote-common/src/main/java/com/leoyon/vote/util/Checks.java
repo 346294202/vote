@@ -2,6 +2,8 @@ package com.leoyon.vote.util;
 
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 各种字符串格式验证方法
  * @author wj
@@ -44,6 +46,8 @@ public class Checks {
 	 * @return: boolean
 	 */
 	public static boolean checkMobile(String mobile) {
+		if(StringUtils.isBlank(mobile))
+			return false;
 		String regex = "(\\+\\d+)?1[34578]\\d{9}$";
 		return Pattern.matches(regex,mobile);
 	}
