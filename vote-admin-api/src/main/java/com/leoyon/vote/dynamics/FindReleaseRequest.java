@@ -1,54 +1,52 @@
-package com.leoyon.vote.dictionary;
+package com.leoyon.vote.dynamics;
 
 import wj.flydoc.ApiParam;
 import wj.flydoc.ApiParamCtor;
 
-/**
- * Created by Thinkpad on 2018/2/24.
- */
-public class FindSysDictionaryRequest {
 
-    private String q;
-    private Integer categoryName;
+/**
+ * Created by Thinkpad on 2018/2/26.
+ */
+public class FindReleaseRequest {
+
+    private String startTime;
+    private String endTime;
     private Integer pageNum;
     private Integer pageSize;
 
-
-
     @ApiParamCtor
-    public FindSysDictionaryRequest(
-            @ApiParam(desc="模糊查询")
-                    String q,
-            @ApiParam(desc="字典类目")
-                    Integer categoryName,
+    public FindReleaseRequest(
+            @ApiParam(desc="开始时间")
+                    String startTime,
+            @ApiParam(desc="结束时间")
+                    String endTime,
             @ApiParam(desc="页码")
                     Integer pageNum,
             @ApiParam(desc="页大小")
                     Integer pageSize
-          ) {
+    ) {
         super();
-        this.q = q;
-        this.categoryName = categoryName;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.pageNum = pageNum;
         this.pageSize = pageSize;
     }
 
-    public String getQ() {
-        return q;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setQ(String q) {
-        this.q = q;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public Integer getCategoryName() {
-        return categoryName;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setCategoryName(Integer categoryName) {
-        this.categoryName = categoryName;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
-
 
     public Integer getPageNum() {
         return pageNum;

@@ -1,6 +1,7 @@
-package com.leoyon.vote.dictionary;
+package com.leoyon.vote.dynamics;
 
 
+import com.leoyon.vote.dictionary.FindSysDictionaryRequest;
 import com.leoyon.vote.util.Parses;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -10,21 +11,19 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 @Component
-public class FindSysDictionaryRequestArgumentResolver implements HandlerMethodArgumentResolver {
+public class FindReleaseRequestArgumentResolver implements HandlerMethodArgumentResolver {
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {			
-		return parameter.getParameterType().equals(FindSysDictionaryRequest.class);
+		return parameter.getParameterType().equals(FindReleaseRequest.class);
 	}
 
 	@Override
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-		System.out.println(webRequest.getParameter("pageNum"));
-		System.out.println(webRequest.getParameter("pageSize"));
-		return new FindSysDictionaryRequest(
-				webRequest.getParameter("q"),
-				Parses.parse(webRequest.getParameter("categoryName"), Integer.class,1),
+		return new FindReleaseRequest(
+				webRequest.getParameter("startTime"),
+				webRequest.getParameter("endTime"),
 				Parses.parse(webRequest.getParameter("pageNum"), Integer.class, 0),
 				Parses.parse(webRequest.getParameter("pageSize"), Integer.class, 20)
 				);

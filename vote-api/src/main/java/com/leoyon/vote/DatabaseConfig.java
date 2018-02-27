@@ -2,6 +2,8 @@ package com.leoyon.vote;
 
 import javax.sql.DataSource;
 
+import com.github.pagehelper.PageHelper;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -147,6 +149,10 @@ public class DatabaseConfig {
         // 下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加
 //        fb.setTypeAliasesPackage(env.getProperty("mybatis.typeAliasesPackage"));// 指定基包
 //        fb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis.mapperLocations")));
+		Interceptor[] plugins =  new Interceptor[]{
+				new PageHelper()
+		};
+		fb.setPlugins(plugins);
         fb.setConfigLocation(new ClassPathResource("mybatis.xml"));
         fb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("mapper/**/*.xml"));
 
