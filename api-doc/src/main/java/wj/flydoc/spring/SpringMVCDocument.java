@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import wj.flydoc.ApiDocument;
 import wj.flydoc.ApiGroup;
 import wj.flydoc.ApiMethod;
-import wj.flydoc.ApiParamIgnore;
+import wj.flydoc.ApiIgnore;
 
 public class SpringMVCDocument implements ApiDocument {
 	
@@ -35,7 +35,7 @@ public class SpringMVCDocument implements ApiDocument {
 		
 		for(Object c:controllers) {
 			Class<?> clazz = c.getClass();
-			if(clazz.getAnnotation(ApiParamIgnore.class) != null)
+			if(clazz.getAnnotation(ApiIgnore.class) != null)
 				continue;
 			
 			String name = null;
@@ -51,7 +51,7 @@ public class SpringMVCDocument implements ApiDocument {
 			Vector<ApiMethod> methods = new Vector<>();
 			
 			for(Method m:clazz.getMethods()) {
-				if(m.getAnnotation(ApiParamIgnore.class) != null)
+				if(m.getAnnotation(ApiIgnore.class) != null)
 					continue;
 				
 				ApiMethod am = findMethod(m, rootPath);

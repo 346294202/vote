@@ -1,6 +1,6 @@
 package com.leoyon.vote.user;
 
-import wj.flydoc.ApiParamIgnore;
+import wj.flydoc.ApiIgnore;
 
 public class ChangePasswordRequest {
 
@@ -21,7 +21,7 @@ public class ChangePasswordRequest {
 		this.newPassword = newPassword;
 	}
 	
-	@ApiParamIgnore
+	@ApiIgnore
 	public Long getUserId() {
 		return userId;
 	}

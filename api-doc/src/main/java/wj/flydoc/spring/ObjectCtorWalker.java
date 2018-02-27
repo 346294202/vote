@@ -10,7 +10,7 @@ import java.util.Vector;
 import org.apache.commons.lang3.StringUtils;
 
 import wj.flydoc.ApiParam;
-import wj.flydoc.ApiParamIgnore;
+import wj.flydoc.ApiIgnore;
 
 public class ObjectCtorWalker extends ObjectWalker {
 	
@@ -24,7 +24,7 @@ public class ObjectCtorWalker extends ObjectWalker {
 	protected Collection<Param> findParams() throws Exception {
 		Vector<Param> ret = new Vector<>();
 		for(Parameter p:ctor.getParameters()) {
-			if(p.getAnnotation(ApiParamIgnore.class) != null)
+			if(p.getAnnotation(ApiIgnore.class) != null)
 				continue;
 			
 			Class<?> elementClazz = null;

@@ -15,12 +15,24 @@ import wj.flydoc.ApiMethod;
 import wj.flydoc.ApiMethodParameter;
 import wj.flydoc.ApiParam;
 import wj.flydoc.ApiParamCtor;
-import wj.flydoc.ApiParamIgnore;
+import wj.flydoc.ApiReturn;
+import wj.flydoc.ApiIgnore;
 
 public abstract class SpringMVCMethod implements ApiMethod {
 	
 	private Method rawMethod;
 	private String rootPath;
+
+	@Override
+	public String getReturn() {
+		Class<?> returnClass = rawMethod.getReturnType();
+		
+		if(rawMethod.getAnnotation(ApiReturn.class) != null
+				|| returnClass.getAnnotation(ApiReturn.class) != null) {
+			return Formats.formatReturn(returnClass);
+		}
+		return "";
+	}
 
 	protected SpringMVCMethod(Method rawMethod, String rootPath) {
 		this.rawMethod = rawMethod;
@@ -41,7 +53,7 @@ public abstract class SpringMVCMethod implements ApiMethod {
 		Vector<ApiMethodParameter> ret = new Vector<>();
 		
 		for(Parameter p:rawMethod.getParameters()) {
-			if(p.getAnnotation(ApiParamIgnore.class) != null)
+			if(p.getAnnotation(ApiIgnore.class) != null)
 				continue;
 			
 			collectApiMethodParameter(p, ret);
@@ -69,7 +81,7 @@ public abstract class SpringMVCMethod implements ApiMethod {
 
 	private void collectApiMethodParameter(Constructor<?> ctor, List<ApiMethodParameter> ret) {
 		for(Parameter p:ctor.getParameters()) {
-			if(p.getAnnotation(ApiParamIgnore.class) != null)
+			if(p.getAnnotation(ApiIgnore.class) != null)
 				continue;
 			
 			//TODO 将来处理list类型

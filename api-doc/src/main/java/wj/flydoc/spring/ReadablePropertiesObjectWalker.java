@@ -10,14 +10,14 @@ import java.util.Vector;
 
 import org.apache.commons.lang3.StringUtils;
 
-import wj.flydoc.ApiParam;
 import wj.flydoc.ApiIgnore;
+import wj.flydoc.ApiParam;
 
-public class ObjectPropertiesWalker extends ObjectWalker {
+public class ReadablePropertiesObjectWalker extends ObjectWalker {
 	
 	protected Class<?> type;
 	
-	public ObjectPropertiesWalker(Class<?> type) {
+	public ReadablePropertiesObjectWalker(Class<?> type) {
 		this.type = type;
 	}
 	
@@ -26,25 +26,21 @@ public class ObjectPropertiesWalker extends ObjectWalker {
 		Vector<Param> ret = new Vector<>();
 		BeanInfo info = Introspector.getBeanInfo(type);
 		for(PropertyDescriptor p:info.getPropertyDescriptors()) {
-			if(p.getReadMethod() == null
-					|| p.getWriteMethod() == null)
+			if(p.getReadMethod() == null)
+				continue;
+			
+			if(p.getReadMethod().getAnnotation(ApiIgnore.class) != null
+					|| (p.getWriteMethod() != null 
+						&& p.getWriteMethod().getAnnotation(ApiIgnore.class) != null))
 				continue;
 			
 			Class<?> clazz = p.getPropertyType();
-			if(p.getReadMethod().getAnnotation(ApiIgnore.class) != null
-					|| p.getWriteMethod().getAnnotation(ApiIgnore.class) != null)
+			
+			if(Class.class.equals(clazz))
 				continue;
 			
-			Class<?> elementClazz = null;
 			Type type = p.getReadMethod().getGenericReturnType();
-			ParameterizedType pType = null;
-			if(type instanceof ParameterizedType) {
-				pType = (ParameterizedType) type;
-				Type[] actTypes = pType.getActualTypeArguments();
-				if(actTypes != null && actTypes.length > 0 && actTypes[0] instanceof Class<?>) {
-					elementClazz = (Class<?>) actTypes[0];	
-				}
-			}
+			Class<?> elementClazz = tryGetElementClass(type);
 			
 			ApiParam apiParam = clazz.getAnnotation(ApiParam.class);
 			String name = p.getName();
@@ -60,5 +56,18 @@ public class ObjectPropertiesWalker extends ObjectWalker {
 					defVal));
 		}
 		return ret;
+	}
+
+	public Class<?> tryGetElementClass(Type type) {
+		Class<?> elementClazz = null;			
+		ParameterizedType pType = null;
+		if(type instanceof ParameterizedType) {
+			pType = (ParameterizedType) type;
+			Type[] actTypes = pType.getActualTypeArguments();
+			if(actTypes != null && actTypes.length > 0 && actTypes[0] instanceof Class<?>) {
+				elementClazz = (Class<?>) actTypes[0];	
+			}
+		}
+		return elementClazz;
 	}
 }

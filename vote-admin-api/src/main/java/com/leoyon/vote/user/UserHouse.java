@@ -3,7 +3,7 @@ package com.leoyon.vote.user;
 import java.util.Date;
 
 import wj.flydoc.ApiParam;
-import wj.flydoc.ApiParamIgnore;
+import wj.flydoc.ApiIgnore;
 
 public class UserHouse {
 
@@ -52,14 +52,14 @@ public class UserHouse {
 		this.ownerReason = ownerReason;
 	}
 	
-	@ApiParamIgnore
+	@ApiIgnore
 	public Long getOwnerUpdateUid() {
 		return ownerUpdateUid;
 	}
 	public void setOwnerUpdateUid(Long ownerUpdateUid) {
 		this.ownerUpdateUid = ownerUpdateUid;
 	}
-	@ApiParamIgnore
+	@ApiIgnore
 	public Date getOwnerUpdateTime() {
 		return ownerUpdateTime;
 	}

@@ -2,7 +2,7 @@ package com.leoyon.vote;
 
 import java.util.Date;
 
-import wj.flydoc.ApiParamIgnore;
+import wj.flydoc.ApiIgnore;
 
 /**
  * 基础管理对象
@@ -40,7 +40,7 @@ public abstract class AbstractResource<T extends AbstractResource<?>> {
 			return false;
 		return true;
 	}
-	@ApiParamIgnore
+	@ApiIgnore
 	public Date getDateCreate() {
 		return dateCreate;
 	}
@@ -48,7 +48,7 @@ public abstract class AbstractResource<T extends AbstractResource<?>> {
 		this.dateCreate = dateCreate;
 		return (T) this;
 	}
-	@ApiParamIgnore
+	@ApiIgnore
 	public Date getUpdateTime() {
 		return updateTime;
 	}
@@ -56,7 +56,7 @@ public abstract class AbstractResource<T extends AbstractResource<?>> {
 		this.updateTime = updateTime;
 		return (T) this;
 	}
-	@ApiParamIgnore
+	@ApiIgnore
 	public Long getUpdateUid() {
 		return updateUid;
 	}
@@ -67,7 +67,7 @@ public abstract class AbstractResource<T extends AbstractResource<?>> {
 	public Long getId() {
 		return id;
 	}
-	@ApiParamIgnore
+	@ApiIgnore
 	public T setId(Long id) {
 		this.id = id;
 		return (T) this;

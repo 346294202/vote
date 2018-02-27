@@ -26,4 +26,16 @@ public class Formats {
 		return "缺省"+defVal;
 	}
 
+	public static String formatReturn(Class<?> type) {
+		StringObjectWriter writer = new HtmlJsonObjectWriter();
+		ObjectWalker walker = new ReadablePropertiesObjectWalker(type);
+		try {
+			walker.accept(0, writer);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return writer.toString();
+	}
+
 }

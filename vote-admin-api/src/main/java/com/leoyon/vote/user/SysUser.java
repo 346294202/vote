@@ -8,7 +8,7 @@ import com.leoyon.vote.AbstractResource;
 import com.leoyon.vote.Passwords;
 
 import wj.flydoc.ApiParam;
-import wj.flydoc.ApiParamIgnore;
+import wj.flydoc.ApiIgnore;
 
 public class SysUser extends AbstractResource<SysUser> {
 	
@@ -62,12 +62,12 @@ public class SysUser extends AbstractResource<SysUser> {
 		return lastLoginTime;
 	}
 
-	@ApiParamIgnore
+	@ApiIgnore
 	public void setLastLoginTime(Date lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
 	}
 
-	@ApiParamIgnore
+	@ApiIgnore
 	public Date getLastLoginIp() {
 		return lastLoginIp;
 	}
@@ -94,7 +94,7 @@ public class SysUser extends AbstractResource<SysUser> {
 		this.password = StringUtils.isBlank(salt) ? password : Passwords.encode(password, salt);
 	}
 
-	@ApiParamIgnore
+	@ApiIgnore
 	public String getSalt() {
 		return salt;
 	}
