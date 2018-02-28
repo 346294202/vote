@@ -11,8 +11,8 @@ public class FindReleaseRequest {
 
     private String startTime;
     private String endTime;
-    private Integer pageNum;
-    private Integer pageSize;
+    private Integer page;
+    private Integer psize;
 
     @ApiParamCtor
     public FindReleaseRequest(
@@ -21,15 +21,15 @@ public class FindReleaseRequest {
             @ApiParam(desc="结束时间")
                     String endTime,
             @ApiParam(desc="页码")
-                    Integer pageNum,
+                    Integer page,
             @ApiParam(desc="页大小")
-                    Integer pageSize
+                    Integer psize
     ) {
         super();
         this.startTime = startTime;
         this.endTime = endTime;
-        this.pageNum = pageNum;
-        this.pageSize = pageSize;
+        this.page = page;
+        this.psize = psize;
     }
 
     public String getStartTime() {
@@ -48,19 +48,19 @@ public class FindReleaseRequest {
         this.endTime = endTime;
     }
 
-    public Integer getPageNum() {
-        return pageNum;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public Integer getPageSize() {
-        return pageSize;
+    public Integer getPsize() {
+        return psize;
     }
 
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
+    public void setPsize(Integer psize) {
+        this.psize = psize;
     }
 }

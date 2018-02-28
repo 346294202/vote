@@ -26,11 +26,12 @@ public class ReleaseController extends AuthenticationController {
 
     @GetMapping(value="/dynamics/release/find", name="查询物业动态")
     public JsonResponse find(FindReleaseRequest req) {
-        PageHelper.startPage(req.getPageNum(),req.getPageSize());
+        PageHelper.startPage((req.getPage()+1),req.getPsize());
         List<FindReleaseResponse> list =releaseService.find(req);
         PageInfo<FindReleaseResponse> appsPageInfo = new PageInfo<FindReleaseResponse>(list);
         return JsonResponse.sucess(new M<>()
-                .put("items", appsPageInfo)
+                .put("items", appsPageInfo.getList())
+                .put("count", appsPageInfo.getTotal())
                 .build());
     }
 

@@ -24,8 +24,8 @@ public class FindReleaseRequestArgumentResolver implements HandlerMethodArgument
 		return new FindReleaseRequest(
 				webRequest.getParameter("startTime"),
 				webRequest.getParameter("endTime"),
-				Parses.parse(webRequest.getParameter("pageNum"), Integer.class, 0),
-				Parses.parse(webRequest.getParameter("pageSize"), Integer.class, 20)
+				Parses.parse(webRequest.getParameter("page"), Integer.class, 0),
+				Parses.parse(webRequest.getParameter("psize"), Integer.class, 20)
 				);
 	}
 	
