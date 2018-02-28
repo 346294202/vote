@@ -30,11 +30,12 @@ public class SysDictionaryController extends AuthenticationController {
 
     @GetMapping(value="/sys/dictionary/find", name="查询数据字典")
     public JsonResponse find(FindSysDictionaryRequest req) {
-        PageHelper.startPage(req.getPageNum(),req.getPageSize());
+        PageHelper.startPage((req.getPage()+1),req.getPsize());
         List<FindSysDictionaryResponse> list =sysDictionaryService.find(req);
         PageInfo<FindSysDictionaryResponse> appsPageInfo = new PageInfo<>(list);
         return JsonResponse.sucess(new M<>()
-                .put("items", appsPageInfo)
+                .put("items", appsPageInfo.getList())
+                .put("count",appsPageInfo.getTotal())
                 .build());
     }
 
