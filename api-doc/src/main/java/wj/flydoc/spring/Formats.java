@@ -1,8 +1,9 @@
 package wj.flydoc.spring;
 
+import java.lang.reflect.Parameter;
 import java.util.Date;
 
-public class Formats {
+class Formats {
 
 	public static String format(Class<?> type) {
 		if(type.equals(Long.class) || type.equals(Integer.class) || type.equals(Short.class))
@@ -29,6 +30,18 @@ public class Formats {
 	public static String formatReturn(Class<?> type) {
 		StringObjectWriter writer = new HtmlJsonObjectWriter();
 		ObjectWalker walker = new ReadablePropertiesObjectWalker(type);
+		try {
+			walker.accept(0, writer);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return writer.toString();
+	}
+
+	public static String formatParameter(Parameter rawParam) {
+		StringObjectWriter writer = new HtmlJsonObjectWriter();
+		ObjectWalker walker = new WritablePropertiesObjectWalker(rawParam.getType());
 		try {
 			walker.accept(0, writer);
 		} catch (Exception e) {

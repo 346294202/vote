@@ -31,15 +31,7 @@ public class SpringMVCRequestBody extends SpringMVCParameter {
 
 	@Override
 	public String getType() {
-		StringObjectWriter writer = new HtmlJsonObjectWriter();
-		ObjectWalker walker = new ObjectPropertiesWalker(rawParam.getType());
-		try {
-			walker.accept(0, writer);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return writer.toString();
+		return Formats.formatParameter(rawParam);
 	}
 
 	@Override

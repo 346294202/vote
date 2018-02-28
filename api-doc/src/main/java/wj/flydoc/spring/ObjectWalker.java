@@ -42,7 +42,7 @@ public abstract class ObjectWalker {
 				if(isValue(p.elementClazz)) {
 					writer.writeValue(tabs, p.elementClazz, null, null, null);
 				} else {
-					ObjectPropertiesWalker walker = new ObjectPropertiesWalker(p.elementClazz);
+					ObjectWalker walker = new ReadablePropertiesObjectWalker(p.elementClazz);
 					walker.accept(tabs+1, writer);
 				}
 				writer.endList(tabs);
