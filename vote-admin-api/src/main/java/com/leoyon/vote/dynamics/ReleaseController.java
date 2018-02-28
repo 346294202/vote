@@ -80,3 +80,4 @@ public class ReleaseController extends AuthenticationController {
         return JsonResponse.sucess();
     }
 }
+

@@ -28,5 +28,5 @@ public class FindReleaseRequestArgumentResolver implements HandlerMethodArgument
 				Parses.parse(webRequest.getParameter("psize"), Integer.class, 20)
 				);
 	}
-	
+
 }

@@ -64,3 +64,4 @@ public class FindPropertyNoticeRequest {
         this.psize = psize;
     }
 }
+

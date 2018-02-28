@@ -87,3 +87,4 @@ public class SysDictionaryController extends AuthenticationController {
         return JsonResponse.sucess();
     }
 }
+

@@ -28,5 +28,5 @@ public class FindPropertyNoticeRequestArgumentResolver implements HandlerMethodA
 				Parses.parse(webRequest.getParameter("psize"), Integer.class, 20)
 		);
 	}
-	
+
 }
