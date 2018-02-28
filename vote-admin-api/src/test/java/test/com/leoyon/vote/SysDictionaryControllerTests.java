@@ -46,7 +46,7 @@ public class SysDictionaryControllerTests extends BaseWebTests {
     @Test
     public void find() throws Exception {
         /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
-        JsonResponse r = restTemplate.getForObject("/sys/dictionary/find?pageNum=1&pageSize=10", JsonResponse.class);
+        JsonResponse r = restTemplate.getForObject("/sys/dictionary/find?page=1&psize=10", JsonResponse.class);
         assertSucess(r);
         /*List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");*/
         System.out.println(/*items.toString()*/r.getItem("items"));
