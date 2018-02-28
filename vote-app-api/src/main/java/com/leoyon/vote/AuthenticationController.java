@@ -16,7 +16,7 @@ public abstract class AuthenticationController {
 	private HttpServletRequest request;
 	
 	@Autowired
-	private UserService userService;
+	protected UserService userService;
 
 	public AuthenticationController() {
 		super();

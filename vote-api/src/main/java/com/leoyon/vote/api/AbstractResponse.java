@@ -5,7 +5,7 @@ public abstract class AbstractResponse<T> {
 	private int code;
     private String error;
     
-	public AbstractResponse(int code, String error) {
+	protected AbstractResponse(int code, String error) {
 		super();
 		this.code = code;
 		this.error = error;
@@ -19,5 +19,13 @@ public abstract class AbstractResponse<T> {
 		return error;
 	}   
 	
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
 	public abstract T getData();
 }

@@ -2,6 +2,7 @@ package com.leoyon.vote.role;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,18 +91,19 @@ public class SysRoleServiceImp implements SysRoleService, SysRoleCommandService 
 		Vector<SysCommand> ret = new Vector<>(byRoles);
 		for(SysCommand c:byRoles) {
 			collectParents(c, all, ret);
-			collectChilds(c, all, ret);
+			collectChilds(c, all, byRoles, ret);
 		}
 		return ret;
 	}
 
-	private void collectChilds(SysCommand parent, List<SysCommand> all, Vector<SysCommand> ret) {
+	private void collectChilds(SysCommand parent, List<SysCommand> all, Set<SysCommand> byRoles, Vector<SysCommand> ret) {
 		for(SysCommand c:all) {
 			if(ret.contains(c))
 				continue;
-			if(c.getParentId() == parent.getId()) {
+			if(c.getParentId() == parent.getId()
+					&& byRoles.contains(c)) {
 				ret.add(c);
-				collectChilds(c, all, ret);
+				collectChilds(c, all, byRoles, ret);
 			}
 		}
 	}

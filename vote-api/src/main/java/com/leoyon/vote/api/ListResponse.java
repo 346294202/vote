@@ -2,26 +2,26 @@ package com.leoyon.vote.api;
 
 import java.util.Collection;
 
-public class ListResponse<E> extends AbstractResponse<ListResponse<E>> {
+public class ListResponse<E> extends AbstractResponse<ListResponseItems<E>> {
 
-	private Collection<E> items;
+	private ListResponseItems<E> data;
 	
 	public static <T> ListResponse<T> success(Collection<T> items) {
 		return new ListResponse<>(1, "", items);
 	}
 
-	public ListResponse(int code, String error, Collection<E> items) {
+	private ListResponse(int code, String error, Collection<E> items) {
 		super(code, error);
-		this.items = items;
-	}
-
-	public Collection<E> getItems() {
-		return items;
+		this.data = new ListResponseItems<>(items);
 	}
 
 	@Override
-	public ListResponse<E> getData() {
-		return this;
+	public ListResponseItems<E> getData() {
+		return data;
+	}
+
+	public void setData(ListResponseItems<E> data) {
+		this.data = data;
 	}
 	
 }

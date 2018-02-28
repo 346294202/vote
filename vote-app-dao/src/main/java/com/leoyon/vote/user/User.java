@@ -19,6 +19,7 @@ public class User {
 	private String email;
 	private Integer gender;
 	private Date birthday;
+	private String idNumber;
 
 
 	public Date getDateCreate() {
@@ -123,6 +124,14 @@ public class User {
 
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+
+	public String getIdNumber() {
+		return idNumber;
+	}
+
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
 	}
 
 }

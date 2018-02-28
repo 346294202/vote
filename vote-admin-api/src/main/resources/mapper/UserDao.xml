@@ -30,6 +30,7 @@
 	u.mobile,
 	u.date_create as dateCreate,
 	u.real_name as realName,
+	u.id_number as idNumber,
 	u.email,
 	u.gender,
 	u.birthday,

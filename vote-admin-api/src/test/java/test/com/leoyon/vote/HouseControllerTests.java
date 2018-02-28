@@ -131,6 +131,10 @@ public class HouseControllerTests extends BaseWebTests {
 				.build());
 		assertSucess(r);
 		Assert.assertEquals(2, ((List<?>)r.getMap().get("items")).size());
+		
+		r = restTemplate.getForObject("/basic/house?ownerMobile=&areaId=", JsonResponse.class);
+		assertSucess(r);
+		Assert.assertEquals(list.size(), ((List<?>)r.getMap().get("items")).size());
 	}
 	
 	@Test

@@ -1,10 +1,12 @@
 package test.com.leoyon.vote;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -14,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.leoyon.vote.api.JsonResponse;
+import com.leoyon.vote.command.Menu;
 import com.leoyon.vote.user.ChangePasswordRequest;
 import com.leoyon.vote.util.M;
 
@@ -66,7 +69,7 @@ public class ProfileControllerTests extends BaseWebTests {
 		assertEquals("foo", items.get(0).get("name"));
 		
 		List<Map<String,Object>> menus = (List<Map<String, Object>>) items.get(0).get("menus");
-		assertEquals(2, menus.size());
+		assertEquals(0, menus.size());
 	}
 	
 	@Test
@@ -247,6 +250,40 @@ public class ProfileControllerTests extends BaseWebTests {
 		assertSucess(r);
 		List<Map<String,Object>> items = (List<Map<String, Object>>) r.getItem("items");
 		assertEquals(4, items.size());
+	}
+	
+	@Test
+	public void bug_upperNotDecideLower() throws Exception {
+		setToken(defUID);
+		dbUtil.insert("sys_role", M.mapList(Arrays.asList("id"), Arrays.asList(1,2,3)));
+		dbUtil.insert("sys_user_role", M.mapList(Arrays.asList("user_id", "role_id")
+				, Arrays.asList(1, 1), Arrays.asList(1, 3)));
+		dbUtil.insert("sys_command", M.mapList(Arrays.asList("id", "parent_id", "name")
+				, Arrays.asList(1,2,3,4,5)
+				, Arrays.asList(0,0,1,3,2)
+				, Arrays.asList(1,2,3,4,5)));
+		dbUtil.insert("sys_role_command", M.mapList(Arrays.asList("role_id", "command_id")
+				, Arrays.asList(1,1,1), Arrays.asList(1,3,5)));
+		
+		JsonResponse r = restTemplate.getForObject("/profile/menu", JsonResponse.class);
+		assertSucess(r);
+		List<Map<String, Object>> menus = (List<Map<String, Object>>) r.getItem("items");
+		assertEquals(2, menus.size());
+		
+		Stream<Map<String, Object>> menusStream = Stream.concat(menus.stream(), menus.stream().flatMap(i -> {
+			return ((List<Map<String, Object>>)i.get("menus")).stream();
+		}));
+		
+		assertTrue(menusStream.anyMatch(i -> {
+			return i.get("name").equals("3") && ((List<Map<String, Object>>)i.get("menus")).isEmpty();
+		}));
+		
+		menusStream = Stream.concat(menus.stream(), menus.stream().flatMap(i -> {
+			return ((List<Map<String, Object>>)i.get("menus")).stream();
+		}));
+		assertTrue(menusStream.anyMatch(i -> {
+			return i.get("name").equals("2") && !((List<Map<String, Object>>)i.get("menus")).isEmpty();
+		}));
 	}
 	
 	@Test
