@@ -12,7 +12,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.leoyon.vote.api.VoteException;
+import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.util.Jsons;
 
 /**
@@ -79,7 +79,7 @@ public class JuheSms {
 		String result = net(url, params, "GET");
 		Map<String, Object> r = Jsons.jsonToMap(result);
 		if(!r.get("error_code").equals(0)) {
-			throw new VoteException((String) r.get("reason"));
+			throw new ResponseException((String) r.get("reason"));
 		}
 	}
 

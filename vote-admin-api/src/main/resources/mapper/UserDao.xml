@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.leoyon.vote.user.dao.UserDao">
+
+	<update id="updateHouse" parameterType="com.leoyon.vote.user.UserHouse">
+	update basic_user_house 
+	<set>
+		<if test="ownerStatus != null">
+		owner_status=#{ownerStatus},
+		</if>
+		<if test="ownerType != null">
+		owner_type=#{ownerType},
+		</if>
+		<if test="ownerReason != null">
+		owner_reason=#{ownerReason},
+		</if>
+		<if test="ownerReason != null">
+		owner_update_uid=#{ownerUpdateUid},
+		</if>
+		<if test="ownerUpdateTime != null">
+		owner_update_time=#{ownerUpdateTime},
+		</if>
+	</set>
+	where user_id=#{userId} and house_id=#{houseId}
+	</update>
 	
 	<select id="findHouse" parameterType="com.leoyon.vote.user.FindUserHouseRequest" resultType="com.leoyon.vote.user.FindUserHouseResponse">
 		select 

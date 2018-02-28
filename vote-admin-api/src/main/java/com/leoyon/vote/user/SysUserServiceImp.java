@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.leoyon.vote.api.Error;
+import com.leoyon.vote.api.ResponseException;
 import com.leoyon.vote.api.Token;
-import com.leoyon.vote.api.VoteException;
 import com.leoyon.vote.role.SysRole;
 import com.leoyon.vote.role.SysRoleService;
 import com.leoyon.vote.user.dao.SysUserRoleDao;
@@ -95,8 +96,8 @@ public class SysUserServiceImp implements SysUserService, SysUserRoleService {
 	}
 
 	@Override
-	public void changePassword(ChangePasswordRequest rqst) throws VoteException {
+	public void changePassword(ChangePasswordRequest rqst) throws ResponseException {
 		if(userDao.changePassword(rqst) == 0)
-			throw new VoteException("密码修改失败");
+			throw new ResponseException(Error.UNKNOWN_EXCEPT.getValue(), "密码修改失败");
 	}
 }

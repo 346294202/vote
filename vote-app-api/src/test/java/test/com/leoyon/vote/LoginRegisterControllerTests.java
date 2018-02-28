@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.leoyon.vote.api.Error;
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.vote.api.VerifyException;
+import com.leoyon.vote.user.AppUserErrors;
 import com.leoyon.vote.user.LoginRequest;
 import com.leoyon.vote.user.RegisterRequest;
 import com.leoyon.vote.util.M;
@@ -33,6 +33,12 @@ public class LoginRegisterControllerTests extends BaseWebTests {
 	public void setUp() throws Exception {
 		super.setUp();
 		dbUtil.clear(new String[] {"basic_user", "mobile_verify_code"});
+	}
+	
+	@Test
+	public void sendVerifyCodeWrongNumber() {
+		JsonResponse r = restTemplate.postForObject("/verify-code/15157185", null, JsonResponse.class);
+		assertEquals(Error.VALID_EXCEPT.getValue(), r.getCode());
 	}
 	
 	@Test
@@ -59,6 +65,26 @@ public class LoginRegisterControllerTests extends BaseWebTests {
 		assertSucess(r);
 		
 		assertFalse(dbUtil.select("select * from basic_user").isEmpty());
+	}
+	
+	@Test
+	public void registerCheckParams() {
+		RegisterRequest rqst = new RegisterRequest();
+		JsonResponse r = restTemplate.postForObject("/register", rqst, JsonResponse.class);
+		assertEquals(Error.VALID_EXCEPT.getValue(), r.getCode());
+	}
+	
+	@Test
+	public void loginCheckParams() {
+		LoginRequest rqst = new LoginRequest();
+		JsonResponse r = restTemplate.postForObject("/login", rqst, JsonResponse.class);
+		assertEquals(Error.VALID_EXCEPT.getValue(), r.getCode());
+		
+		rqst = new LoginRequest();
+		rqst.setMobile("1738");
+		r = restTemplate.postForObject("/login", rqst, JsonResponse.class);
+		assertEquals(Error.VALID_EXCEPT.getValue(), r.getCode());
+		
 	}
 	
 	@Test
