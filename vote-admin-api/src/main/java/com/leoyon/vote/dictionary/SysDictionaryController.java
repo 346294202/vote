@@ -30,11 +30,30 @@ public class SysDictionaryController extends AuthenticationController {
 
     @GetMapping(value="/sys/dictionary/find", name="查询数据字典")
     public JsonResponse find(FindSysDictionaryRequest req) {
-        PageHelper.startPage(req.getPageNum(),req.getPageSize());
+        PageHelper.startPage((req.getPage()+1),req.getPsize());
         List<FindSysDictionaryResponse> list =sysDictionaryService.find(req);
         PageInfo<FindSysDictionaryResponse> appsPageInfo = new PageInfo<>(list);
         return JsonResponse.sucess(new M<>()
-                .put("items", appsPageInfo)
+                .put("items", appsPageInfo.getList())
+                .put("count",appsPageInfo.getTotal())
+                .build());
+    }
+
+    @GetMapping(value="/sys/dictionary/findById/{id}", name="通过id查询数据字典")
+    public JsonResponse findById(@PathVariable(value="id") Long id) {
+        SysDictionary entity = new SysDictionary();
+        entity.setId(id);
+        FindSysDictionaryResponse appsPageInfo =sysDictionaryService.findById(entity) ;
+        return JsonResponse.sucess(new M<>()
+                .put("item", appsPageInfo)
+                .build());
+    }
+
+    @GetMapping(value="/sys/dictionary/findAll", name="查询数据字典(不分页)")
+    public JsonResponse findAll() {
+        List<FindSysDictionaryResponse> list =sysDictionaryService.findAll();
+        return JsonResponse.sucess(new M<>()
+                .put("items",list)
                 .build());
     }
 

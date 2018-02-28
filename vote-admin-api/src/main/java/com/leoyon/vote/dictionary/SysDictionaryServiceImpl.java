@@ -28,6 +28,16 @@ public class SysDictionaryServiceImpl implements SysDictionaryService {
     }
 
     @Override
+    public FindSysDictionaryResponse findById(SysDictionary dictionary) {
+        return sysDictionaryDao.findById(dictionary);
+    }
+
+    @Override
+    public List<FindSysDictionaryResponse> findAll() {
+        return sysDictionaryDao.findAll();
+    }
+
+    @Override
     public void add(SysDictionary dictionary) {
         sysDictionaryDao.add(dictionary);
     }

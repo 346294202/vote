@@ -9,6 +9,10 @@ public interface ReleaseService {
 
     List<FindReleaseResponse> find(FindReleaseRequest rqst);
 
+    FindReleaseResponse findById(Release release);
+
+    List<FindReleaseResponse> findAll();
+
     void add(Release release);
 
     void update(Release release);

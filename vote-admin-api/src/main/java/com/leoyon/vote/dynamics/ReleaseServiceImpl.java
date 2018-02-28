@@ -23,6 +23,16 @@ public class ReleaseServiceImpl implements ReleaseService{
     }
 
     @Override
+    public FindReleaseResponse findById(Release release) {
+        return releaseDao.findById(release);
+    }
+
+    @Override
+    public List<FindReleaseResponse> findAll() {
+        return releaseDao.findAll();
+    }
+
+    @Override
     public void add(Release release) {
          releaseDao.add(release);
     }

@@ -13,6 +13,10 @@ public interface SysDictionaryDao {
 
     List<FindSysDictionaryResponse> find(FindSysDictionaryRequest rqst);
 
+    FindSysDictionaryResponse findById(SysDictionary dictionary);
+
+    List<FindSysDictionaryResponse> findAll();
+
     void add(SysDictionary dictionary);
 
     void update(SysDictionary dictionary);

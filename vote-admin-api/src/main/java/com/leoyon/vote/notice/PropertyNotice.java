@@ -1,16 +1,15 @@
-package com.leoyon.vote.dynamics;
+package com.leoyon.vote.notice;
 import com.leoyon.vote.AbstractResource;
 import wj.flydoc.ApiParam;
 
 /**
- * Created by Thinkpad on 2018/2/26.
+ * Created by Thinkpad on 2018/2/27.
  */
-public class Release extends AbstractResource<Release> {
+public class PropertyNotice extends AbstractResource<PropertyNotice> {
 
+    private Long areaId;
 
-    private String  releaseTitle;
-
-    private String url;
+    private String  title;
 
     private String content;
 
@@ -18,31 +17,28 @@ public class Release extends AbstractResource<Release> {
 
     private Long createPerson;
 
-    @ApiParam(desc="标题")
-    public String getReleaseTitle() {
-        return releaseTitle;
+    @ApiParam(desc="发布小区")
+    public Long getAreaId() {
+        return areaId;
     }
-
-    public void setReleaseTitle(String releaseTitle) {
-        this.releaseTitle = releaseTitle;
+    public void setAreaId(Long areaId) {
+        this.areaId = areaId;
     }
-    @ApiParam(desc="图片路径")
-    public String getUrl() {
-        return url;
+    @ApiParam(desc="公告标题")
+    public String getTitle() {
+        return title;
     }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public void setTitle(String title) {
+        this.title = title;
     }
-    @ApiParam(desc="内容")
+    @ApiParam(desc="公告内容")
     public String getContent() {
         return content;
     }
-
     public void setContent(String content) {
         this.content = content;
     }
-    @ApiParam(desc="状态")
+    @ApiParam(desc="公告状态")
     public Integer getState() {
         return state;
     }
@@ -50,10 +46,11 @@ public class Release extends AbstractResource<Release> {
     public void setState(Integer state) {
         this.state = state;
     }
-    @ApiParam(desc="创建人")
+
     public Long getCreatePerson() {
         return createPerson;
     }
+
     public void setCreatePerson(Long createPerson) {
         this.createPerson = createPerson;
     }

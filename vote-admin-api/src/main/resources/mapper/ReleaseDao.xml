@@ -57,5 +57,30 @@
 		and d.`delete`=1
 		order by d.date_create desc
 	</select>
+
+	<select id="findById" parameterType="com.leoyon.vote.dynamics.Release" resultType="com.leoyon.vote.dynamics.FindReleaseResponse">
+		select
+		d.id as id,
+		d.date_create as dateCreate,
+		d.release_title as releaseTitle,
+		d.url as url,
+		(select u.real_name from sys_user as u where u.id=d.create_person and u.`delete`=1 ) as createPerson,
+		d.state as state
+		from dynamics_release as d
+		where d.`delete`=1 and d.id=#{id}
+		order by d.date_create desc
+	</select>
+
+	<select id="findAll" resultType="com.leoyon.vote.dynamics.FindReleaseResponse" >
+		select
+		d.id as id,
+		d.date_create as dateCreate,
+		d.release_title as releaseTitle,
+		d.url as url,
+		(select u.real_name from sys_user as u where u.id=d.create_person and u.`delete`=1 ) as createPerson,
+		d.state as state
+		from dynamics_release as d
+		where d.`delete`=1 order by d.date_create desc
+	</select>
 	
 </mapper>

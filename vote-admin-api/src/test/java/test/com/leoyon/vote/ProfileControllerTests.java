@@ -9,14 +9,12 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.vote.command.Menu;
 import com.leoyon.vote.user.ChangePasswordRequest;
 import com.leoyon.vote.util.M;
 

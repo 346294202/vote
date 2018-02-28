@@ -54,5 +54,29 @@
 		and `delete`=1
 		order by date_create desc
 	</select>
+
+	<select id="findById" parameterType="com.leoyon.vote.dictionary.SysDictionary" resultType="com.leoyon.vote.dictionary.FindSysDictionaryResponse">
+		select
+		id as id,
+		category_name as categoryName,
+		dictionary_name as dictionaryName,
+		so as so,
+		remark as remark
+		from sys_dictionary
+		where  `delete`=1 and id=#{id}
+		order by date_create desc
+	</select>
+
+	<select id="findAll" resultType="com.leoyon.vote.dictionary.FindSysDictionaryResponse">
+		select
+		id as id,
+		category_name as categoryName,
+		dictionary_name as dictionaryName,
+		so as so,
+		remark as remark
+		from sys_dictionary
+		where  `delete`=1
+		order by date_create desc
+	</select>
 	
 </mapper>

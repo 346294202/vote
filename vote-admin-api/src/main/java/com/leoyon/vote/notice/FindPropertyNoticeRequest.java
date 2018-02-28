@@ -1,4 +1,4 @@
-package com.leoyon.vote.dynamics;
+package com.leoyon.vote.notice;
 
 import wj.flydoc.ApiParam;
 import wj.flydoc.ApiParamCtor;
@@ -7,7 +7,7 @@ import wj.flydoc.ApiParamCtor;
 /**
  * Created by Thinkpad on 2018/2/26.
  */
-public class FindReleaseRequest {
+public class FindPropertyNoticeRequest {
 
     private String startTime;
     private String endTime;
@@ -15,7 +15,7 @@ public class FindReleaseRequest {
     private Integer psize;
 
     @ApiParamCtor
-    public FindReleaseRequest(
+    public FindPropertyNoticeRequest(
             @ApiParam(desc="开始时间")
                     String startTime,
             @ApiParam(desc="结束时间")

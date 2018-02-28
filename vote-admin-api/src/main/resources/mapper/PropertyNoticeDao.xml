@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.notice.dao.PropertyNoticeDao">
+	
+
+	<insert id="add" parameterType="com.leoyon.vote.notice.PropertyNotice" useGeneratedKeys="true" keyProperty="id">
+		insert into property_notice (`area_id`,`title`,`content`,`state`,`create_person`,`date_create`,`update_uid`) values(
+			#{areaId},#{title},#{content},#{state},#{createPerson},#{dateCreate},#{updateUid}
+		);
+	</insert>
+	
+	<update id="update" parameterType="com.leoyon.vote.notice.PropertyNotice">
+	update property_notice
+	<set>
+		<if test="areaId != null and areaId != '' ">
+			area_id = #{areaId},
+		</if>
+		<if test="title != null and title != ''">
+			title = #{title},
+		</if>	
+		<if test="content != null and content != ''">
+			content = #{content},
+		</if>		
+		<if test="state != null">
+			state = #{state},
+		</if>
+		    update_time=#{updateTime}
+	</set>
+	where id = #{id}
+	</update>
+	
+
+	<update id="delete" parameterType="com.leoyon.vote.notice.PropertyNotice">
+		UPDATE property_notice  set `delete`=2,update_uid=#{updateUid}
+		where id = #{id};
+	</update>
+	
+
+	<select id="find" parameterType="com.leoyon.vote.notice.FindPropertyNoticeRequest" resultType="com.leoyon.vote.notice.FindPropertyNoticeResponse">
+		select
+		n.id as id,
+		(select a.name from basic_area as a where a.id=n.area_id and a.`delete`=1 ) as areaName,
+		n.date_create as dateCreate,
+		n.title as title,
+		n.content as content,
+		(select u.real_name from sys_user as u where u.id=n.create_person and u.`delete`=1 ) as createPerson,
+		n.state as state
+		from property_notice as n
+		<where>
+			1=1
+			<if test="startTime != null and startTime !=''">
+				<![CDATA[ AND n.date_create >= CONCAT(#{startTime},' 00:00:00') ]]>
+			</if>
+			<if test="endTime != null and endTime!=''" >
+				<![CDATA[ AND n.date_create <= CONCAT(#{endTime} ,' 23:59:59')]]>
+			</if>			
+		</where>
+		and n.`delete`=1
+		order by n.date_create desc
+	</select>
+
+	<select id="findById" parameterType="com.leoyon.vote.notice.PropertyNotice" resultType="com.leoyon.vote.notice.FindPropertyNoticeResponse">
+		select
+		n.id as id,
+		(select a.name from basic_area as a where a.id=n.area_id and a.`delete`=1 ) as areaName,
+		n.date_create as dateCreate,
+		n.title as title,
+		n.content as content,
+		(select u.real_name from sys_user as u where u.id=n.create_person and u.`delete`=1 ) as createPerson,
+		n.state as state
+		from property_notice as n
+		where n.`delete`=1 and n.id=#{id}
+		order by n.date_create desc
+	</select>
+
+	<select id="findAll"  resultType="com.leoyon.vote.notice.FindPropertyNoticeResponse">
+		select
+		n.id as id,
+		(select a.name from basic_area as a where a.id=n.area_id and a.`delete`=1 ) as areaName,
+		n.date_create as dateCreate,
+		n.title as title,
+		n.content as content,
+		(select u.real_name from sys_user as u where u.id=n.create_person and u.`delete`=1 ) as createPerson,
+		n.state as state
+		from property_notice as n
+		where n.`delete`=1
+		order by n.date_create desc
+	</select>
+	
+</mapper>

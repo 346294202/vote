@@ -16,9 +16,16 @@ public interface ReleaseDao {
 
     List<FindReleaseResponse> find(FindReleaseRequest rqst);
 
+    FindReleaseResponse findById(Release release);
+
+    List<FindReleaseResponse> findAll();
+
     void add(Release release);
 
     void update(Release release);
 
     void delete(Release release);
+
+
+
 }
