@@ -43,4 +43,9 @@ public class UserServiceImp implements UserService {
 		return userDao.getUserById(id);
 	}
 
+	@Override
+	public void update(UserRealInfo entity) {
+		userDao.updateUserReal(entity);
+	}
+
 }

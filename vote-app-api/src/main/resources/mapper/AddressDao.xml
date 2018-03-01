@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.address.dao.AddressDao">
+
+	<select id="listAddressByUser" parameterType="Long" resultType="com.leoyon.vote.address.Address">
+	select * from basic_user_address where user_id=#{uid} and deleted=1;
+	</select>
+	
+	<update id="delete" parameterType="com.leoyon.vote.address.Address">
+	update basic_user_address set deleted=2 where id=#{id} and user_id=#{userId};
+	</update>
+	
+	<update id="clearDefByUser" parameterType="Long">
+	update basic_user_address set def=0 where user_id=#{uid};
+	</update>
+	
+	<insert id="add" parameterType="com.leoyon.vote.address.Address">
+	insert into 
+	basic_user_address(user_id,address,longitude,latitude,contacts,phones,def) 
+	values(#{userId},#{address},#{longitude},#{latitude},#{contacts},#{phones},#{def});
+	</insert>
+	
+	<update id="update" parameterType="com.leoyon.vote.address.Address">
+	update basic_user_address
+	<set>
+		<if test="address != null and address!=''">
+			address = #{address},
+		</if>
+		<if test="longitude != null ">
+			longitude = #{longitude},
+		</if>
+		<if test="latitude != null ">
+			latitude = #{latitude},
+		</if>
+		<if test="contacts != null and contacts!=''">
+			contacts = #{contacts},
+		</if>
+		<if test="phones != null and phones!=''">
+			phones = #{phones},
+		</if>
+		<if test="def != null ">
+			def = #{def},
+		</if>
+	</set>
+	where id=#{id} and user_id=#{userId};
+	</update>
+	
+</mapper>

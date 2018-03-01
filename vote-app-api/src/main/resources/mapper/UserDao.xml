@@ -16,4 +16,26 @@
 	select * from basic_user where id=#{id} and active=1;
 	</select>	
 	
+	<update id="updateUserReal" parameterType="com.leoyon.vote.user.UserRealInfo">
+	update basic_user
+	<set>
+		<if test="realName != null ">
+			real_name = #{realName},
+		</if>
+		<if test="email != null ">
+			email = #{email},
+		</if>
+		<if test="gender != null ">
+			gender = #{gender},
+		</if>
+		<if test="birthday != null ">
+			birthday = #{birthday},
+		</if>
+		<if test="idNumber != null ">
+			id_number = #{idNumber},
+		</if>
+	</set>
+	where id=#{id};
+	</update>
+	
 </mapper>

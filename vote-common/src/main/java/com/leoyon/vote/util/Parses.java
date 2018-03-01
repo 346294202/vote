@@ -1,8 +1,6 @@
 package com.leoyon.vote.util;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -10,12 +8,6 @@ import java.util.Vector;
 import org.apache.commons.lang3.StringUtils;
 
 public class Parses {
-	
-	private static final DateFormat dateFormat;
-	
-	static {
-		dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	}
 
 	@SuppressWarnings("unchecked")
 	public static <T> T parse(String s, Class<T> clazz, T defValue) throws ParseException {
@@ -30,7 +22,7 @@ public class Parses {
 		if(clazz.equals(Boolean.class))
 			return (T) Boolean.valueOf(s);
 		if(clazz.equals(Date.class)) {
-			return (T) dateFormat.parse(s);
+			return (T) Dates.parseTime(s);
 		}
 		return null;
 	}

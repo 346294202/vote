@@ -38,16 +38,6 @@ public interface UserService {
 	 * @return
 	 */
 	User get(Long id);
-//
-//	/**
-//	 * 修改实名信息
-//	 * @param entity
-//	 */
-//	void updateReal(User entity);
-//
-//	/**
-//	 * 修改基本信息
-//	 * @param entity
-//	 */
-//	void updateBase(User entity);
+
+	void update(UserRealInfo entity);
 }

@@ -20,11 +20,11 @@ public class ProfileController extends AuthenticationController{
 		return JsonResponse.sucess(user);
 	}
 	
-	@PostMapping(value="/profile/info/base", name="修改基本信息")
-	public JsonResponse setUserInfo(@RequestBody User entity) throws ResponseException {
+	@PostMapping(value="/profile/info/real", name="修改实名信息")
+	public JsonResponse setUserInfo(@RequestBody UserRealInfo entity) throws ResponseException {
 		User user = getLogin(false);
 		entity.setId(user.getId());
-//		userService.updateBase(entity);
+		userService.update(entity);
 		return JsonResponse.sucess();
 	}
 }
