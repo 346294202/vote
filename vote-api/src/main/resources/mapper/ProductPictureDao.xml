@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.product.dao.ProductPictureDao">
+	
+	<select id="getPictures" parameterType="Long" resultType="com.leoyon.vote.picture.Picture">
+	select p.*
+	from basic_picture p
+	join basic_product_picture pp on pp.picture_id=p.id and pp.product_id=#{productId}
+	</select>
+	
+</mapper>

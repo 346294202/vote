@@ -12,9 +12,9 @@ public interface ProductDao {
 
 	List<Product> find(FindProductRequest req);
 
-	Collection<Picture> getPictures(Long productId);
+	
 
-	Collection<ProductSpec> getSpecs(Long productId);
+	
 
 	void add(Product entity);
 

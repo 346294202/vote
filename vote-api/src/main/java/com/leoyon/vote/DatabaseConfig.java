@@ -154,7 +154,7 @@ public class DatabaseConfig {
 		};
 		fb.setPlugins(plugins);
         fb.setConfigLocation(new ClassPathResource("mybatis.xml"));
-        fb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("mapper/**/*.xml"));
+        fb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/**/*.xml"));
 
         return fb.getObject();
     }

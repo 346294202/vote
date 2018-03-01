@@ -9,19 +9,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.leoyon.vote.product.dao.ProductDao;
 import com.leoyon.vote.product.dao.ProductPicture;
+import com.leoyon.vote.product.dao.ProductPictureDao;
+import com.leoyon.vote.product.dao.ProductSpecDao;
 
 @Service
 public class ProductServiceImp implements ProductService {
 	
 	@Autowired
 	private ProductDao dao;
+	
+	@Autowired
+	private ProductSpecDao productSpecDao;
+	
+	@Autowired
+	private ProductPictureDao productPictureDao;
 
 	@Override
 	public List<Product> find(FindProductRequest req) {
 		List<Product> ret = dao.find(req);
 		ret.forEach(i -> {
-			i.setPictures(dao.getPictures(i.getId()));
-			i.setSpecs(dao.getSpecs(i.getId()));
+			i.setPictures(productPictureDao.getPictures(i.getId()));
+			i.setSpecs(productSpecDao.getSpecs(i.getId()));
 		});
 		return ret;
 	}

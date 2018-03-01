@@ -197,7 +197,6 @@
 		<module>vote-api</module>
 		
 		<module>api-doc</module>
-		<module>vote-app-dao</module>
 		<module>vote-common</module>
 	</modules>
 </project>
