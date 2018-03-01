@@ -1,5 +1,7 @@
 package com.leoyon.vote.address;
 
+import wj.flydoc.ApiIgnore;
+
 public class Address {
 
 	private long id;
@@ -10,12 +12,16 @@ public class Address {
 	private String contacts;
 	private String phones;
 	private Boolean def;
+	
+	@ApiIgnore
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	@ApiIgnore
 	public long getUserId() {
 		return userId;
 	}

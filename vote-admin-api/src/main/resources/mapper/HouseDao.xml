@@ -111,10 +111,10 @@
 				remark = #{remark},
 		</if>	
 		<if test="constructionArea != null">
-			construction_area=#{constructionArea}
+			construction_area=#{constructionArea},
 		</if>			
 		<if test="netArea != null">
-			net_area=#{netArea}
+			net_area=#{netArea},
 		</if>		
 		<if test="ownerName != null">
 				owner_name = #{ownerName},
