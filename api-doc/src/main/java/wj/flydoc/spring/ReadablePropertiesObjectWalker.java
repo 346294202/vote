@@ -43,6 +43,14 @@ public class ReadablePropertiesObjectWalker extends ObjectWalker {
 			Class<?> elementClazz = tryGetElementClass(type);
 			
 			ApiParam apiParam = clazz.getAnnotation(ApiParam.class);
+			if(apiParam == null) {
+				apiParam = p.getReadMethod().getAnnotation(ApiParam.class);
+			}
+			
+			if(apiParam == null && p.getWriteMethod() != null) {
+				apiParam = p.getWriteMethod().getAnnotation(ApiParam.class);
+			}
+			
 			String name = p.getName();
 			String desc = apiParam != null ? (StringUtils.isBlank(apiParam.desc()) ? null : apiParam.desc()) : null;
 			Boolean required = (apiParam != null ? apiParam.required() : null);

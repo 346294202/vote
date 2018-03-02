@@ -25,6 +25,12 @@ public class ProfileControllerTests extends BaseWebTests {
 	}
 	
 	@Test
+	public void getUserInfo() {
+		JsonResponse r = restTemplate.getForObject("/profile/info", JsonResponse.class);
+		assertSucess(r);
+	}
+	
+	@Test
 	public void setUserRealInfo() throws ParseException {
 		
 		UserRealInfo entity = new UserRealInfo();

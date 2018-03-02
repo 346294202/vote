@@ -2,15 +2,9 @@ package com.leoyon.vote.order;
 
 import java.util.Date;
 
-import com.leoyon.vote.AbstractResource;
-
-/**
- * 同种商品存放在一个Order中
- * @author wj
- *
- */
-public class Order extends AbstractResource<Order> {
-
+public class Order {
+	
+	private long id;
 	private String paymentId;
 	private long productId;
 	private long productSpecId;
@@ -22,12 +16,13 @@ public class Order extends AbstractResource<Order> {
 	private int orderStatue;
 	private String userRemark;
 	private String replay;
-	private String serviceRemark;
 	
-	public double getAmount() {
-		return count * price;
+	public String getPaymentId() {
+		return paymentId;
 	}
-	
+	public void setPaymentId(String paymentId) {
+		this.paymentId = paymentId;
+	}
 	public long getProductId() {
 		return productId;
 	}
@@ -45,6 +40,12 @@ public class Order extends AbstractResource<Order> {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
 	}
 	public long getUserId() {
 		return userId;
@@ -82,25 +83,11 @@ public class Order extends AbstractResource<Order> {
 	public void setReplay(String replay) {
 		this.replay = replay;
 	}
-	public String getServiceRemark() {
-		return serviceRemark;
+	public long getId() {
+		return id;
 	}
-	public void setServiceRemark(String serviceRemark) {
-		this.serviceRemark = serviceRemark;
+	public void setId(long id) {
+		this.id = id;
 	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public String getPaymentId() {
-		return paymentId;
-	}
-
-	public void setPaymentId(String paymentId) {
-		this.paymentId = paymentId;
-	}
-
+	
 }

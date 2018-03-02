@@ -14,12 +14,6 @@ import com.leoyon.vote.api.ResponseException;
 @Scope("prototype")
 public class ProfileController extends AuthenticationController{
 
-	@GetMapping(value="/profile/info	", name="获得基本信息")
-	public JsonResponse getUserInfo() throws ResponseException {
-		User user = getLogin(false);
-		return JsonResponse.sucess(user);
-	}
-	
 	@PostMapping(value="/profile/info/real", name="修改实名信息")
 	public JsonResponse setUserInfo(@RequestBody UserRealInfo entity) throws ResponseException {
 		User user = getLogin(false);
@@ -27,4 +21,12 @@ public class ProfileController extends AuthenticationController{
 		userService.update(entity);
 		return JsonResponse.sucess();
 	}
+	
+	@GetMapping(value="/profile/info", name="获得基本信息")
+	public JsonResponse getUserInfo() throws ResponseException {
+		User user = getLogin(false);
+		return JsonResponse.sucess(user);
+	}
+	
+
 }

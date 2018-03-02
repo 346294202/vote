@@ -9,4 +9,8 @@
 	order by so;
 	</select>
 	
+	<select id="get" parameterType="Long" resultType="com.leoyon.vote.product.ProductSpec">
+	select * from basic_product_spec where id=#{id};
+	</select>
+	
 </mapper>

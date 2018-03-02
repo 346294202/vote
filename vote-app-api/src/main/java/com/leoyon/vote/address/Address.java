@@ -1,6 +1,7 @@
 package com.leoyon.vote.address;
 
 import wj.flydoc.ApiIgnore;
+import wj.flydoc.ApiParam;
 
 public class Address {
 
@@ -40,6 +41,8 @@ public class Address {
 	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
+	
+	@ApiParam(required=true)
 	public String getAddress() {
 		return address;
 	}

@@ -47,7 +47,8 @@ public abstract class ObjectWalker {
 				}
 				writer.endList(tabs);
 			} else {
-				
+				ObjectWalker walker = new ReadablePropertiesObjectWalker(p.clazz);
+				walker.accept(tabs+1, writer);
 			}
 			
 			writer.endField(tabs);

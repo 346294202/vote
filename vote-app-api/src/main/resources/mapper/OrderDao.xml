@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.order.dao.OrderDao">
+
+	<insert id="addAll" >
+INSERT INTO `vote`.`basic_order`
+(
+`product_id`,
+`product_spec_id`,
+`count`,
+`price`,
+`user_id`,
+`address`,
+`order_statue`,
+`user_remark`,
+`payment_id`)
+VALUES
+<foreach collection="list" item="item" index="index" separator=",">
+        (#{item.productId},
+#{item.productSpecId},
+#{item.count},
+#{item.price},
+#{item.userId},
+#{item.address},
+#{item.orderStatue},
+#{item.userRemark},
+#{item.paymentId})
+    </foreach>	
+	</insert>		
+</mapper>

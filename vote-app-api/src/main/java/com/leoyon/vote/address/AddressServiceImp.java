@@ -35,6 +35,7 @@ public class AddressServiceImp implements AddressService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
 	public void update(Address entity) {
 		if(entity.getDef() != null && entity.getDef()) {
 			dao.clearDefByUser(entity.getUserId());
