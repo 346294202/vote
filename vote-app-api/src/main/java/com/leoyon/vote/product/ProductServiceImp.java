@@ -1,7 +1,6 @@
 package com.leoyon.vote.product;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +78,11 @@ public class ProductServiceImp implements ProductService {
 		paymentDao.add(payment);
 		orderDao.addAll(orders);
 		return payment;
+	}
+
+	@Override
+	public ProductSpec getSpec(long id) {
+		return productSpecDao.get(id);
 	}
 
 }

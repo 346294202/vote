@@ -9,4 +9,6 @@ public interface ProductDao {
 
 	Collection<Product> list(ListProductRequest rqst);
 
+	Product get(long id);
+
 }

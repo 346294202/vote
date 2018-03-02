@@ -1,10 +1,7 @@
 package com.leoyon.vote.order;
 
-import java.util.Date;
-
 import com.leoyon.vote.FindPagedRequest;
 
-import wj.flydoc.ApiParam;
 import wj.flydoc.ApiParamCtor;
 
 public class FindOrderRequest extends FindPagedRequest {

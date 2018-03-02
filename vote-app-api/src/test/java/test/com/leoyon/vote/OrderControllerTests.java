@@ -37,7 +37,6 @@ public class OrderControllerTests extends BaseWebTests {
 	}
 	
 	@Test
-	@Ignore
 	public void list() throws Exception {
 		dbUtil.insert("basic_product", M.mapList(Arrays.asList("id", "type", "name")
 				, Arrays.asList(1,2,3,4)

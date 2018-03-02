@@ -1,6 +1,8 @@
 package com.leoyon.vote.product;
 
-public class ListProductRequest {
+import com.leoyon.vote.FindPagedRequest;
+
+public class ListProductRequest extends FindPagedRequest{
 
 	private Integer type;
 	private Integer page;
@@ -13,12 +15,6 @@ public class ListProductRequest {
 	}
 	public Integer getType() {
 		return type;
-	}
-	public Integer getPage() {
-		return page == null ? 0 : page*getPsize();
-	}
-	public Integer getPsize() {
-		return psize == null ? 20 : psize;
 	}
 	
 }

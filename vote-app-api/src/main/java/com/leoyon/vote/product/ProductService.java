@@ -10,4 +10,6 @@ public interface ProductService {
 
 	Payment addPayment(PaymentRequest rqst);
 
+	ProductSpec getSpec(long productSpecId);
+
 }

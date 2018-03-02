@@ -10,11 +10,9 @@ public class FindPagedRequest {
 	}
 
 	public Integer getPage() {
-		return page * psize;
+		return page == null ? 0 : page*getPsize();
 	}
-
 	public Integer getPsize() {
-		return psize;
+		return psize == null ? 20 : psize;
 	}
-
 }

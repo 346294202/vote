@@ -2,34 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.leoyon.vote.order.dao.OrderDao">
 
-	<insert id="addAll" >
-INSERT INTO `basic_order`
-(
-`product_id`,
-`product_spec_id`,
-`count`,
-`price`,
-`user_id`,
-`address`,
-`order_statue`,
-`user_remark`,
-`payment_id`)
-VALUES
-<foreach collection="list" item="item" index="index" separator=",">
-        (#{item.productId},
-#{item.productSpecId},
-#{item.count},
-#{item.price},
-#{item.userId},
-#{item.address},
-#{item.orderStatue},
-#{item.userRemark},
-#{item.paymentId})
-    </foreach>	
-	</insert>		
-	
-	<select id="find" parameterType="com.leoyon.vote.order.FindOrderRequest" resultType="com.leoyon.vote.order.Order">
-	select *
-	from 
+	<insert id="addAll">
+		INSERT INTO `basic_order`
+		(
+		`product_id`,
+		`product_spec_id`,
+		`count`,
+		`price`,
+		`user_id`,
+		`address`,
+		`order_statue`,
+		`user_remark`,
+		`payment_id`)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.productId},
+			#{item.productSpecId},
+			#{item.count},
+			#{item.price},
+			#{item.userId},
+			#{item.address},
+			#{item.orderStatue},
+			#{item.userRemark},
+			#{item.paymentId})
+		</foreach>
+	</insert>
+
+	<select id="find" parameterType="com.leoyon.vote.order.FindOrderRequest"
+		resultType="com.leoyon.vote.order.Order">
+		select o.*,p.name as productName,p.desc as productDesc
+		from basic_order o
+		join basic_product p on o.id=o.product_id and p.`delete`=1
+		<where>
+			<if test="type != null">
+				and p.`type`=#{type}
+			</if>
+			<if test="orderStatus != null">
+				and o.order_statue=#{orderStatus}
+			</if>
+		</where>
+		order by o.update_time desc
+		LIMIT #{page} , #{psize};
 	</select>
 </mapper>

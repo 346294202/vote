@@ -1,6 +1,9 @@
 package com.leoyon.vote.order;
 
+import java.util.Collection;
 import java.util.Date;
+
+import com.leoyon.vote.picture.Picture;
 
 public class Order {
 	
@@ -17,6 +20,28 @@ public class Order {
 	private String userRemark;
 	private String replay;
 	
+	private Collection<Picture> pictures; 
+	private String productName;
+	private String productDesc;
+	
+	public Collection<Picture> getPictures() {
+		return pictures;
+	}
+	public void setPictures(Collection<Picture> pictures) {
+		this.pictures = pictures;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getProductDesc() {
+		return productDesc;
+	}
+	public void setProductDesc(String productDesc) {
+		this.productDesc = productDesc;
+	}
 	public String getPaymentId() {
 		return paymentId;
 	}
