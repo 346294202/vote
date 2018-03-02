@@ -1,5 +1,7 @@
 package com.leoyon.vote.user;
 
+import java.util.List;
+
 import com.leoyon.vote.api.Token;
 
 /**
@@ -40,4 +42,8 @@ public interface UserService {
 	User get(Long id);
 
 	void update(UserRealInfo entity);
+
+	List<UserHouse> listHouse(User user);
+
+	void setHouse(UserHouse entity);
 }

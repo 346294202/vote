@@ -38,4 +38,27 @@
 	where id=#{id};
 	</update>
 	
+	<select id="listHouse" parameterType="com.leoyon.vote.user.User" resultType="com.leoyon.vote.user.UserHouse">
+	select uh.*,CONCAT(a.name,'小区',h.building,'栋',h.unit,'单元',h.number,'号') as houseTitle
+	from basic_user_house uh
+	join basic_house h on h.id=uh.house_id and h.`delete`=1
+	join basic_area a on a.id=h.area_id and a.`delete`=1
+	where uh.user_id=#{id}
+	</select>
+	
+	<insert id="setHouse" parameterType="com.leoyon.vote.user.UserHouse">
+	INSERT INTO `vote`.`basic_user_house`
+(`user_id`,
+`house_id`,
+`owner_type`)
+VALUES
+(#{userId},
+#{houseId},
+#{ownerType})
+ON DUPLICATE KEY UPDATE
+owner_type=#{ownerType}
+;
+
+	</insert>
+	
 </mapper>

@@ -15,21 +15,23 @@ public class UserHouse {
 	private Long ownerUpdateUid;// ` bigint(20) DEFAULT NULL,
 	private Date ownerUpdateTime;// ` timestamp NULL DEFAULT NULL,
 	
-	@ApiParam(desc="业主id")
+	private String houseTitle;
+	
+	@ApiParam(desc="业主id,App端不能修改")
 	public Long getUserId() {
 		return userId;
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	@ApiParam(desc="房屋id")
+	@ApiParam(desc="房屋id",required=true)
 	public Long getHouseId() {
 		return houseId;
 	}
 	public void setHouseId(Long houseId) {
 		this.houseId = houseId;
 	}
-	@ApiParam(desc="认证状态，1 待认证，2 认证通过，3 认证驳回")
+	@ApiParam(desc="认证状态，1 待认证，2 认证通过，3 认证驳回,App端不能修改")
 	public Integer getOwnerStatus() {
 		return ownerStatus;
 	}
@@ -44,7 +46,7 @@ public class UserHouse {
 		this.ownerType = ownerType;
 	}
 	
-	@ApiParam(desc="驳回原因")
+	@ApiParam(desc="驳回原因,App端不能修改")
 	public String getOwnerReason() {
 		return ownerReason;
 	}
@@ -65,6 +67,14 @@ public class UserHouse {
 	}
 	public void setOwnerUpdateTime(Date ownerUpdateTime) {
 		this.ownerUpdateTime = ownerUpdateTime;
+	}
+	
+	@ApiIgnore
+	public String getHouseTitle() {
+		return houseTitle;
+	}
+	public void setHouseTitle(String houseTitle) {
+		this.houseTitle = houseTitle;
 	}
 
 

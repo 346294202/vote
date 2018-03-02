@@ -19,6 +19,8 @@ public enum Error {
 	USER_REGISTER_FAIL_DUPLICATED(1003, "注册失败，账号重复"),
 	VARIFY_FAILED(1004, "验证码错误"),
 	HOUSE_BIND_WORNG_OWNER(2000, "业主错误"),
+	USER_UNCOMPLATE_INFO(1010, "没有完善实名信息"),
+	USER_BIND_NO_HOUSE(1011, "没有关联房屋"),
 	;
 	
 	private int value;

@@ -1,5 +1,7 @@
 package com.leoyon.vote.user;
 
+import java.util.List;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +48,16 @@ public class UserServiceImp implements UserService {
 	@Override
 	public void update(UserRealInfo entity) {
 		userDao.updateUserReal(entity);
+	}
+
+	@Override
+	public List<UserHouse> listHouse(User user) {
+		return userDao.listHouse(user);
+	}
+
+	@Override
+	public void setHouse(UserHouse entity) {
+		userDao.setHouse(entity);
 	}
 
 }
