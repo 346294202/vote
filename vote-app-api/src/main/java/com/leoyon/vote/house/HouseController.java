@@ -11,6 +11,8 @@ import com.leoyon.vote.AuthenticationController;
 import com.leoyon.vote.api.DefauleResponse;
 import com.leoyon.vote.api.ListResponse;
 import com.leoyon.vote.api.ResponseException;
+import com.leoyon.vote.area.Area;
+import com.leoyon.vote.area.AreaService;
 import com.leoyon.vote.user.User;
 import com.leoyon.vote.user.UserHouse;
 import com.leoyon.vote.user.UserService;
@@ -34,5 +36,13 @@ public class HouseController extends AuthenticationController {
 		entity.setUserId(user.getId());
 		userService.setHouse(entity);
 		return DefauleResponse.sucess();
+	}
+	
+	@Autowired
+	private AreaService areaService;
+	
+	@GetMapping(value="/area/all", name="获得所有小区")
+	public ListResponse<Area> getAllArea() {
+		return ListResponse.success(areaService.all());
 	}
 }

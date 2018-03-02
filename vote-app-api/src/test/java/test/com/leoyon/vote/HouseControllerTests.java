@@ -94,8 +94,18 @@ public class HouseControllerTests extends BaseWebTests {
 		assertSucess(r);
 		assertTrue(dbUtil.select("select * from basic_user_house where user_id=1 and house_id=1 and owner_type=1").isEmpty());
 		assertFalse(dbUtil.select("select * from basic_user_house where user_id=1 and house_id=1 and owner_type=2").isEmpty());
-
+	}
+	
+	@Test
+	public void allArea() throws Exception {
+		dbUtil.insert("basic_area", M.mapList(Arrays.asList("id", "name")
+				, Arrays.asList(1,2,3)
+				, Arrays.asList(1,2,3)
+				));
+		JsonResponse r = restTemplate.getForObject("/area/all", JsonResponse.class);
+		assertSucess(r);
 		
 	}
+	
 	
 }

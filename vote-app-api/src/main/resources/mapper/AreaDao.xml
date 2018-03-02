@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.area.dao.AreaDao">
+
+	<select id="all" resultType="com.leoyon.vote.area.Area">
+		select * from basic_area where `delete`=1;
+	</select>	
+	
+</mapper>
