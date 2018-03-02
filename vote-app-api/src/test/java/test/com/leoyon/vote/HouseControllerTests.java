@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.leoyon.vote.address.Address;
+import com.leoyon.vote.api.Error;
 import com.leoyon.vote.api.JsonResponse;
 import com.leoyon.vote.product.PaymentRequest;
 import com.leoyon.vote.product.PaymentRequestItem;
@@ -107,5 +108,23 @@ public class HouseControllerTests extends BaseWebTests {
 		
 	}
 	
-	
+	@Test
+	public void findHouse() throws Exception {
+		dbUtil.insert("basic_area", M.mapList(Arrays.asList("id", "name")
+				, Arrays.asList(1,2,3)
+				, Arrays.asList(1,2,3)
+				));
+		dbUtil.insert("basic_house", M.mapList(Arrays.asList("id", "area_id", "building", "unit", "number")
+				, Arrays.asList(1,2,3)
+				, Arrays.asList(1,2,3)
+				, Arrays.asList(1,2,3)
+				, Arrays.asList(1,2,3)
+				, Arrays.asList(1,2,3)				
+				));
+		JsonResponse r = restTemplate.getForObject("/house/1/1/1/1", JsonResponse.class);
+		assertSucess(r);
+		
+		r = restTemplate.getForObject("/house/1/1/5/1", JsonResponse.class);
+		assertEquals(Error.UNKNOWN_EXCEPT.getValue(), r.getCode());
+	}
 }
