@@ -20,8 +20,7 @@ public class Checks {
 	 * @return: boolean
 	 */
 	public static boolean checkEmail(String email) {
-		String regex = "\\w+@\\w+\\.[a-z]+(\\.[a-z]+)?";
-		return Pattern.matches(regex, email);
+		return Pattern.matches(Regexs.REGEX_EMAIL, email);
 	}
 	
 	/**
@@ -32,9 +31,8 @@ public class Checks {
 	 * @return
 	 * @return: boolean
 	 */
-	public static boolean checkIdCard(String idCard) { 
-		String regex = "[1-9]\\d{13,16}[a-zA-Z0-9]{1}"; 
-		return Pattern.matches(regex,idCard); 
+	public static boolean checkIdCard(String idCard) {
+		return Pattern.matches(Regexs.REGEX_ID_CARD18,idCard); 
 	} 
 	
 	/**
@@ -48,8 +46,7 @@ public class Checks {
 	public static boolean checkMobile(String mobile) {
 		if(StringUtils.isBlank(mobile))
 			return false;
-		String regex = "(\\+\\d+)?1[34578]\\d{9}$";
-		return Pattern.matches(regex,mobile);
+		return Pattern.matches(Regexs.REGEX_MOBILE_SIMPLE, mobile);
 	}
 	
 	/**
