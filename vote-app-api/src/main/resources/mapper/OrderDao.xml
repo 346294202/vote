@@ -3,7 +3,7 @@
 <mapper namespace="com.leoyon.vote.order.dao.OrderDao">
 
 	<insert id="addAll" >
-INSERT INTO `vote`.`basic_order`
+INSERT INTO `basic_order`
 (
 `product_id`,
 `product_spec_id`,
@@ -27,4 +27,9 @@ VALUES
 #{item.paymentId})
     </foreach>	
 	</insert>		
+	
+	<select id="find" parameterType="com.leoyon.vote.order.FindOrderRequest" resultType="com.leoyon.vote.order.Order">
+	select *
+	from 
+	</select>
 </mapper>

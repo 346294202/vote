@@ -1,5 +1,7 @@
 package com.leoyon.vote.payment;
 
+import java.util.Date;
+
 public class Payment {
 
 	private String id;
@@ -7,6 +9,8 @@ public class Payment {
 	private Integer channel;
 	private String data;
 	private Integer status;
+	private Date expire;
+	
 	public String getId() {
 		return id;
 	}
@@ -36,6 +40,12 @@ public class Payment {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	public Date getExpire() {
+		return expire;
+	}
+	public void setExpire(Date expire) {
+		this.expire = expire;
 	}
 	
 	

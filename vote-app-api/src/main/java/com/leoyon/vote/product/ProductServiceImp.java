@@ -1,6 +1,7 @@
 package com.leoyon.vote.product;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,8 @@ public class ProductServiceImp implements ProductService {
 			orders.add(order);			
 		});
 		payment.setAmount(orders.stream().mapToDouble(i -> i.getPrice()*i.getCount()).sum());
+		// TODO 设置支付过期时间
+//		payment.setExpire(new Date(System.currentTimeMillis() + 过期毫秒));
 		String payData = payService.submit(payment);
 		payment.setData(payData);
 		payment.setStatus(1);//未支付

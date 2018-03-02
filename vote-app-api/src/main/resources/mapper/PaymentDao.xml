@@ -8,13 +8,17 @@
 `channel`,
 `amount`,
 `data`,
-`status`)
+`status`,
+`expire`
+)
 VALUES
 (#{id},
 #{channel},
 #{amount},
 #{data},
-#{status});
+#{status},
+#{expire}
+);
 	
 	</insert>		
 </mapper>

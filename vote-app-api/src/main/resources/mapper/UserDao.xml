@@ -47,7 +47,7 @@
 	</select>
 	
 	<insert id="setHouse" parameterType="com.leoyon.vote.user.UserHouse">
-	INSERT INTO `vote`.`basic_user_house`
+	INSERT INTO `basic_user_house`
 (`user_id`,
 `house_id`,
 `owner_type`)
