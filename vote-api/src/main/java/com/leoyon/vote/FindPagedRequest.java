@@ -9,6 +9,12 @@ public class FindPagedRequest {
 		super();
 	}
 
+	public FindPagedRequest(Integer page, Integer psize) {
+		super();
+		this.page = page;
+		this.psize = psize;
+	}
+
 	public Integer getPage() {
 		return page == null ? 0 : page*getPsize();
 	}
