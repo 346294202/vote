@@ -1,5 +1,7 @@
 package com.leoyon.vote.notice;
 
+import java.util.Date;
+
 public class Notice {
 	
 	private Long id;
@@ -7,6 +9,7 @@ public class Notice {
     private String  title;
     private String content;
     private boolean readed;
+    private Date dateCreate;
 
 	public Long getId() {
 		return id;
@@ -46,6 +49,14 @@ public class Notice {
 
 	public void setReaded(boolean readed) {
 		this.readed = readed;
+	}
+
+	public Date getDateCreate() {
+		return dateCreate;
+	}
+
+	public void setDateCreate(Date dateCreate) {
+		this.dateCreate = dateCreate;
 	}
     
 }

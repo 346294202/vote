@@ -57,10 +57,10 @@ public class NoticeControllerTests extends BaseWebTests {
 		List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");
 		assertEquals(2, items.size());
 		assertTrue(items.stream().anyMatch(i -> {
-			return i.get("id").equals(1) && i.get("readed").equals(true);
+			return i.get("id").equals(1) && i.get("readed").equals(true) && i.get("dateCreate") != null;
 		}));
 		assertTrue(items.stream().anyMatch(i -> {
-			return i.get("id").equals(3) && i.get("readed").equals(false);
+			return i.get("id").equals(3) && i.get("readed").equals(false) && i.get("dateCreate") != null;
 		}));
 	}
 	
