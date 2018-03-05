@@ -5,7 +5,6 @@ import com.leoyon.vote.dictionary.FindSysDictionaryRequest;
 import com.leoyon.vote.dictionary.SysDictionary;
 import com.leoyon.vote.util.M;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -54,13 +53,12 @@ public class SysDictionaryControllerTests extends BaseWebTests {
     }
 
     @Test
-    @Ignore
     public void findByCategoryName() throws Exception {
         /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
-        JsonResponse r = restTemplate.getForObject("/sys/dictionary/findByCategoryName/{categoryName}", JsonResponse.class);
+        JsonResponse r = restTemplate.getForObject("/sys/dictionary/findByCategoryName/1", JsonResponse.class);
         assertSucess(r);
-        /*List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");*/
-        System.out.println(/*items.toString()*/r.getItem("item"));
+        /*List<Map<String, Object>> items = (List<Map<String, SObject>>) r.getItem("items");*/
+        System.out.println(/*items.toString()*/r.getItem("items"));
     }
 
     @Test
