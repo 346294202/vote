@@ -15,6 +15,10 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.leoyon.geom.Geometry;
+import com.leoyon.geom.GeometryCollection;
+import com.leoyon.geom.WktSerializable;
+
 @Component
 public class DbUtil {
 
@@ -102,16 +106,16 @@ public class DbUtil {
 	}
 	
 	private String translateName(Object value) {
-//		if(value instanceof Geometry)
-//			return "ST_GeomFromText(?)";
-//		if(value instanceof GeometryCollection)
-//			return "ST_GeomCollFromText(?)";
+		if(value instanceof Geometry)
+			return "ST_GeomFromText(?)";
+		if(value instanceof GeometryCollection)
+			return "ST_GeomCollFromText(?)";
 		return "?";
 	}
 
 	private Object translateValue(Object value) {
-//		if(value instanceof WktSerializable)
-//			return ((WktSerializable)value).asText();
+		if(value instanceof WktSerializable)
+			return ((WktSerializable)value).asText();
 		return value;
 	}
 
@@ -177,3 +181,4 @@ public class DbUtil {
 	}
 
 }
+
