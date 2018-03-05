@@ -3,12 +3,10 @@ package com.leoyon.vote.notice;
 public class Notice {
 	
 	private Long id;
-
     private Long areaId;
-
     private String  title;
-
     private String content;
+    private boolean readed;
 
 	public Long getId() {
 		return id;
@@ -40,6 +38,14 @@ public class Notice {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public boolean getReaded() {
+		return readed;
+	}
+
+	public void setReaded(boolean readed) {
+		this.readed = readed;
 	}
     
 }

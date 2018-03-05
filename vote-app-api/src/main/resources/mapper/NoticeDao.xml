@@ -2,9 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.leoyon.vote.notice.dao.NoticeDao">
 
-	<select id="list" parameterType="com.leoyon.vote.FindPagedRequest" resultType="com.leoyon.vote.notice.Notice">
-	select * from property_notice where `state`=1 and `delete`=1 order by update_time desc
+	<select id="list" parameterType="com.leoyon.vote.notice.FindNoticePagedRequest" resultType="com.leoyon.vote.notice.Notice">
+	select n.*,un.readed
+	from property_notice n
+	left join user_notice un on un.user_id=#{userId} and un.notice_id=n.id
+	where n.`state`=1 and n.`delete`=1 
+	order by n.update_time desc
 		LIMIT #{page} , #{psize};
 	</select>
+	
+	<insert id="setReaded">
+	insert IGNORE into user_notice(user_id,notice_id) values(#{uid},#{nid})
+	</insert>
 	
 </mapper>
