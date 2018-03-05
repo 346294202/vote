@@ -49,6 +49,16 @@ public class SysDictionaryController extends AuthenticationController {
                 .build());
     }
 
+    @GetMapping(value="/sys/dictionary/findByCategoryName/{categoryName}", name="通过字典类目查询数据字典")
+    public JsonResponse findByCategoryName(@PathVariable(value="categoryName") Integer categoryName) {
+        SysDictionary entity = new SysDictionary();
+        entity.setCategoryName(categoryName);
+        List<FindSysDictionaryResponse> appsPageInfo =sysDictionaryService.findByCategoryName(entity) ;
+        return JsonResponse.sucess(new M<>()
+                .put("items", appsPageInfo)
+                .build());
+    }
+
     @GetMapping(value="/sys/dictionary/findAll", name="查询数据字典(不分页)")
     public JsonResponse findAll() {
         List<FindSysDictionaryResponse> list =sysDictionaryService.findAll();
@@ -87,4 +97,3 @@ public class SysDictionaryController extends AuthenticationController {
         return JsonResponse.sucess();
     }
 }
-

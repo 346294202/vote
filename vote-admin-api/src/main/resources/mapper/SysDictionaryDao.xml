@@ -67,6 +67,15 @@
 		order by date_create desc
 	</select>
 
+	<select id="findByCategoryName" parameterType="com.leoyon.vote.dictionary.SysDictionary" resultType="com.leoyon.vote.dictionary.FindSysDictionaryResponse">
+		select
+		id as id,
+		dictionary_name as dictionaryName
+		from sys_dictionary
+		where  `delete`=1 and category_name=#{categoryName}
+		order by date_create desc
+	</select>
+
 	<select id="findAll" resultType="com.leoyon.vote.dictionary.FindSysDictionaryResponse">
 		select
 		id as id,

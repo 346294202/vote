@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.repair.dao.RepairDao">
+
+	<select id="find" parameterType="com.leoyon.vote.FindPagedRequest" resultType="com.leoyon.vote.repair.Repair">
+	select * from basic_repair where user_id=#{userId} order by update_time desc LIMIT #{page} , #{psize};
+	</select>	
+	
+	<select id="getPictures" parameterType="Long" resultType="com.leoyon.vote.picture.Picture">
+	select * 
+	from basic_picture p
+	join basic_repair_picture rp on rp.repair_id=#{id} and rp.picture_id=p.id 
+	</select>
+	
+	<insert id="add" parameterType="com.leoyon.vote.repair.Repair" useGeneratedKeys="true" keyProperty="id">
+INSERT INTO `basic_repair`
+(
+`user_id`,
+`house_id`,
+`address`,
+`content`)
+VALUES
+(
+#{userId},
+#{houseId},
+#{address},
+#{content});
+	</insert>
+	
+	<insert id="addPictures">
+INSERT INTO `basic_repair_picture`
+(`repair_id`,
+`picture_id`)
+VALUES
+		<foreach collection="pictures" item="item" index="index"
+			separator=",">
+			(#{id},
+			#{item.id})
+		</foreach>
+	</insert>
+	
+</mapper>

@@ -2,6 +2,7 @@ package com.leoyon.vote;
 
 public class FindPagedRequest {
 
+	private Long userId;
 	protected Integer page;
 	protected Integer psize;
 
@@ -20,5 +21,13 @@ public class FindPagedRequest {
 	}
 	public Integer getPsize() {
 		return psize == null ? 20 : psize;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 }

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.business.dao.BizBusinessDao">
+	
+
+
+	<insert id="add" parameterType="com.leoyon.vote.business.BizBusiness" useGeneratedKeys="true" keyProperty="id">
+		insert into biz_business
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="businessName != null and businessName != '' "> business_name,</if>
+			<if test="businessType != null and businessType != '' "> business_type,</if>
+			<if test="url != null and url != '' "> url,</if>
+			<if test="address != null and address != '' "> address,</if>
+			<if test="contactWay != null and contactWay != '' "> contact_way,</if>
+			<if test="remark != null and remark != '' ">remark,</if>
+			<if test="state != null and state != '' "> state,</if>
+			<if test="lng != null and lng != '' "> lng,</if>
+			<if test="lat != null and lat != '' ">lat,</if>
+			<if test="dateCreate != null">date_create,</if>
+			<if test="updateUid != null and updateUid != '' ">update_uid</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+			<if test="businessName != null and businessName != '' "> #{businessName},</if>
+			<if test="businessType != null and businessType != '' "> #{businessType},</if>
+			<if test="url != null and url != '' "> #{url},</if>
+			<if test="address != null and address != '' "> #{address},</if>
+			<if test="contactWay != null and contactWay != '' "> #{contactWay},</if>
+			<if test="remark != null and remark != '' "> #{remark},</if>
+			<if test="state != null and state != '' "> #{state},</if>
+			<if test="lng != null and lng != '' "> #{lng},</if>
+			<if test="lat != null and lat != '' "> #{lat},</if>
+			<if test="dateCreate != null "> #{dateCreate},</if>
+			<if test="updateUid != null and updateUid != '' "> #{updateUid}</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="com.leoyon.vote.business.BizBusiness">
+	update biz_business
+	<set>
+		<if test="businessName != null and businessName !='' ">
+			business_name = #{businessName},
+		</if>
+		<if test="businessType != null and businessType !='' ">
+			business_type = #{businessType},
+		</if>
+		<if test="url != null and url != ''">
+			url = #{url},
+		</if>	
+		<if test="address != null and address != ''">
+			address = #{address},
+		</if>
+		<if test="contactWay != null and contactWay != ''">
+			contact_way = #{contactWay},
+		</if>
+		<if test="remark != null and remark != ''">
+			remark = #{remark},
+		</if>
+		<if test="state != null and state != ''">
+			state = #{state},
+		</if>
+		<if test="lng != null and lng != ''">
+			lng = #{lng},
+		</if>
+		<if test="lat != null and lat != ''">
+			lat = #{lat},
+		</if>
+		update_time=#{updateTime}
+	</set>
+	where id = #{id}
+	</update>
+
+	<update id="delete" parameterType="com.leoyon.vote.business.BizBusiness">
+	update biz_business set `delete`=2,update_uid=#{updateUid} where id = #{id};
+	</update>
+
+
+
+	
+
+	<select id="find" parameterType="com.leoyon.vote.business.FindeBizBusinessRequest" resultType="com.leoyon.vote.business.FindBizBusinessResponse">
+		SELECT
+			b.id AS id,
+			b.url as url,
+			b.business_name as businessName,
+			(select dictionary_name  from sys_dictionary di where  di.id=b.business_type and di.`delete`=1 ) as businessType,
+			b.address as address,
+			b.contact_way as contactWay,
+			b.state as state
+		FROM
+			biz_business b
+		<where>
+			1=1
+			<if test="businessName != null and businessName !=''">
+				and b.business_name like '%${businessName}%'
+			</if>
+			<if test="businessType != null">
+				and b.business_type=#{businessType}
+			</if>
+		</where>
+		and  b.`delete`=1
+		order by b.date_create desc
+	</select>
+
+	<select id="findById" parameterType="com.leoyon.vote.business.FindeBizBusinessRequest" resultType="com.leoyon.vote.business.FindBizBusinessResponse">
+		SELECT
+		b.id AS id,
+		b.url as url,
+		b.business_name as businessName,
+		b.business_type as businessType,
+		b.address as address,
+		b.remark as remark,
+		b.contact_way as contactWay,
+		b.state as state,
+		b.lng as lng,
+		b.lat as lat
+		FROM
+		biz_business b
+		where b.`delete`=1 and b.id=#{id}
+	</select>
+
+	<select id="findAll" resultType="com.leoyon.vote.business.FindBizBusinessResponse">
+		SELECT
+		b.id AS id,
+		b.url as url,
+		b.business_name as businessName,
+		b.business_type as businessType,
+		b.address as address,
+		b.remark as remark,
+		b.contact_way as contactWay,
+		b.state as state,
+		b.lng as lng,
+		b.lat as lat
+		FROM
+		biz_business b
+		where b.`delete`=1
+		order by b.date_create desc
+	</select>
+	
+</mapper>

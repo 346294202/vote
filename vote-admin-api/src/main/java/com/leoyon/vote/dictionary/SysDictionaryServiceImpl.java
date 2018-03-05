@@ -33,6 +33,11 @@ public class SysDictionaryServiceImpl implements SysDictionaryService {
     }
 
     @Override
+    public List<FindSysDictionaryResponse> findByCategoryName(SysDictionary dictionary) {
+        return sysDictionaryDao.findByCategoryName(dictionary);
+    }
+
+    @Override
     public List<FindSysDictionaryResponse> findAll() {
         return sysDictionaryDao.findAll();
     }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.advertisement.dao.BizAdvertisementDao">
+	
+
+	<insert id="add" parameterType="com.leoyon.vote.advertisement.BizAdvertisement" useGeneratedKeys="true" keyProperty="id">
+		insert into biz_advertisement (`position`,`url`,`way`,`dynamics_id`,`external_links`,`state`,`create_person`,`date_create`,`update_uid`) values(
+			#{position},#{url},#{way},#{dynamicsId},#{externalLinks},#{state},#{createPerson},#{dateCreate},#{updateUid}
+		);
+	</insert>
+	
+	<update id="update" parameterType="com.leoyon.vote.advertisement.BizAdvertisement">
+	update biz_advertisement
+	<set>
+		<if test="position != null ">
+			`position` = #{position},
+		</if>
+		<if test="url != null and url != ''">
+			url = #{url},
+		</if>	
+		<if test="way != null">
+			way = #{way},
+		</if>		
+		<if test="dynamicsId != null">
+			dynamics_id = #{dynamicsId},
+		</if>
+		<if test="externalLinks != null and externalLinks != ''">
+			external_links = #{externalLinks},
+		</if>
+		<if test="state != null">
+			state = #{state},
+		</if>
+		update_time=#{updateTime}
+	</set>
+	where id = #{id}
+	</update>
+	
+	<update id="delete" parameterType="com.leoyon.vote.advertisement.BizAdvertisement">
+	update biz_advertisement set `delete`=2,update_uid=#{updateUid} where id = #{id};
+	</update>
+	
+
+	<select id="find" parameterType="com.leoyon.vote.advertisement.FindeBizAdvertisementRequest" resultType="com.leoyon.vote.advertisement.FindBizAdvertisementResponse">
+		SELECT
+			b.id AS id,
+			b.position,
+			b.url,
+			b.external_links,
+			b.create_person,
+			b.state
+		FROM
+			biz_advertisement b
+		where b.`delete`=1
+		order by b.date_create desc
+	</select>
+
+	<select id="findById" parameterType="com.leoyon.vote.advertisement.FindeBizAdvertisementRequest" resultType="com.leoyon.vote.advertisement.FindBizAdvertisementResponse">
+		SELECT
+			b.id AS id,
+			b.position,
+			b.url,
+			b.external_links,
+			b.create_person,
+			b.state
+		FROM
+			biz_advertisement b
+		where b.`delete`=1 and b.id=#{id}
+		order by b.date_create desc
+	</select>
+
+	<select id="findAll" resultType="com.leoyon.vote.advertisement.FindBizAdvertisementResponse">
+		SELECT
+			b.id AS id,
+			b.position,
+			b.url,
+			b.external_links,
+			b.create_person,
+			b.state
+		FROM
+			biz_advertisement b
+		where b.`delete`=1
+		order by b.date_create desc
+	</select>
+	
+</mapper>

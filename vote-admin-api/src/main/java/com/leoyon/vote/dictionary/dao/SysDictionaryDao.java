@@ -15,6 +15,8 @@ public interface SysDictionaryDao {
 
     FindSysDictionaryResponse findById(SysDictionary dictionary);
 
+    List<FindSysDictionaryResponse> findByCategoryName(SysDictionary dictionary);
+
     List<FindSysDictionaryResponse> findAll();
 
     void add(SysDictionary dictionary);

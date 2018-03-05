@@ -1,16 +1,13 @@
 package test.com.leoyon.vote;
 
+
 import com.leoyon.vote.api.JsonResponse;
-import com.leoyon.vote.dictionary.FindSysDictionaryRequest;
-import com.leoyon.vote.dictionary.SysDictionary;
-import com.leoyon.vote.util.M;
+import com.leoyon.vote.business.BizBusiness;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import java.util.*;
 
 /**
  * Created by Thinkpad on 2018/2/24.
@@ -18,7 +15,7 @@ import java.util.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {Application4Test.class},webEnvironment = SpringBootTest.WebEnvironment
         .RANDOM_PORT)
-public class SysDictionaryControllerTests extends BaseWebTests {
+public class BizBusinessControllerTests extends BaseWebTests {
 
     @Before
     public void setUp() throws Exception {
@@ -31,42 +28,27 @@ public class SysDictionaryControllerTests extends BaseWebTests {
 
     @Test
     public void add() throws Exception {
-        SysDictionary p=new SysDictionary();
-        p.setSo(1);
-        p.setDictionaryName("123");
-        p.setRemark("321");
-        p.setCategoryName(1);
-        for (int i=0;i<10;i++){
-            JsonResponse r = restTemplate.postForObject("/sys/dictionary/add",p, JsonResponse.class);
+        BizBusiness p=new BizBusiness();
+        p.setBusinessName("123");
+        p.setBusinessType(1);
+        p.setState(1);
+            JsonResponse r = restTemplate.postForObject("/biz/business/add",p, JsonResponse.class);
             assertSucess(r);
-        }
-
-
     }
 
     @Test
     public void find() throws Exception {
         /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
-        JsonResponse r = restTemplate.getForObject("/sys/dictionary/find?page=1&psize=10", JsonResponse.class);
+        JsonResponse r = restTemplate.getForObject("/biz/business/find?businessType=37&page=0&psize=10", JsonResponse.class);
         assertSucess(r);
         /*List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");*/
         System.out.println(/*items.toString()*/r.getItem("items"));
     }
 
     @Test
-    @Ignore
-    public void findByCategoryName() throws Exception {
-        /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
-        JsonResponse r = restTemplate.getForObject("/sys/dictionary/findByCategoryName/{categoryName}", JsonResponse.class);
-        assertSucess(r);
-        /*List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");*/
-        System.out.println(/*items.toString()*/r.getItem("item"));
-    }
-
-    @Test
     public void findById() throws Exception {
         /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
-        JsonResponse r = restTemplate.getForObject("/sys/dictionary/findById/36", JsonResponse.class);
+        JsonResponse r = restTemplate.getForObject("/biz/business/findById/1", JsonResponse.class);
         assertSucess(r);
         /*List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");*/
         System.out.println(/*items.toString()*/r.getItem("item"));
@@ -75,7 +57,7 @@ public class SysDictionaryControllerTests extends BaseWebTests {
     @Test
     public void findAll() throws Exception {
         /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
-        JsonResponse r = restTemplate.getForObject("/sys/dictionary/findAll", JsonResponse.class);
+        JsonResponse r = restTemplate.getForObject("/biz/business/findAll", JsonResponse.class);
         assertSucess(r);
         /*List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");*/
         System.out.println(/*items.toString()*/r.getItem("items"));
@@ -83,21 +65,17 @@ public class SysDictionaryControllerTests extends BaseWebTests {
 
     @Test
     public void update() throws Exception {
-        SysDictionary p=new SysDictionary();
-        p.setId(35L);
-        p.setSo(1);
-        p.setDictionaryName("111");
-        p.setRemark("111");
-        p.setCategoryName(1);
-        JsonResponse r = restTemplate.postForObject("/sys/dictionary/update/35",p, JsonResponse.class);
+        BizBusiness p=new BizBusiness();
+        p.setBusinessName("111");
+        p.setBusinessType(1);
+        p.setState(1);
+        JsonResponse r = restTemplate.postForObject("/biz/business/update/1",p, JsonResponse.class);
         assertSucess(r);
     }
 
     @Test
     public void delete() throws Exception {
-       restTemplate.delete("/sys/dictionary/delete/35",35L);
+       restTemplate.delete("/biz/business/delete/1",1L);
     }
-
-
 
 }
