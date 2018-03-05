@@ -1,4 +1,4 @@
-package com.leoyon.vote.repair;
+package com.leoyon.vote.advice;
 
 import java.util.Collection;
 
@@ -8,17 +8,17 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.leoyon.vote.FindPagedRequest;
-import com.leoyon.vote.repair.dao.RepairDao;
+import com.leoyon.vote.advice.dao.AdviceDao;
 
 @Service
-public class RepairServiceImp implements RepairService {
+public class AdviceServiceImp implements AdviceService {
 	
 	@Autowired
-	private RepairDao dao;
+	private AdviceDao dao;
 
 	@Override
-	public Collection<Repair> find(FindPagedRequest rqst) {
-		Collection<Repair> ret = dao.find(rqst);
+	public Collection<Advice> find(FindPagedRequest rqst) {
+		Collection<Advice> ret = dao.find(rqst);
 		ret.forEach(i -> {
 			i.setPictures(dao.getPictures(i.getId()));
 		});
@@ -27,9 +27,9 @@ public class RepairServiceImp implements RepairService {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-	public void add(Repair entity) {
+	public void add(Advice entity) {
 		dao.add(entity);
 		dao.addPictures(entity);
 	}
-	
+
 }

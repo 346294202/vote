@@ -1,4 +1,4 @@
-package com.leoyon.vote.repair;
+package com.leoyon.vote.advice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -13,23 +13,23 @@ import com.leoyon.vote.api.DefauleResponse;
 import com.leoyon.vote.api.ListResponse;
 import com.leoyon.vote.api.ResponseException;
 
-@RestController("维修")
+@RestController("投诉")
 @Scope("prototype")
-public class RepairController extends AuthenticationController {
+public class AdviceController extends AuthenticationController {
 	
 	@Autowired
-	private RepairService repairService;
+	private AdviceService adviceService;
 
-	@GetMapping(value="/repair", name="获得报修")
-	public ListResponse<Repair> list(FindPagedRequest rqst) throws ResponseException {
+	@GetMapping(value="/advice", name="获得投诉")
+	public ListResponse<Advice> list(FindPagedRequest rqst) throws ResponseException {
 		rqst.setUserId(getLogin(false).getId());
-		return ListResponse.success(repairService.find(rqst));
+		return ListResponse.success(adviceService.find(rqst));
 	}
 	
-	@PostMapping(value="/repair", name="提交报修")
-	public DefauleResponse add(@RequestBody Repair entity) throws ResponseException {
+	@PostMapping(value="/advice", name="提交投诉")
+	public DefauleResponse add(@RequestBody Advice entity) throws ResponseException {
 		entity.setUserId(getLogin(false).getId());
-		repairService.add(entity);
+		adviceService.add(entity);
 		return DefauleResponse.sucess();
 	}
 }
