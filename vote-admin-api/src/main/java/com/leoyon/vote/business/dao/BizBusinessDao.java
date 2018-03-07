@@ -1,8 +1,5 @@
 package com.leoyon.vote.business.dao;
 
-import com.leoyon.vote.advertisement.BizAdvertisement;
-import com.leoyon.vote.advertisement.FindBizAdvertisementResponse;
-import com.leoyon.vote.advertisement.FindeBizAdvertisementRequest;
 import com.leoyon.vote.business.BizBusiness;
 import com.leoyon.vote.business.FindBizBusinessResponse;
 import com.leoyon.vote.business.FindeBizBusinessRequest;
@@ -16,9 +13,9 @@ public interface BizBusinessDao {
 
     List<FindBizBusinessResponse> find(FindeBizBusinessRequest rqst);
 
-    FindBizBusinessResponse findById(BizBusiness bizBusiness);
+    BizBusiness findById(BizBusiness bizBusiness);
 
-    List<FindBizBusinessResponse> findAll();
+    void addCenter(BizBusiness bizBusiness);
 
     void add(BizBusiness bizBusiness);
 

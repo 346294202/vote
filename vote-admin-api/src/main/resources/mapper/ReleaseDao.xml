@@ -12,13 +12,13 @@
 	<update id="update" parameterType="com.leoyon.vote.dynamics.Release">
 	update dynamics_release
 	<set>
-		<if test="releaseTitle != null and releaseTitle != '' ">
+		<if test="releaseTitle != null ">
 			release_title = #{releaseTitle},
 		</if>
-		<if test="url != null and url != ''">
+		<if test="url != null">
 			url = #{url},
 		</if>	
-		<if test="content != null and content != ''">
+		<if test="content != null">
 			content = #{content},
 		</if>		
 		<if test="state != null">

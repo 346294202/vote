@@ -9,9 +9,9 @@ public interface BizBusinessService {
 
     List<FindBizBusinessResponse> find(FindeBizBusinessRequest rqst);
 
-    FindBizBusinessResponse findById(BizBusiness bizBusiness);
 
-    List<FindBizBusinessResponse> findAll();
+    BizBusiness findById(BizBusiness bizBusiness);
+
 
     void add(BizBusiness bizBusiness);
 

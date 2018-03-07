@@ -8,7 +8,7 @@
 	where 
 		state=1
 		and `delete`=1
-		and `type`=#{type}
+		and `ie_type`=#{type}
 	order by ST_Distance_Sphere(center, GeomFromText('POINT(${lng} ${lat})')) desc 
 	LIMIT #{page} , #{psize};
 	</select>	

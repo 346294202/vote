@@ -16,6 +16,7 @@
 			<if test="state != null and state != '' "> state,</if>
 			<if test="lng != null and lng != '' "> lng,</if>
 			<if test="lat != null and lat != '' ">lat,</if>
+			<if test="ieType != null and ieType != '' ">ie_type,</if>
 			<if test="dateCreate != null">date_create,</if>
 			<if test="updateUid != null and updateUid != '' ">update_uid</if>
 		</trim>
@@ -29,39 +30,40 @@
 			<if test="state != null and state != '' "> #{state},</if>
 			<if test="lng != null and lng != '' "> #{lng},</if>
 			<if test="lat != null and lat != '' "> #{lat},</if>
+			<if test="ieType != null and ieType != '' ">#{ieType},</if>
 			<if test="dateCreate != null "> #{dateCreate},</if>
 			<if test="updateUid != null and updateUid != '' "> #{updateUid}</if>
 		</trim>
 	</insert>
-	
+
 	<update id="update" parameterType="com.leoyon.vote.business.BizBusiness">
 	update biz_business
 	<set>
-		<if test="businessName != null and businessName !='' ">
+		<if test="businessName != null">
 			business_name = #{businessName},
 		</if>
-		<if test="businessType != null and businessType !='' ">
+		<if test="businessType != null">
 			business_type = #{businessType},
 		</if>
-		<if test="url != null and url != ''">
+		<if test="url != null">
 			url = #{url},
-		</if>	
-		<if test="address != null and address != ''">
+		</if>
+		<if test="address != null">
 			address = #{address},
 		</if>
-		<if test="contactWay != null and contactWay != ''">
+		<if test="contactWay != null">
 			contact_way = #{contactWay},
 		</if>
-		<if test="remark != null and remark != ''">
+		<if test="remark != null">
 			remark = #{remark},
 		</if>
-		<if test="state != null and state != ''">
+		<if test="state != null">
 			state = #{state},
 		</if>
-		<if test="lng != null and lng != ''">
+		<if test="lng != null">
 			lng = #{lng},
 		</if>
-		<if test="lat != null and lat != ''">
+		<if test="lat != null">
 			lat = #{lat},
 		</if>
 		update_time=#{updateTime}
@@ -73,9 +75,13 @@
 	update biz_business set `delete`=2,update_uid=#{updateUid} where id = #{id};
 	</update>
 
+	<update id="addCenter" parameterType="com.leoyon.vote.business.BizBusiness">
+    UPDATE biz_business SET center = POINT(#{lng},#{lat}) where id=#{id}
+	</update>
 
 
-	
+
+
 
 	<select id="find" parameterType="com.leoyon.vote.business.FindeBizBusinessRequest" resultType="com.leoyon.vote.business.FindBizBusinessResponse">
 		SELECT
@@ -97,43 +103,28 @@
 				and b.business_type=#{businessType}
 			</if>
 		</where>
-		and  b.`delete`=1
+		and  b.`delete`=1 and b.ie_type=#{ieType}
 		order by b.date_create desc
 	</select>
 
-	<select id="findById" parameterType="com.leoyon.vote.business.FindeBizBusinessRequest" resultType="com.leoyon.vote.business.FindBizBusinessResponse">
+
+	<select id="findById" parameterType="com.leoyon.vote.business.BizBusiness" resultType="com.leoyon.vote.business.BizBusiness">
 		SELECT
-		b.id AS id,
-		b.url as url,
-		b.business_name as businessName,
-		b.business_type as businessType,
-		b.address as address,
-		b.remark as remark,
-		b.contact_way as contactWay,
-		b.state as state,
-		b.lng as lng,
-		b.lat as lat
+			b.id AS id,
+			b.url as url,
+			b.business_name as businessName,
+			b.business_type as businessType,
+			b.address as address,
+			b.remark as remark,
+			b.contact_way as contactWay,
+			b.state as state,
+			b.lng as lng,
+			b.lat as lat,
+			b.center as center
 		FROM
 		biz_business b
 		where b.`delete`=1 and b.id=#{id}
 	</select>
 
-	<select id="findAll" resultType="com.leoyon.vote.business.FindBizBusinessResponse">
-		SELECT
-		b.id AS id,
-		b.url as url,
-		b.business_name as businessName,
-		b.business_type as businessType,
-		b.address as address,
-		b.remark as remark,
-		b.contact_way as contactWay,
-		b.state as state,
-		b.lng as lng,
-		b.lat as lat
-		FROM
-		biz_business b
-		where b.`delete`=1
-		order by b.date_create desc
-	</select>
-	
+
 </mapper>

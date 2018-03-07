@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.advice.dao.BasicAdviceDao">
+
+
+	
+		<select id="find" parameterType="com.leoyon.vote.advice.FindBaiscAdviceRequest" resultType="com.leoyon.vote.advice.Advice">
+			SELECT
+			a.id as id,
+			a.date_create as dateCreate,
+			a.type  as type,
+			u.real_name  as userName,
+			a.phone as phone,
+			a.content as content,
+			a.status as status,
+			a.replay as replay,
+			a.replay_remark as replayRemark
+			FROM
+			basic_advice AS a
+			LEFT JOIN basic_user u ON u.id=a.user_id
+			<where>
+				1=1
+				<if test="startTime != null and startTime !=''">
+					<![CDATA[ AND a.date_create >= CONCAT(#{startTime},' 00:00:00') ]]>
+				</if>
+				<if test="endTime != null and endTime!=''" >
+					<![CDATA[ AND a.date_create <= CONCAT(#{endTime} ,' 23:59:59')]]>
+				</if>
+				<if test="p != null and p!=''" >
+					and (u.real_name like '%${p}%' or a.phone like '%${p}%' )
+				</if>
+			</where>
+			order by a.date_create desc
+		</select>
+
+
+		<select id="findById" parameterType="com.leoyon.vote.advice.Advice" resultType="com.leoyon.vote.advice.Advice">
+			SELECT
+			a.id as id,
+			a.date_create as dateCreate,
+			a.type  as type,
+			u.real_name  as userName,
+			a.phone as phone,
+			a.content as content,
+			a.status as status,
+			a.replay as replay,
+			a.replay_remark as replayRemark
+			FROM
+			basic_advice AS a
+			LEFT JOIN basic_user u ON u.id=a.user_id
+			where a.id=#{id}
+			order by a.date_create desc
+		</select>
+
+
+		<select id="getPictures" parameterType="Long" resultType="com.leoyon.vote.picture.Picture">
+			SELECT
+				p.*
+			FROM
+				basic_picture p
+			JOIN basic_advice_picture ap ON ap.picture_id = p.id
+			AND ap.advice_id =#{adviceId}
+		</select>
+
+	<update id="replay" parameterType="com.leoyon.vote.advice.FindReplayRequest">
+		update basic_advice
+		<set>
+			<if test="replay != null">
+				replay = #{replay},
+			</if>
+			<if test="status != null ">
+				status = #{status},
+			</if>
+			<if test="replayRemark != null">
+				replay_remark = #{replayRemark}
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>

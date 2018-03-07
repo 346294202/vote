@@ -21,7 +21,9 @@ public class BizBusinessControllerTests extends BaseWebTests {
     public void setUp() throws Exception {
         super.setUp();
         setToken(defUID);
-        //dbUtil.clear("sys_dictionary");
+        dbUtil.clear(new String[] {
+                "biz_business"
+        });
     }
 
 
@@ -29,9 +31,13 @@ public class BizBusinessControllerTests extends BaseWebTests {
     @Test
     public void add() throws Exception {
         BizBusiness p=new BizBusiness();
+        p.setId(1L);
         p.setBusinessName("123");
         p.setBusinessType(1);
         p.setState(1);
+        p.setIeType(2);
+        p.setLat("30.67");
+        p.setLng("104.06");
             JsonResponse r = restTemplate.postForObject("/biz/business/add",p, JsonResponse.class);
             assertSucess(r);
     }
@@ -39,7 +45,7 @@ public class BizBusinessControllerTests extends BaseWebTests {
     @Test
     public void find() throws Exception {
         /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
-        JsonResponse r = restTemplate.getForObject("/biz/business/find?businessType=37&page=0&psize=10", JsonResponse.class);
+        JsonResponse r = restTemplate.getForObject("/biz/business/find?ieType=1&page=0&psize=10", JsonResponse.class);
         assertSucess(r);
         /*List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");*/
         System.out.println(/*items.toString()*/r.getItem("items"));
@@ -54,14 +60,6 @@ public class BizBusinessControllerTests extends BaseWebTests {
         System.out.println(/*items.toString()*/r.getItem("item"));
     }
 
-    @Test
-    public void findAll() throws Exception {
-        /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
-        JsonResponse r = restTemplate.getForObject("/biz/business/findAll", JsonResponse.class);
-        assertSucess(r);
-        /*List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");*/
-        System.out.println(/*items.toString()*/r.getItem("items"));
-    }
 
     @Test
     public void update() throws Exception {
@@ -69,6 +67,8 @@ public class BizBusinessControllerTests extends BaseWebTests {
         p.setBusinessName("111");
         p.setBusinessType(1);
         p.setState(1);
+        p.setLat("30.67");
+        p.setLng("104.06");
         JsonResponse r = restTemplate.postForObject("/biz/business/update/1",p, JsonResponse.class);
         assertSucess(r);
     }

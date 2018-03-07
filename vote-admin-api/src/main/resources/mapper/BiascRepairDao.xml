@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leoyon.vote.repair.dao.BasicRepairDao">
+
+
+	
+		<select id="find" parameterType="com.leoyon.vote.repair.FindBasicRepairRequest" resultType="com.leoyon.vote.repair.Repair">
+			SELECT
+			re.id as id,
+			re.date_create as dateCreate,
+			a.`name` as areaName,
+			h.building as building,
+			h.unit as unit,
+			h.number as number,
+			u.real_name as userName,
+			re.address as address,
+			re.content as content,
+			re.`status` as status,
+			re.replay as replay,
+			re.replay_remark as replayRemark
+			FROM
+			basic_repair AS re
+			LEFT JOIN basic_user as u ON u.id=re.user_id
+			LEFT JOIN basic_house as h ON h.id=re.house_id
+			LEFT JOIN basic_area as a ON a.id=h.area_id
+			<where>
+				1=1
+				<if test="areaId != null">
+					and a.id=#{areaId}
+				</if>
+				<if test="building != null">
+					and h.building=#{building}
+				</if>
+				<if test="unit != null">
+					and h.unit=#{unit}
+				</if>
+				<if test="number != null">
+					and h.number=#{number}
+				</if>
+				<if test="startTime != null and startTime !=''">
+					<![CDATA[ AND re.date_create >= CONCAT(#{startTime},' 00:00:00') ]]>
+				</if>
+				<if test="endTime != null and endTime!=''" >
+					<![CDATA[ AND re.date_create <= CONCAT(#{endTime} ,' 23:59:59')]]>
+				</if>
+				<if test="p != null and p!=''" >
+					and u.real_name like '%${p}%'
+				</if>
+			</where>
+			order by a.date_create desc
+		</select>
+
+
+		<select id="findById" parameterType="com.leoyon.vote.repair.Repair" resultType="com.leoyon.vote.repair.Repair">
+			SELECT
+			re.id as id,
+			re.date_create as dateCreate,
+			a.`name` as areaName,
+			h.building as building,
+			h.unit as unit,
+			h.number as number,
+			u.real_name as userName,
+			re.address as address,
+			re.content as content,
+			re.`status` as status,
+			re.replay as replay,
+			re.replay_remark as replayRemark
+			FROM
+			basic_repair AS re
+			LEFT JOIN basic_user as u ON u.id=re.user_id
+			LEFT JOIN basic_house as h ON h.id=re.house_id
+			LEFT JOIN basic_area as a ON a.id=h.area_id
+			where re.id=#{id}
+			order by re.date_create desc
+		</select>
+
+
+		<select id="getPictures" parameterType="Long" resultType="com.leoyon.vote.picture.Picture">
+			SELECT
+				p.*
+			FROM
+				basic_picture  p
+			JOIN basic_repair_picture rp ON rp.picture_id = p.id
+			AND rp.repair_id =#{repairId}
+		</select>
+
+	<update id="replay" parameterType="com.leoyon.vote.repair.FindReplayRequest">
+		update basic_repair
+		<set>
+			<if test="replay != null">
+				replay = #{replay},
+			</if>
+			<if test="status != null ">
+				status = #{status},
+			</if>
+			<if test="replayRemark != null">
+				replay_remark = #{replayRemark}
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>

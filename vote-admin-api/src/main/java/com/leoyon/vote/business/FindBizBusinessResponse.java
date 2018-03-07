@@ -6,7 +6,7 @@ package com.leoyon.vote.business;
 public class FindBizBusinessResponse {
 
 
-    private Integer id;
+    private Long id;
     private String url;
     private String businessName;
     private String businessType;
@@ -14,14 +14,12 @@ public class FindBizBusinessResponse {
     private String contactWay;
     private Integer state;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
-
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
-
     public String getUrl() {
         return url;
     }

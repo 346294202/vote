@@ -23,79 +23,55 @@ public class SysDictionaryControllerTests extends BaseWebTests {
     public void setUp() throws Exception {
         super.setUp();
         setToken(defUID);
-        //dbUtil.clear("sys_dictionary");
+        dbUtil.clear(new String[] {
+                "sys_dictionary"
+        });
     }
-
-
-
     @Test
     public void add() throws Exception {
         SysDictionary p=new SysDictionary();
+        p.setId(1L);
         p.setSo(1);
         p.setDictionaryName("123");
-        p.setRemark("321");
         p.setCategoryName(1);
-        for (int i=0;i<10;i++){
-            JsonResponse r = restTemplate.postForObject("/sys/dictionary/add",p, JsonResponse.class);
-            assertSucess(r);
-        }
-
-
+        JsonResponse r = restTemplate.postForObject("/sys/dictionary/add",p, JsonResponse.class);
+        assertSucess(r);
     }
-
     @Test
     public void find() throws Exception {
-        /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
-        JsonResponse r = restTemplate.getForObject("/sys/dictionary/find?page=1&psize=10", JsonResponse.class);
+        JsonResponse r = restTemplate.getForObject("/sys/dictionary/find?page=0&psize=10", JsonResponse.class);
         assertSucess(r);
-        /*List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");*/
-        System.out.println(/*items.toString()*/r.getItem("items"));
+        System.out.println(r.getItem("items"));
     }
 
     @Test
     public void findByCategoryName() throws Exception {
-        /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
         JsonResponse r = restTemplate.getForObject("/sys/dictionary/findByCategoryName/1", JsonResponse.class);
         assertSucess(r);
-        /*List<Map<String, Object>> items = (List<Map<String, SObject>>) r.getItem("items");*/
-        System.out.println(/*items.toString()*/r.getItem("items"));
+        System.out.println(r.getItem("items"));
     }
-
     @Test
     public void findById() throws Exception {
-        /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
-        JsonResponse r = restTemplate.getForObject("/sys/dictionary/findById/36", JsonResponse.class);
+        JsonResponse r = restTemplate.getForObject("/sys/dictionary/findById/1", JsonResponse.class);
         assertSucess(r);
-        /*List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");*/
-        System.out.println(/*items.toString()*/r.getItem("item"));
+        System.out.println(r.getItem("item"));
     }
-
     @Test
     public void findAll() throws Exception {
-        /*FindSysDictionaryRequest  p=new FindSysDictionaryRequest("dqwd",2,1,2);*/
         JsonResponse r = restTemplate.getForObject("/sys/dictionary/findAll", JsonResponse.class);
         assertSucess(r);
-        /*List<Map<String, Object>> items = (List<Map<String, Object>>) r.getItem("items");*/
-        System.out.println(/*items.toString()*/r.getItem("items"));
+        System.out.println(r.getItem("items"));
     }
-
     @Test
     public void update() throws Exception {
         SysDictionary p=new SysDictionary();
-        p.setId(35L);
-        p.setSo(1);
-        p.setDictionaryName("111");
-        p.setRemark("111");
-        p.setCategoryName(1);
-        JsonResponse r = restTemplate.postForObject("/sys/dictionary/update/35",p, JsonResponse.class);
+        p.setDictionaryName("222");
+        p.setRemark("");
+        JsonResponse r = restTemplate.postForObject("/sys/dictionary/update/1",p, JsonResponse.class);
         assertSucess(r);
     }
-
     @Test
     public void delete() throws Exception {
-       restTemplate.delete("/sys/dictionary/delete/35",35L);
+       restTemplate.delete("/sys/dictionary/delete/1",1L);
     }
-
-
-
 }

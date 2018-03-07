@@ -12,16 +12,16 @@
 	<update id="update" parameterType="com.leoyon.vote.dictionary.SysDictionary">
 	update sys_dictionary
 	<set>
-		<if test="categoryName != null ">
+		<if test="categoryName != null">
 			category_name = #{categoryName},
 		</if>
-		<if test="dictionaryName != null and dictionaryName != ''">
+		<if test="dictionaryName != null">
 			dictionary_name = #{dictionaryName},
 		</if>	
 		<if test="so != null">
 			so = #{so},
 		</if>		
-		<if test="remark != null and remark != ''">
+		<if test="remark != null">
 			remark = #{remark},
 		</if>
 		update_time=#{updateTime}
@@ -52,7 +52,7 @@
 			</if>			
 		</where>
 		and `delete`=1
-		order by date_create desc
+		order by so desc
 	</select>
 
 	<select id="findById" parameterType="com.leoyon.vote.dictionary.SysDictionary" resultType="com.leoyon.vote.dictionary.FindSysDictionaryResponse">

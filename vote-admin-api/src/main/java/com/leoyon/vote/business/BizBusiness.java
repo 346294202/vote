@@ -1,8 +1,6 @@
 package com.leoyon.vote.business;
 
 import com.leoyon.vote.AbstractResource;
-import wj.flydoc.ApiParam;
-
 
 /**
  * Created by Thinkpad on 2018/3/5.
@@ -12,8 +10,6 @@ public class BizBusiness extends AbstractResource<BizBusiness> {
     private String businessName;
 
     private Integer businessType;
-
-    private String url;
 
     private String address;
 
@@ -27,7 +23,11 @@ public class BizBusiness extends AbstractResource<BizBusiness> {
 
     private String lat;
 
-    @ApiParam(desc="商家名称")
+    private Integer ieType;
+
+    private String url;
+
+
     public String getBusinessName() {
         return businessName;
     }
@@ -36,7 +36,6 @@ public class BizBusiness extends AbstractResource<BizBusiness> {
         this.businessName = businessName;
     }
 
-    @ApiParam(desc="商家类型")
     public Integer getBusinessType() {
         return businessType;
     }
@@ -44,15 +43,7 @@ public class BizBusiness extends AbstractResource<BizBusiness> {
     public void setBusinessType(Integer businessType) {
         this.businessType = businessType;
     }
-    @ApiParam(desc="商家首图")
-    public String getUrl() {
-        return url;
-    }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-    @ApiParam(desc="详细地址")
     public String getAddress() {
         return address;
     }
@@ -61,7 +52,6 @@ public class BizBusiness extends AbstractResource<BizBusiness> {
         this.address = address;
     }
 
-    @ApiParam(desc="联系方式")
     public String getContactWay() {
         return contactWay;
     }
@@ -70,7 +60,6 @@ public class BizBusiness extends AbstractResource<BizBusiness> {
         this.contactWay = contactWay;
     }
 
-    @ApiParam(desc="图文描述")
     public String getRemark() {
         return remark;
     }
@@ -79,7 +68,6 @@ public class BizBusiness extends AbstractResource<BizBusiness> {
         this.remark = remark;
     }
 
-    @ApiParam(desc="状态")
     public Integer getState() {
         return state;
     }
@@ -88,7 +76,6 @@ public class BizBusiness extends AbstractResource<BizBusiness> {
         this.state = state;
     }
 
-    @ApiParam(desc="经度")
     public String getLng() {
         return lng;
     }
@@ -97,12 +84,27 @@ public class BizBusiness extends AbstractResource<BizBusiness> {
         this.lng = lng;
     }
 
-    @ApiParam(desc="纬度")
     public String getLat() {
         return lat;
     }
 
     public void setLat(String lat) {
         this.lat = lat;
+    }
+
+    public Integer getIeType() {
+        return ieType;
+    }
+
+    public void setIeType(Integer ieType) {
+        this.ieType = ieType;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

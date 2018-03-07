@@ -26,7 +26,7 @@ public class BizBusinessController extends AuthenticationController {
     @Autowired
     private BizBusinessService bizBusinessService;
 
-    @GetMapping(value="/biz/business/find", name="查询周边商家信息")
+    @GetMapping(value="/biz/business/find", name="查询周边商家信息或者周边政务信息")
     public JsonResponse find(FindeBizBusinessRequest req) {
         PageHelper.startPage((req.getPage()+1),req.getPsize());
         List<FindBizBusinessResponse> list =bizBusinessService.find(req);
@@ -41,27 +41,21 @@ public class BizBusinessController extends AuthenticationController {
     public JsonResponse findById(@PathVariable(value="id") Long id) {
         BizBusiness bizBusiness = new BizBusiness();
         bizBusiness.setId(id);
-        FindBizBusinessResponse findBizBusinessResponse = bizBusinessService.findById(bizBusiness);
+        BizBusiness findBizBusinessResponse = bizBusinessService.findById(bizBusiness);
         return JsonResponse.sucess(new M<>()
                 .put("item", findBizBusinessResponse)
                 .build());
     }
 
-    @GetMapping(value="/biz/business/findAll", name="查询周边商家信息(不分页)")
-    public JsonResponse findAll() {
-        List<FindBizBusinessResponse> list =bizBusinessService.findAll();
-        return JsonResponse.sucess(new M<>()
-                .put("items", list)
-                .build());
-    }
 
-    @PostMapping(value="/biz/business/add", name="新增周边商家信息")
+    @PostMapping(value="/biz/business/add", name="新增周边商家信息或者周边政务信息")
     public JsonResponse add(@RequestBody BizBusiness bizBusiness) throws Exception {
         bizBusiness.setUpdateUid(getLogin(false).getId());
         bizBusiness.setDateCreate(new Date());
         bizBusinessService.add(bizBusiness);
         return JsonResponse.sucess();
     }
+
 
     @PostMapping(value="/biz/business/update/{id}", name="修改周边商家信息")
     public JsonResponse update(@RequestBody BizBusiness bizBusiness,@PathVariable(value="id") Long id)throws Exception {

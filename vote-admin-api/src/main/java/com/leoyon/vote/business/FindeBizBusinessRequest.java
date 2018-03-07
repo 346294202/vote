@@ -1,6 +1,5 @@
 package com.leoyon.vote.business;
 
-import wj.flydoc.ApiParam;
 import wj.flydoc.ApiParamCtor;
 
 /**
@@ -8,29 +7,27 @@ import wj.flydoc.ApiParamCtor;
  */
 public class FindeBizBusinessRequest {
 
-    private String businessName;
+    private String  businessName;
     private Integer businessType;
+    private Integer ieType;
     private Integer page;
     private Integer psize;
 
     @ApiParamCtor
     public FindeBizBusinessRequest(
-            @ApiParam(desc="商家名称")
                     String businessName,
-            @ApiParam(desc="商家类型")
                     Integer businessType,
-            @ApiParam(desc="页码")
-                    Integer page,
-            @ApiParam(desc="页大小")
-                    Integer psize
+                    Integer ieType,
+                            Integer page,
+                            Integer psize
     ) {
         super();
         this.businessName=businessName;
         this.businessType=businessType;
+        this.ieType=ieType;
         this.page = page;
         this.psize = psize;
     }
-
 
     public String getBusinessName() {
         return businessName;
@@ -48,6 +45,14 @@ public class FindeBizBusinessRequest {
         this.businessType = businessType;
     }
 
+    public Integer getIeType() {
+        return ieType;
+    }
+
+    public void setIeType(Integer ieType) {
+        this.ieType = ieType;
+    }
+
     public Integer getPage() {
         return page;
     }
@@ -63,6 +68,4 @@ public class FindeBizBusinessRequest {
     public void setPsize(Integer psize) {
         this.psize = psize;
     }
-
-
 }

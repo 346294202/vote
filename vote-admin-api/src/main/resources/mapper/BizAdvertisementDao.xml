@@ -15,7 +15,7 @@
 		<if test="position != null ">
 			`position` = #{position},
 		</if>
-		<if test="url != null and url != ''">
+		<if test="url != null ">
 			url = #{url},
 		</if>	
 		<if test="way != null">
@@ -24,7 +24,7 @@
 		<if test="dynamicsId != null">
 			dynamics_id = #{dynamicsId},
 		</if>
-		<if test="externalLinks != null and externalLinks != ''">
+		<if test="externalLinks != null ">
 			external_links = #{externalLinks},
 		</if>
 		<if test="state != null">
