@@ -5,6 +5,8 @@ import java.util.Date;
 
 import com.leoyon.vote.picture.Picture;
 
+import wj.flydoc.ApiIgnore;
+
 public class Repair {
 
 	private Long id;
@@ -14,6 +16,11 @@ public class Repair {
 	private String content;
 	private Date dateCreate;
 	private Integer status;
+	private Boolean outside;
+	private String phone;
+	private String houseTitle;
+	private Integer houseType;
+	
 	private Collection<Picture> pictures;
 	public Long getId() {
 		return id;
@@ -21,6 +28,8 @@ public class Repair {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	@ApiIgnore
 	public Long getUserId() {
 		return userId;
 	}
@@ -62,6 +71,32 @@ public class Repair {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	public Boolean getOutside() {
+		return outside;
+	}
+	public void setOutside(Boolean outside) {
+		this.outside = outside;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	@ApiIgnore
+	public String getHouseTitle() {
+		return houseTitle;
+	}
+	public void setHouseTitle(String houseTitle) {
+		this.houseTitle = houseTitle;
+	}
+	@ApiIgnore
+	public Integer getHouseType() {
+		return houseType;
+	}
+	public void setHouseType(Integer houseType) {
+		this.houseType = houseType;
 	}
 	
 	

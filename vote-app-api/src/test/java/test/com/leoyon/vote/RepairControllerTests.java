@@ -34,19 +34,33 @@ public class RepairControllerTests extends BaseWebTests {
 		dbUtil.clear("basic_repair");
 		dbUtil.clear("basic_repair_picture");
 		dbUtil.clear("basic_picture");
+		dbUtil.clear("basic_house");
+		dbUtil.clear("basic_area");
 	}
 	
 	@Test
 	public void list() throws Exception {
+		dbUtil.insert("basic_area", M.mapList(Arrays.asList("id", "name")
+				, Arrays.asList(1,2,3)
+				, Arrays.asList(1,2,3)
+				));
+		dbUtil.insert("basic_house", M.mapList(Arrays.asList("id", "area_id", "building", "unit", "number")
+				, Arrays.asList(1,2,3)
+				, Arrays.asList(1,2,3)
+				, Arrays.asList(1,2,3)
+				, Arrays.asList(1,2,3)
+				, Arrays.asList(1,2,3)				
+				));
 		dbUtil.insert("basic_picture", M.mapList(Arrays.asList("id", "url")
 				, Arrays.asList(1,2,3)
 				, Arrays.asList("a.jpg","b.jpg","c.jpg")
 				));
-		dbUtil.insert("basic_repair", M.mapList(Arrays.asList("id", "user_id", "address", "content", "status")
+		dbUtil.insert("basic_repair", M.mapList(Arrays.asList("id", "user_id", "address", "content", "status", "house_id")
 				, Arrays.asList(1,2,3,4,5)
 				, Arrays.asList(1,1,3,1,1)
 				, Arrays.asList("地址1","地址2","地址3","地址4","地址5")
 				, Arrays.asList("内容1","内容2","内容3","内容4","内容5")
+				, Arrays.asList(1,1,1,2,2)
 				, Arrays.asList(1,1,1,2,2)
 				));
 		

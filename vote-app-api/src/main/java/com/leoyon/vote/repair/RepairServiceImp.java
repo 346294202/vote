@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.leoyon.vote.FindPagedRequest;
+import com.leoyon.vote.house.HouseService;
+import com.leoyon.vote.house.dao.HouseDao;
 import com.leoyon.vote.repair.dao.RepairDao;
 
 @Service
@@ -15,6 +17,9 @@ public class RepairServiceImp implements RepairService {
 	
 	@Autowired
 	private RepairDao dao;
+	
+	@Autowired
+	private HouseDao houseDao;
 
 	@Override
 	public Collection<Repair> find(FindPagedRequest rqst) {

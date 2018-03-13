@@ -1,5 +1,7 @@
 package com.leoyon.vote;
 
+import wj.flydoc.ApiParamCtor;
+
 public class FindPagedRequest {
 
 	private Long userId;
@@ -10,6 +12,7 @@ public class FindPagedRequest {
 		super();
 	}
 
+	@ApiParamCtor
 	public FindPagedRequest(Integer page, Integer psize) {
 		super();
 		this.page = page;

@@ -4,6 +4,10 @@
 
 	<select id="matchHouse" parameterType="com.leoyon.vote.house.House" resultType="com.leoyon.vote.house.House">
 		select * from basic_house where area_id=#{areaId} and building=#{building} and unit=#{unit} and number=#{number} and `delete`=1;
+	</select>
+	
+	<select id="get" parameterType="Long" resultType="com.leoyon.vote.house.House">
+	select * from basic_house where id=#{id}  and `delete`=1;
 	</select>	
 	
 </mapper>

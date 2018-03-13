@@ -3,7 +3,13 @@
 <mapper namespace="com.leoyon.vote.repair.dao.RepairDao">
 
 	<select id="find" parameterType="com.leoyon.vote.FindPagedRequest" resultType="com.leoyon.vote.repair.Repair">
-	select * from basic_repair where user_id=#{userId} order by update_time desc LIMIT #{page} , #{psize};
+	select r.*,
+		CONCAT(a.name,'小区',h.building,'栋',h.unit,'单元',h.number,'号') as houseTitle,
+		h.house_type
+	from basic_repair r
+	join basic_house h on h.id=r.house_id and h.`delete`=1
+	join basic_area a on a.id=h.area_id and a.`delete`=1
+	where r.user_id=#{userId} order by r.update_time desc LIMIT #{page} , #{psize};
 	</select>	
 	
 	<select id="getPictures" parameterType="Long" resultType="com.leoyon.vote.picture.Picture">
@@ -18,13 +24,17 @@ INSERT INTO `basic_repair`
 `user_id`,
 `house_id`,
 `address`,
-`content`)
+`content`,
+`outside`,
+`phone`)
 VALUES
 (
 #{userId},
 #{houseId},
 #{address},
-#{content});
+#{content},
+#{outside},
+#{phone});
 	</insert>
 	
 	<insert id="addPictures">

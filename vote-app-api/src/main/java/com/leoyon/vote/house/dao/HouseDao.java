@@ -6,4 +6,6 @@ public interface HouseDao {
 
 	House matchHouse(House entity);
 
+	House get(Long houseId);
+
 }
